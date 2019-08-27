@@ -1,4 +1,4 @@
-package com.gura.spring08.aspect;
+package com.acorngram.project.aspect;
 
 import java.net.URLEncoder;
 import java.util.HashMap;
