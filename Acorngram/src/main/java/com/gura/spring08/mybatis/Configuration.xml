@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-config.dtd">
+  
+  <configuration>
+  	
+  	<typeAliases>
+  		<!-- <typeAlias type="com.gura.spring08.users.dto.UsersDto"
+  			alias="usersDto"/>!-->
+  	</typeAliases>
+  	
+  	<!-- mapper 설정 -->
+  	<mappers>
+  		<!-- <mapper resource= "com/gura/spring08/mybatis/UsersMapper.xml"/> -->
+  	</mappers>
+  	
+  </configuration>
