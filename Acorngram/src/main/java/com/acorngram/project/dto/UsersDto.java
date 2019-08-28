@@ -1,20 +1,19 @@
 package com.acorngram.project.dto;
 
 public class UsersDto {
-	private String id, dob, theme, profile_img;
+	private String id, dob, theme;
 	private String nickname, email, pw, regdate;
 	private int usercode, reported, dm_range;
 	private boolean banned, acc_private;
 	
 	public UsersDto(){}
 
-	public UsersDto(String id, String dob, String theme, String profile_img, String nickname, String email, String pw,
-			String regdate, int usercode, int reported, int dm_range, boolean banned, boolean acc_private) {
+	public UsersDto(String id, String dob, String theme, String nickname, String email, String pw, String regdate,
+			int usercode, int reported, int dm_range, boolean banned, boolean acc_private) {
 		super();
 		this.id = id;
 		this.dob = dob;
 		this.theme = theme;
-		this.profile_img = profile_img;
 		this.nickname = nickname;
 		this.email = email;
 		this.pw = pw;
@@ -48,14 +47,6 @@ public class UsersDto {
 
 	public void setTheme(String theme) {
 		this.theme = theme;
-	}
-
-	public String getProfile_img() {
-		return profile_img;
-	}
-
-	public void setProfile_img(String profile_img) {
-		this.profile_img = profile_img;
 	}
 
 	public String getNickname() {
@@ -130,6 +121,6 @@ public class UsersDto {
 		this.acc_private = acc_private;
 	}
 
-
+	
 	
 }
