@@ -6,6 +6,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Repository;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
@@ -15,15 +16,22 @@ import com.acorngram.project.dto.UsersDto;
 
 @Repository
 public class UsersServiceImpl implements UsersService{
-	@Autowired UsersDao dao;
+	
+	
+	@Autowired
+	private UsersDao dao;
 	
 	
 
 	// 회원 정보 DB 저장 
 	@Override
 	public void addUser(UsersDto dto, ModelAndView mView) {
-		// TODO Auto-generated method stub
 		
+		// 암호화 후에 Dto에 객체 담고 DB에 저장 
+		String rawPwd = dto.getPw();
+		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+		dto.setPw(encoder.encode(rawPwd));
+		dao.insert(dto);
 	}
 
 	// 로그인 시 아이디 유무 체크 

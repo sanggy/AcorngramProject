@@ -14,7 +14,7 @@
   	
   	<!-- mapper 설정 -->
   	<mappers>
-		<mapper resource="com/acorngram/mybatis/UsersMapper.xml"/>
+		<mapper resource="com/acorngram/project/mybatis/UserdbMapper.xml"/>
   
   
   	</mappers>
