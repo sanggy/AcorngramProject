@@ -46,7 +46,7 @@
 				</article>
 				<article>
 					<h1>회원가입 폼</h1>
-					<form action="" method="post" id="signUp">
+					<form action="users/signup.do" method="post" id="signUp">
 						<label for="">
 							아이디
 							<input type="text" name="id" id="signup-id" />

@@ -8,13 +8,13 @@ import com.acorngram.project.dto.UsersDto;
 
 @Repository
 public class UsersDaoImpl implements UsersDao{
+	
 	@Autowired SqlSession session;
 
 	@Override
 	public void insert(UsersDto dto) {
 		//회원가입 
 		session.insert("users.insert", dto);
-		
 	}
 
 	@Override

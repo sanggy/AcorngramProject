@@ -9,9 +9,10 @@
 	</select>
 	
 	<insert id="insert" parameterType="UsersDto" >
-		INSERT users_db
-		(usercode,id,nickname,banned,email,pw,regdate,reported,dob,dm_range,acc_private,theme,profile_img)
-		VALUES(usercode_seq.NEXTVAL, id=#{id}, nickname=#{nickname}, email=#{email}, pw=#{pw}, SYSDATE, dob=#{dob})
+
+		INSERT INTO users_db
+		(usercode, id, nickname, pw, email, regdate)
+		VALUES(usercode_seq.NEXTVAL, #{id}, #{nickname},#{pw}, #{email}, SYSDATE)
 	</insert>
 	
 	<select id="getPwdHash" parameterType="String" resultType="String">
@@ -19,5 +20,5 @@
 		FROM users_db
 		WHERE id = #{id}
 	</select>
-	
+
 </mapper>
