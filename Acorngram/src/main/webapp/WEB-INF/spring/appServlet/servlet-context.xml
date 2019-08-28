@@ -44,10 +44,6 @@
 		<beans:property name="dataSource" ref="dataSource"/>
 	</beans:bean>
 	
-	
-	<!-- 어노테이션으로 트렌젝션을 처리 할수 있도록 설정 -->
-	<tx:annotation-driven transaction-manager="txManager"/>
-	
 	<!--
 		property - set을 의미함.. 
 		sessionFactory=new SqlSessionFactoryBean();
@@ -76,6 +72,9 @@
 	
 	<!-- Enables the Spring MVC @Controller programming model -->
 	<annotation-driven />
+	
+	<!-- 어노테이션으로 트렌젝션을 처리 할수 있도록 설정 -->
+	<tx:annotation-driven transaction-manager="txManager"/>
 
 	<!-- Handles HTTP GET requests for /resources/** by efficiently serving up static resources in the ${webappRoot}/resources directory -->
 	<resources mapping="/resources/**" location="/resources/" />
