@@ -4,7 +4,7 @@
 <html>
 <head>
 	<jsp:include page="inc/head.jsp">
-		<jsp:param value="타임라인" name="title"/>
+		<jsp:param value="DM" name="title"/>
 	</jsp:include>
 </head>
 <body>

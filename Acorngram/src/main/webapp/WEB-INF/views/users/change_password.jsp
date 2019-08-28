@@ -3,12 +3,12 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<jsp:include page="inc/head.jsp">
-		<jsp:param value="타임라인" name="title"/>
+	<jsp:include page="../inc/head.jsp">
+		<jsp:param value="Settings for Password" name="title"/>
 	</jsp:include>
 </head>
 <body>
-	<jsp:include page="inc/header.jsp" />
-	<jsp:include page="inc/footer.jsp" />
+	<jsp:include page="../inc/header.jsp" />
+	<jsp:include page="../inc/footer.jsp" />
 </body>
 </html>

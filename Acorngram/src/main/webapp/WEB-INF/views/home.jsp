@@ -13,6 +13,8 @@
 	</style>
 </head>
 <body>
+	<jsp:include page="inc/header.jsp" />
+	
 	<div class="container">
 		<c:choose>
 			
@@ -75,5 +77,6 @@
 			
 		</c:choose>
 	</div>
+	<jsp:include page="inc/footer.jsp" />
 </body>
 </html>
