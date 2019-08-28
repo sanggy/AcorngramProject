@@ -23,7 +23,7 @@
 			<c:when test="${not empty id }">
 				<h2>로그인 성공</h2>
 				<span>로그인 계정: <strong>${id }</strong></span>
-				<a href="signout.do">
+				<a href="users/signout.do">
 					로그아웃하기
 				</a>
 			</c:when>

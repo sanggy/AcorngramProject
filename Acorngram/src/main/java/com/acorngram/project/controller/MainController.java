@@ -29,19 +29,25 @@ public class MainController {
 	public ModelAndView signup(@ModelAttribute UsersDto dto, ModelAndView mView) {
 		
 		usersService.addUser(dto, mView);
-		mView.setViewName("users/loginform");
+		mView.setViewName("home");
 		return mView;
 	}
 	
 	@RequestMapping(value="/users/signin.do", method = RequestMethod.POST)
 	public 	ModelAndView signIn(@ModelAttribute UsersDto dto, ModelAndView mView, HttpServletRequest request) {
 		
-		usersService.validUser(dto, mView, request.getSession());
+		boolean isSuccessful = usersService.validUser(dto, mView, request.getSession());
 		//원래 가려던 url 정보를 reqeust 에 담는다.
 //		String encodedUrl = URLEncoder.encode(request.getParameter("url"));
 //		request.setAttribute("encodedUrl", encodedUrl);
-		mView.setViewName("home");
-	
+		
+		if(isSuccessful) {
+			mView.setViewName("redirect:/home.do");
+		}
+		else {
+			mView.setViewName("users/tryagainasshole.do");
+		}
+
 		return mView;	
 	}
 	
@@ -49,7 +55,7 @@ public class MainController {
 	public ModelAndView authUpdateUserInfo(@ModelAttribute UsersDto dto, ModelAndView mView, HttpServletRequest request) {
 		//유저 정보 수정 하는 메소드 호출
 		usersService.updateUser(dto, request);
-		mView.setViewName("users_settings.do");
+		mView.setViewName("users/settings.do");
 		return mView;
 	}
 	
@@ -80,10 +86,9 @@ public class MainController {
 	}
 	
 	@RequestMapping("/users/signout.do")
-	public ModelAndView logout(HttpServletRequest request, ModelAndView mView) {
+	public String logout(HttpServletRequest request, ModelAndView mView) {
 		request.getSession().invalidate();
-		mView.setViewName("/home");
-		return mView;
+		return "redirect:/home.do";
 	}
 	
 	
