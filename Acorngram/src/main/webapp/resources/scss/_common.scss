@@ -1,0 +1,16 @@
+@import 'variable';
+@import 'mixin';
+
+*{
+	margin: 0;
+	padding: 0;
+}
+
+a{
+	color: $black;
+	text-decoration: none;
+	&:hover,
+	&:active{
+		color: $black;
+	}
+}

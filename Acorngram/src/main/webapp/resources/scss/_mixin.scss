@@ -1,0 +1,6 @@
+@mixin flexbox($wrap:no-wrap, $horizen:space-between, $vertical: center){
+	display: flex;
+	flex-wrap: $wrap;
+	justify-content: $horizen;
+	align-content: $vertical;
+}

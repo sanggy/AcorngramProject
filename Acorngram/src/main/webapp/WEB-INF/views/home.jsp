@@ -5,78 +5,51 @@
 <head>
 	<jsp:include page="inc/head.jsp">
 		<jsp:param value="메인페이지" name="title"/>
+		<jsp:param value="home.css" name="css" />
 	</jsp:include>
 	<style>
 		label{display:block}
 		input+label{display:inline-block}
-		
 	</style>
 </head>
 <body>
 	<jsp:include page="inc/header.jsp" />
 	
-	<div class="container">
-		<c:choose>
-			
-			<%-- 로그인 상태일 때 --%>
-			<%-- 실제로는 timeline이 표시됨 --%>
-			<c:when test="${not empty id }">
-				<h2>로그인 성공</h2>
-				<span>로그인 계정: <strong>${id }</strong></span>
-				<a href="users/signout.do">
-					로그아웃하기
-				</a>
-			</c:when>
-			
-			<%-- 비로그인 상태일 때 --%>
-			<c:otherwise>
-				<article>
-					<h1>로그인 폼</h1>
-					<form action="users/signin.do" method="post" id="signin">
-						<label for="">
-							아이디
-							<input type="text" name="id" id="signin-id" />
-						</label>
-						<label for="">
-							패스워드
-							<input type="password" name="pw" id="signin-pw" />
-						</label>
-						<button>확인</button>
-					</form>
-				</article>
-				<article>
-					<h1>회원가입 폼</h1>
-					<form action="" method="post" id="signUp">
-						<label for="">
-							아이디
-							<input type="text" name="id" id="signup-id" />
-						</label>
-						<label for="">
-							닉네임
-							<input type="text" name="nickname" id="signup-nickname" />
-						</label>
-						<label for="">
-							패스워드
-							<input type="password" name="pw" id="signup-pw" />
-						</label>
-						<label for="">
-							패스워드 확인
-							<input type="password" name="pw-c" id="signup-pw-c" />
-						</label>
-						<label for="">
-							이메일
-							<input type="email" name="email" id="signup-email" />
-						</label>
-						<p>계약에 동의하고 어쩌구 저쩌구</p>
-						<input type="checkbox" name="agree" id="signup-agree" />
-						<label for="signup-agree">동의</label>
-						<button>확인</button>
-					</form>
-				</article>
-			</c:otherwise>
-			
-		</c:choose>
-	</div>
+	<main>
+		<div class="container-fluid">
+			<section class="introduce">
+				<h1>즐거운 세상을 공유하세요!</h1>
+				<p>소개글이 들어가는 공간으로, Lorem ipsum dolor sit amet consectetur adipisicing elit. Dicta laboriosam vel est, laudantium unde accusamus, ad fugit cum architecto iure aperiam rerum eum a sapiente dolorem excepturi, culpa ut! Ab!</p>
+			</section>
+			<section class="signup">
+				<form action="users/signup.do" method="post" id="signUp">
+					<label class="signup__label">
+						아이디
+						<input type="text" name="id" id="signup-id" />
+					</label>
+					<label class="signup__label">
+						닉네임
+						<input type="text" name="nickname" id="signup-nickname" />
+					</label>
+					<label class="signup__label">
+						패스워드
+						<input type="password" name="pw" id="signup-pw" />
+					</label>
+					<label class="signup__label">
+						패스워드 확인
+						<input type="password" name="pw-c" id="signup-pw-c" />
+					</label>
+					<label class="signup__label">
+						이메일
+						<input type="email" name="email" id="signup-email" />
+					</label>
+					<input type="checkbox" name="agree" id="signup-agree" />
+					<label for="signup-agree"><a href="">회원규약</a>을 읽었으며 회원가입에 동의합니다.</label>
+					<button>확인</button>
+				</form>
+			</section>
+		</div>
+	</main>
 	<jsp:include page="inc/footer.jsp" />
 </body>
 </html>
