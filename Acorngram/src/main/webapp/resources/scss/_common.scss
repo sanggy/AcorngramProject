@@ -1,0 +1,63 @@
+@import url('https://fonts.googleapis.com/css?family=Pacifico|Noto+Sans+KR:400,700&display=swap');
+
+@import 'variable';
+@import 'mixin';
+@import 'reset';
+
+a{
+	color: $main-color;
+	text-decoration: none;
+	&:hover,
+	&:active{
+		color: darken($main-color,.2);
+	}
+}
+
+.container{
+	width: $lg;
+	margin: auto;
+	&-fluid{
+		width: 100%;
+	}
+	@media screen and (max-width: $lg){
+		width: 90%;
+	}
+}
+
+[role="button"], button, .btn{
+	@include btn();
+	&.reversed{
+		@include btn($bg: $main-color, $color: $white);
+	}
+}
+
+// Those scss files forked by Bootstrap 4.3.1
+// Copyright 2011-2019 The Bootstrap Authors
+// Copyright 2011-2019 Twitter, Inc.
+// Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
+
+@import 'bootstrap/functions';
+@import 'bootstrap/variables';
+@import 'bootstrap/mixins';
+@import 'bootstrap/buttons';
+@import 'bootstrap/button-group';
+@import 'bootstrap/forms';
+@import 'bootstrap/forms_mixin';
+@import 'bootstrap/glyphicons';
+
+.form{
+	&-group{
+		label{
+			font-weight: bold;
+			line-height: 2rem;
+		}
+	}
+	&-control{
+		width: 100%;
+		box-sizing: border-box;
+	}
+	&-check-input{
+		position: inherit;
+		margin: 0;
+	}
+}
