@@ -1,13 +1,8 @@
-@import url('https://fonts.googleapis.com/css?family=Noto+Sans+KR:400,700&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Pacifico|Noto+Sans+KR:400,700&display=swap');
 
 @import 'variable';
 @import 'mixin';
-
-*{
-	margin: 0;
-	padding: 0;
-	font-family: $main-font;
-}
+@import 'reset';
 
 a{
 	color: $main-color;
@@ -48,10 +43,18 @@ a{
 @import 'bootstrap/button-group';
 @import 'bootstrap/forms';
 @import 'bootstrap/forms_mixin';
+@import 'bootstrap/glyphicons';
 
 .form{
+	&-group{
+		label{
+			font-weight: bold;
+			line-height: 2rem;
+		}
+	}
 	&-control{
-		width: auto;
+		width: 100%;
+		box-sizing: border-box;
 	}
 	&-check-input{
 		position: inherit;

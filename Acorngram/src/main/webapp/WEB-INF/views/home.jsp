@@ -32,7 +32,7 @@
 					</div>
 					<div class="form-group">
 						<label class="signup__label"> 패스워드 </label>
-						<input type="password" name="pw" id="signup-pw"  class="form-control form-control-sm"/>
+						<input type="password" name="pw" id="signup-pw"  class="form-control form-control-sm" placeholder="영대문자 1자 이상인 최소 8자이상의 영숫자" />
 					</div>
 					<div class="form-group">
 						<label class="signup__label"> 패스워드 확인 </label>

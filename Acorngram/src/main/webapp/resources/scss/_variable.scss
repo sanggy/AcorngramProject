@@ -1,9 +1,9 @@
 // color variable
 
-$black: #000;
+$black: #2f2f2f;
 $white: #fff;
 
-$main-color: #603CC2;
+$main-color: #742C09;
 $sub-color: lighten($main-color, .3);
 
 $like-color: #FA040D;
@@ -17,4 +17,12 @@ $lg: 1200px;
 
 //	font 
 
-$main-font: 'Noto Sans KR', sans-serif;
+$main-font: -apple-system,BlinkMacSystemFont,'Noto Sans KR', sans-serif;
+$logo-font: 'Pacifico', cursive;
+
+$icon-font-path: '/resources/fonts/';
+$icon-font-name: 'glyphicons-halflings-regular';
+
+//	layout
+$header-height: 8vh;
+$footer-height: 10vh;
