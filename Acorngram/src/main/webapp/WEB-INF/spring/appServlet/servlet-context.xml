@@ -45,12 +45,14 @@
 	
 	<!-- 어노테이션으로 트렌젝션을 처리 할수 있도록 설정 -->
 	<tx:annotation-driven transaction-manager="txManager"/>	
-	
-	
+
 	<!-- DispatcherServlet Context: defines this servlet's request-processing infrastructure -->
 	
 	<!-- Enables the Spring MVC @Controller programming model -->
 	<annotation-driven />
+	
+	<!-- 어노테이션으로 트렌젝션을 처리 할수 있도록 설정 -->
+	<tx:annotation-driven transaction-manager="txManager"/>
 
 	<!-- Handles HTTP GET requests for /resources/** by efficiently serving up static resources in the ${webappRoot}/resources directory -->
 	<resources mapping="/resources/**" location="/resources/" />
