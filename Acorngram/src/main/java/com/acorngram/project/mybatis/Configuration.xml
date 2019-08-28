@@ -9,20 +9,13 @@
   		<typeAlias type="com.acorngram.project.dto.UsersDto" alias="usersDto"/>
   		<typeAlias type="com.acorngram.project.dto.PostDto" alias="postDto"/>
   		<typeAlias type="com.acorngram.project.dto.FollowerDto" alias="follwerDto"/>
-  		<typeAlias type="com.acorngram.project.dto.CommentDto" aliss=commentDto/>
+  		<typeAlias type="com.acorngram.project.dto.CommentDto" alias="commentDto"/>
   	</typeAliases>
   	
   	<!-- mapper 설정 -->
   	<mappers>
 		<mapper resource="com/acorngram/mybatis/UsersMapper.xml"/>
   
-   <!--
-   
-   	    <mapper resource="com/acorngram/mybatis/"/>
-		<mapper resource="com/acorngram/mybatis/"/>
-		<mapper resource="com/acorngram/mybatis/"/>
-					
-														 -->
   
   	</mappers>
   	
