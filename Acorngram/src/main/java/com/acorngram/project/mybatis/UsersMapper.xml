@@ -20,5 +20,12 @@
 		FROM users_db
 		WHERE id = #{id}
 	</select>
+	
+	<select id="updateProfileImg" parameterType="UsersDto">
+		
+	</select>
+
+	
+
 
 </mapper>

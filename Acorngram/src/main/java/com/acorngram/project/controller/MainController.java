@@ -1,6 +1,8 @@
 package com.acorngram.project.controller;
 
 import java.net.URLEncoder;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -10,6 +12,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.acorngram.project.dto.UsersDto;
@@ -40,6 +45,26 @@ public class MainController {
 	
 		return mView;	
 	}
+	
+	@RequestMapping(value = "/users/updateUserInfo.do", method = RequestMethod.POST)
+	public ModelAndView authUpdateUserInfo(@ModelAttribute UsersDto dto, ModelAndView mView, HttpServletRequest request) {
+		//유저 정보 수정 하는 메소드 호출
+		usersService.updateUser(dto, request);
+		mView.setViewName("users_settings.do");
+		return mView;
+	}
+	
+	//profile image upload 요청처리 부분
+		@RequestMapping("/users/profile_upload")
+		@ResponseBody
+		public Map<String, Object> authProfileUpload(HttpServletRequest request, @RequestParam MultipartFile ProfileImage){
+			//서비스를 이용해서 프로파일 이미지를 저장하고 저장된 이미지 경로를 리턴 받는다
+			String path = usersService.saveProfileImage(request, ProfileImage);
+			//JSON 문자열 응답하기
+			Map<String, Object> map = new HashMap<>();
+			map.put("path", path);
+			return map;
+		}
 	
 	
 	

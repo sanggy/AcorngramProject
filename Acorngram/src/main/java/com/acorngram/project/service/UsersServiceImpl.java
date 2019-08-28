@@ -1,5 +1,6 @@
 package com.acorngram.project.service;
 
+import java.io.File;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -85,14 +86,54 @@ public class UsersServiceImpl implements UsersService{
 	//  프로 파일 이미지를 저장하는 메서드 
 	@Override
 	public String saveProfileImage(HttpServletRequest request, MultipartFile mFile) {
-		// TODO Auto-generated method stub
-		return null;
+		//파일 저장할 폴더의 절대 경로 가져오기
+		String realPath = request.getSession().getServletContext().getRealPath("/upload");
+		
+		//원본 파일 명
+		String orgFileName = mFile.getOriginalFilename();
+		
+		//저장할 파일의 상세 경로
+		String filePath = realPath+File.separator;
+		
+		//디렉토리를 만들 파일 객체 생성
+		File file = new File(filePath);
+		
+		if(!file.exists()) {
+			file.mkdir();
+		}
+		//파일 시스템에 저장할 파일명을 마든다.
+		String saveFileName = System.currentTimeMillis()+orgFileName;
+		try {
+			//upload folder에 파일 저장하기
+			mFile.transferTo(new File(filePath+saveFileName));
+			
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		
+		String path = "/upload/" + saveFileName;
+		//로그인 아이디
+		String id = (String)request.getSession().getAttribute("id");
+		
+		//가져온 아이디로 이미지 경로를 담기 위해 dto생성하기
+		UsersDto dto = new UsersDto();
+		//아이디와 프로파일 이미지 경로 dto에 담고 보내기
+		dto.setId(id);
+		dto.setProfileImg(path);
+		//UsersDao를 통해 DB에 src패스 반영하기
+		dao.updateProfileImg(dto);
+		
+		//이미지 경로 리턴해주기
+		return path;
 	}
 
 	// 개인정보 수정 반영하는 메소드
 	@Override
-	public void updateUser(UsersDto dto) {
-		// TODO Auto-generated method stub
+	public void updateUser(UsersDto dto, HttpServletRequest request) {
+						
+		dao.update(dto);
+		
 		
 	}
+	
 }

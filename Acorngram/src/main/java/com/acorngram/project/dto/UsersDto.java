@@ -1,14 +1,14 @@
 package com.acorngram.project.dto;
 
 public class UsersDto {
-	private String id, dob, theme;
+	private String id, dob, theme, profileImg;
 	private String nickname, email, pw, regdate;
 	private int usercode, reported, dm_range;
 	private boolean banned, acc_private;
 	
 	public UsersDto(){}
 
-	public UsersDto(String id, String dob, String theme, String nickname, String email, String pw, String regdate,
+	public UsersDto(String id, String dob, String theme, String profileImg, String nickname, String email, String pw, String regdate,
 			int usercode, int reported, int dm_range, boolean banned, boolean acc_private) {
 		super();
 		this.id = id;
@@ -23,6 +23,7 @@ public class UsersDto {
 		this.dm_range = dm_range;
 		this.banned = banned;
 		this.acc_private = acc_private;
+		this.profileImg = profileImg;
 	}
 
 	public String getId() {
@@ -119,6 +120,14 @@ public class UsersDto {
 
 	public void setAcc_private(boolean acc_private) {
 		this.acc_private = acc_private;
+	}
+
+	public String getProfileImg() {
+		return profileImg;
+	}
+
+	public void setProfileImg(String profileImg) {
+		this.profileImg = profileImg;
 	}
 
 	
