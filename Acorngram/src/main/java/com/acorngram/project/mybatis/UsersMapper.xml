@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="userdb">
+<mapper namespace="users">
 	
 	<select id="getData" parameterType="String" resultType="UsersDto">
 		SELECT usercode, id, nickname, banned, email, pw, regdate, reported, dob, dm_range, acc_private, theme, profile_img
@@ -14,5 +14,10 @@
 		VALUES(usercode_seq.NEXTVAL, id=#{id}, nickname=#{nickname}, email=#{email}, pw=#{pw}, SYSDATE, dob=#{dob})
 	</insert>
 	
-		
+	<select id="getPwdHash" parameterType="String" resultType="String">
+		SELECT pw
+		FROM users_db
+		WHERE id = #{id}
+	</select>
+	
 </mapper>

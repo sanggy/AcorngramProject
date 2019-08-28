@@ -6,6 +6,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.stereotype.Repository;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
@@ -29,7 +30,26 @@ public class UsersServiceImpl implements UsersService{
 	// 로그인 시 아이디 유무 체크 
 	@Override
 	public void validUser(UsersDto dto, ModelAndView mView, HttpSession session) {
-		// TODO Auto-generated method stub
+		//아이디 비밀번호가 유효한지 여부
+		boolean isValid = false;
+		
+		String pwdHash = dao.getPwdHash(dto.getId());
+		
+		//만일 아이디에 해당하는 비밀번호가 존재한다면
+		if(pwdHash != null) {
+			//비번 일치 여부를 얻어낸다
+			
+			isValid = BCrypt.checkpw(dto.getPw(), pwdHash);
+		}
+		
+		if(isValid) {
+			//로그인 처리를 한다
+			session.setAttribute("id", dto.getId());
+			session.setAttribute("usercode", dto.getUsercode());
+			mView.addObject("isSuccessful", true);
+		}else {
+			mView.addObject("isSuccessful", false);
+		}
 		
 	}
 

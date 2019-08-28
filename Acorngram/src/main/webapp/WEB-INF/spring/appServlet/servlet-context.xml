@@ -4,9 +4,11 @@
 	xmlns:beans="http://www.springframework.org/schema/beans"
 	xmlns:context="http://www.springframework.org/schema/context"
 	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:aop="http://www.springframework.org/schema/aop"
 	xsi:schemaLocation="http://www.springframework.org/schema/mvc https://www.springframework.org/schema/mvc/spring-mvc.xsd
 		http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.0.xsd
 		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.0.xsd">
 
 	<!-- 
@@ -37,13 +39,6 @@
 	value="classpath:com/acorngram/project/mybatis/Configuration.xml"/>
 	</beans:bean>
 	
-	
-	<!-- Transaction Manager 설정 -->
-	<beans:bean id="txManager"
-		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
-		<beans:property name="dataSource" ref="dataSource"/>
-	</beans:bean>
-	
 	<!--
 		property - set을 의미함.. 
 		sessionFactory=new SqlSessionFactoryBean();
@@ -60,6 +55,14 @@
 		<beans:constructor-arg name="sqlSessionFactory" 
 			ref="sessionFactory"/>
 	</beans:bean>	
+	
+	<!-- Transaction Manager 설정 -->
+	<beans:bean id="txManager"
+		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<beans:property name="dataSource" ref="dataSource"/>
+	</beans:bean>
+	
+	
 	
 	<!--
 		위에서  constructor-arg는 생성자를 의미함... 그래서 sessionFactory를 인자로 생성자를 생성함.
