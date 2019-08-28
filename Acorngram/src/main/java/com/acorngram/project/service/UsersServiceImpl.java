@@ -137,9 +137,15 @@ public class UsersServiceImpl implements UsersService{
 	// 개인정보 수정 반영하는 메소드
 	@Override
 	public void updateUser(UsersDto dto, HttpServletRequest request) {
-						
-		dao.update(dto);
 		
+		//dto속에 pw 값이 없으면 비번 수정 작업이 요청이 아님
+		if(dto.getPw() == null) {
+			//이 update은 비번 외에 나머지 유저정보를 수정하는 메소드
+			dao.update(dto);
+		}else {
+			//dto.getPw()의 값이 존재 한다면 우선 비번 수정임을 말함..
+			dao.updatePwd(dto);
+		}
 		
 	}
 	

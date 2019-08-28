@@ -9,7 +9,6 @@
 	</select>
 	
 	<insert id="insert" parameterType="UsersDto" >
-
 		INSERT INTO users_db
 		(usercode, id, nickname, pw, email, regdate)
 		VALUES(usercode_seq.NEXTVAL, #{id}, #{nickname},#{pw}, #{email}, SYSDATE)
@@ -22,11 +21,13 @@
 	</select>
 	
 	<select id="updateProfileImg" parameterType="UsersDto">
-		
+		UPDATE users_db
+		SET profile_img = #{profileImg}
+		WHERE id = #{id}
 	</select>
 
-	<select id="idCheck" parameterType="String" resultType="String" >
-		SELECT COUNT(id) 
+	<select id="idCheck" parameterType="String" resultType="int" >
+		SELECT COUNT(id)
 		FROM users_db
 		WHERE id = #{inputId}
 	</select>
@@ -35,4 +36,17 @@
 		DELETE FROM users_db
 		WHERE id =#{id}
 	</delete>
+	
+	<update id="updatePwd" parameterType="UsersDto">
+		UPDATE users_db
+		SET pw = #{pw}
+		WHERE id = #{id}
+	</update>
+	
+	<update id="update" parameterType="UsersDto">
+		UPDATE users_db
+		SET pw = #{pw}
+		WHERE id = #{id}
+	</update>
+	
 </mapper>

@@ -65,6 +65,11 @@ public class UsersDaoImpl implements UsersDao{
 		//users setting값 변경사항 update
 		session.update("users.updateSettings", dto);
 	}
+
+	@Override
+	public void updatePwd(UsersDto dto) {
+		session.update("users.updatePwd", dto);
+	}
 	
 	
 }
