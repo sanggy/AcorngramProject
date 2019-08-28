@@ -1,23 +1,29 @@
 package com.acorngram.project.dto;
 
 public class UsersDto {
-	private String id, nickname, email, pw, regdate;
-	private int usercode, reported;
-	private boolean banned;
+	private String id, dob, theme, profile_img;
+	private String nickname, email, pw, regdate;
+	private int usercode, reported, dm_range;
+	private boolean banned, acc_private;
 	
 	public UsersDto(){}
 
-	public UsersDto(String id, String nickname, String email, String pw, String regdate, int usercode, int reported,
-			boolean banned) {
+	public UsersDto(String id, String dob, String theme, String profile_img, String nickname, String email, String pw,
+			String regdate, int usercode, int reported, int dm_range, boolean banned, boolean acc_private) {
 		super();
 		this.id = id;
+		this.dob = dob;
+		this.theme = theme;
+		this.profile_img = profile_img;
 		this.nickname = nickname;
 		this.email = email;
 		this.pw = pw;
 		this.regdate = regdate;
 		this.usercode = usercode;
 		this.reported = reported;
+		this.dm_range = dm_range;
 		this.banned = banned;
+		this.acc_private = acc_private;
 	}
 
 	public String getId() {
@@ -26,6 +32,30 @@ public class UsersDto {
 
 	public void setId(String id) {
 		this.id = id;
+	}
+
+	public String getDob() {
+		return dob;
+	}
+
+	public void setDob(String dob) {
+		this.dob = dob;
+	}
+
+	public String getTheme() {
+		return theme;
+	}
+
+	public void setTheme(String theme) {
+		this.theme = theme;
+	}
+
+	public String getProfile_img() {
+		return profile_img;
+	}
+
+	public void setProfile_img(String profile_img) {
+		this.profile_img = profile_img;
 	}
 
 	public String getNickname() {
@@ -76,6 +106,14 @@ public class UsersDto {
 		this.reported = reported;
 	}
 
+	public int getDm_range() {
+		return dm_range;
+	}
+
+	public void setDm_range(int dm_range) {
+		this.dm_range = dm_range;
+	}
+
 	public boolean isBanned() {
 		return banned;
 	}
@@ -83,7 +121,15 @@ public class UsersDto {
 	public void setBanned(boolean banned) {
 		this.banned = banned;
 	}
-	
-	
+
+	public boolean isAcc_private() {
+		return acc_private;
+	}
+
+	public void setAcc_private(boolean acc_private) {
+		this.acc_private = acc_private;
+	}
+
+
 	
 }
