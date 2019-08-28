@@ -87,6 +87,12 @@
 	</beans:bean>
 	
 	<context:component-scan base-package="com.acorngram.project" />
+	<context:component-scan base-package="com.acorngram.project.dao.*" />
+	<context:component-scan base-package="com.acorngram.project.dto.*" />
+	<context:component-scan base-package="com.acorngram.project.aspect.*" />
+	<context:component-scan base-package="com.acorngram.project.controller.*" />
+	<context:component-scan base-package="com.acorngram.project.exception.*" />
+	<context:component-scan base-package="com.acorngram.project.service.*" />
 	
 	
 	
