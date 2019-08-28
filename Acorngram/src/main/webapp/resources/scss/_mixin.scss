@@ -1,0 +1,20 @@
+@mixin flexbox($align:row, $wrap:no-wrap, $horizen:space-between, $vertical: center){
+	display: flex;
+	flex-direction: $align;
+	flex-wrap: $wrap;
+	justify-content: $horizen;
+	align-content: $vertical;
+}
+
+@mixin btn($bg: $white, $color:$main-color){
+	background: $bg;
+	color: $color;
+	border: 1px solid $color;
+	border-radius: 4px;
+	box-sizing: border-box;
+	transition: all .05s ease;
+	&:hover, &:active{
+		background: $color;
+		color: $bg;
+	}
+}

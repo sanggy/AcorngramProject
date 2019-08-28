@@ -1,0 +1,80 @@
+header{
+	position:sticky;
+	top: 0;
+	min-height: 64px;
+	background: linear-gradient(
+		$main-color, desaturate($main-color, 20%)
+	);
+	color: $white;
+	height: $header-height;
+	& > .container{
+		position: relative;
+		top: 50%;
+		transform: translateY(-50%);
+		@include flexbox();
+	}
+}
+.header{
+	#logo a{
+		font-family: 'Pacifico', cursive;
+		color: $white
+	}
+	&__signin{
+		&>label{
+			//	로그인 버튼
+			display: inline-block;
+			width: 160px;
+			height: 48px;
+			line-height: 48px;
+			vertical-align: middle;
+			border-radius: 8px;
+			text-align: center;
+			font-size: 1.14rem;
+			font-weight: bold;
+			box-sizing: border-box;
+			@include btn($color:$white, $bg:$main-color);
+			@media screen and (max-width: $sm){
+				width: 30vw;
+				height: 40px;
+				line-height: 40px;
+			}
+		}
+		input.toggler{
+			display: none;
+		}
+		&-form{
+			display: none;
+			top: $header-height;
+			right: 0;
+			padding: 16px;
+			width: 360px;
+			background: $white;
+			box-shadow: 0 2px 4px rgba($black,.3);
+			box-sizing: border-box;
+			@media screen and (max-width: $md){
+				width: 100%;
+			}
+		}
+		input:checked ~ &-form{
+			display: block;
+			position: absolute;
+		}
+		input:checked+label{
+			background: $white;
+			color: $main-color;
+		}
+	}
+}
+
+.signin{
+	&__label{
+		color: $main-color;
+	}
+	&__button{
+		width: 100%;
+		padding: 8px;
+		box-sizing: border-box;
+		font-weight: bold;
+		font-size: 1.2rem;
+	}
+}
