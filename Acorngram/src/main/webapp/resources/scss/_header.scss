@@ -19,7 +19,6 @@ header{
 		font-family: 'Pacifico', cursive;
 		color: $white
 	}
-
 	&__signin{
 		&>label{
 			//	로그인 버튼
@@ -40,7 +39,7 @@ header{
 				line-height: 40px;
 			}
 		}
-		#signinform-toggler{
+		input.toggler{
 			display: none;
 		}
 		&-form{
