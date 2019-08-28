@@ -38,8 +38,8 @@ public class MainController {
 		
 		usersService.validUser(dto, mView, request.getSession());
 		//원래 가려던 url 정보를 reqeust 에 담는다.
-		String encodedUrl = URLEncoder.encode(request.getParameter("url"));
-		request.setAttribute("encodedUrl", encodedUrl);
+//		String encodedUrl = URLEncoder.encode(request.getParameter("url"));
+//		request.setAttribute("encodedUrl", encodedUrl);
 		mView.setViewName("home");
 	
 		return mView;	
@@ -77,6 +77,13 @@ public class MainController {
 		
 		usersService.deleteUser(request.getSession());
 		return new ModelAndView("redirect:/home.do");
+	}
+	
+	@RequestMapping("/users/signout.do")
+	public ModelAndView logout(HttpServletRequest request, ModelAndView mView) {
+		request.getSession().invalidate();
+		mView.setViewName("/home");
+		return mView;
 	}
 	
 	
