@@ -91,6 +91,11 @@ public class MainController {
 		return "redirect:/home.do";
 	}
 	
+	@RequestMapping("timeline.do")
+	public String timeline(HttpServletRequest request) {
+		return "timeline";
+	}
+	
 	
 
 }//UsersController END

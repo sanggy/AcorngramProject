@@ -3,7 +3,7 @@
 <header class="header">
 	<div class="container">
 		<div class="header__logo">
-			<h1 id="logo"><a href="/home.do">AcornGram</a></h1>
+			<h1 id="logo"><a href="${pageContext.request.contextPath}/home.do">AcornGram</a></h1>
 		</div>
 		<c:choose>
 			<c:when test="${empty id }">
