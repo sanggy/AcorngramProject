@@ -1,6 +1,7 @@
 header{
 	position:sticky;
 	top: 0;
+	min-height: 64px;
 	background: linear-gradient(
 		$main-color, desaturate($main-color, 20%)
 	);
@@ -35,8 +36,8 @@ header{
 			@include btn($color:$white, $bg:$main-color);
 			@media screen and (max-width: $sm){
 				width: 30vw;
-				height: 36px;
-				line-height: 36px;
+				height: 40px;
+				line-height: 40px;
 			}
 		}
 		#signinform-toggler{
@@ -51,7 +52,7 @@ header{
 			background: $white;
 			box-shadow: 0 2px 4px rgba($black,.3);
 			box-sizing: border-box;
-			@media screen and (max-width: $sm){
+			@media screen and (max-width: $md){
 				width: 100%;
 			}
 		}
@@ -73,6 +74,7 @@ header{
 	&__button{
 		width: 100%;
 		padding: 8px;
+		box-sizing: border-box;
 		font-weight: bold;
 		font-size: 1.2rem;
 	}

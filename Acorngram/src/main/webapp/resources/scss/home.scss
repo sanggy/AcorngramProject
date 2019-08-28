@@ -4,22 +4,43 @@
 
 main{
 	height: 80vh;
+	min-height: 640px;
 	@include flexbox($wrap:wrap);
 	&>.container{
 		@media screen and (min-width:$lg){
 			@include flexbox();
 		}
 	}
+	@media screen and(max-width:$lg){
+		height:auto;
+	}
 }
 
 .introduce{
-	@include flexbox($wrap: wrap, $horizen: center);
-
-	@media screen and (min-width:$lg){
+	position: relative;
+	min-height: 160px;
+	background: url('../images/backbg2.png') no-repeat;
+	background-position: left center;
+	background-size: 30%;
+	background-position: 35% center;
+	width: 60%;
+	&__description{
+		position: absolute;
+		top: 50%;
+		left: 35%;
 		width: 60%;
+		padding: 16px;
+		background: rgba(#eee, .5);
+		box-sizing: border-box;
+		h2{
+			margin-bottom: 1.5rem;
+		}
+		p{
+			line-height: 1.5rem;
+		}
 	}
-	p{
-		text-align: center;
+	@media screen and (max-width:$lg),screen and (max-height:768px){
+		display: none;
 	}
 }
 
@@ -29,7 +50,19 @@ main{
 	padding: 16px;
 	border: 1px solid #f0f0f0;
 	
+	@media screen and (min-width:$xm){
+		min-width:360px;
+	}
+	legend{
+		margin: 16px auto;
+		font-size: 2rem;
+		font-weight: bold;
+	}
+
 	&__button{
-		padding: 8px 16px;
+		width: 100%;
+		padding: 16px;
+		box-sizing: border-box;
+		font-size: 1.2rem;
 	}
 }
