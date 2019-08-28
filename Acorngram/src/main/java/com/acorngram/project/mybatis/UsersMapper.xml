@@ -25,7 +25,14 @@
 		
 	</select>
 
+	<select id="idCheck" parameterType="String" resultType="String" >
+		SELECT COUNT(id) 
+		FROM users_db
+		WHERE id = #{inputId}
+	</select>
 	
-
-
+	<delete id="delete" parameterType="String">
+		DELETE FROM users_db
+		WHERE id =#{id}
+	</delete>
 </mapper>

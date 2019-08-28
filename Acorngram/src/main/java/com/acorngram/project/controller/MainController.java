@@ -55,17 +55,30 @@ public class MainController {
 	}
 	
 	//profile image upload 요청처리 부분
-		@RequestMapping("/users/profile_upload")
-		@ResponseBody
-		public Map<String, Object> authProfileUpload(HttpServletRequest request, @RequestParam MultipartFile ProfileImage){
-			//서비스를 이용해서 프로파일 이미지를 저장하고 저장된 이미지 경로를 리턴 받는다
-			String path = usersService.saveProfileImage(request, ProfileImage);
-			//JSON 문자열 응답하기
-			Map<String, Object> map = new HashMap<>();
-			map.put("path", path);
-			return map;
-		}
+	@RequestMapping("/users/profile_upload")
+	@ResponseBody
+	public Map<String, Object> authProfileUpload(HttpServletRequest request, @RequestParam MultipartFile ProfileImage){
+		//서비스를 이용해서 프로파일 이미지를 저장하고 저장된 이미지 경로를 리턴 받는다
+		String path = usersService.saveProfileImage(request, ProfileImage);
+		//JSON 문자열 응답하기
+		Map<String, Object> map = new HashMap<>();
+		map.put("path", path);
+		return map;
+	}
 	
+	@RequestMapping("users/checkid.do")
+	@ResponseBody
+	public Map<String, Object> checkid(@RequestParam String inputId){
+		Map<String, Object> map = usersService.isExistId(inputId);
+		return map;
+	}
+	
+	@RequestMapping("users/delete.do")
+	public ModelAndView authdelete(HttpServletRequest request) {
+		
+		usersService.deleteUser(request.getSession());
+		return new ModelAndView("redirect:/home.do");
+	}
 	
 	
 

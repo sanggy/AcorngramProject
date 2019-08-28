@@ -1,6 +1,7 @@
 package com.acorngram.project.service;
 
 import java.io.File;
+import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -72,14 +73,20 @@ public class UsersServiceImpl implements UsersService{
 	// 아이디 중복 체크 
 	@Override
 	public Map<String, Object> isExistId(String inputId) {
-		// TODO Auto-generated method stub
-		return null;
+		
+		boolean isExist = dao.idCheck(inputId);
+		Map<String,	Object> map = new HashMap<>();
+		map.put("istExist", isExist);
+		
+		return map;
 	}
 
 	// 회원 정보 삭제 
 	@Override
 	public void deleteUser(HttpSession session) {
-		// TODO Auto-generated method stub
+		String id = (String)session.getAttribute("id");
+		dao.delete(id);
+		session.invalidate();
 		
 	}
 
