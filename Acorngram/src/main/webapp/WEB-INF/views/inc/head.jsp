@@ -5,4 +5,4 @@
 	<meta property="og:title" content="${param.title }" />
 	<!-- meta property="og:image" content="http://ia.media-imdb.com/images/rock.jpg" /-->
 	<title>${param.title }</title>
-	
+	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/${param.css}">
