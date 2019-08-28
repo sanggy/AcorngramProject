@@ -15,7 +15,7 @@
 		VALUES(usercode_seq.NEXTVAL, #{id}, #{nickname},#{pw}, #{email}, SYSDATE)
 	</insert>
 	
-	<select id="getPwdHash" parameterType="String" resultType="String">
+	<select id="getPwdHash" parameterType="String" resultType="int">
 		SELECT pw
 		FROM users_db
 		WHERE id = #{id}
