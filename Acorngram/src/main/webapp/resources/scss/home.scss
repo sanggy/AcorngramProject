@@ -1,1 +1,36 @@
 @import 'common';
+
+main{
+	height: 80vh;
+	@include flexbox($wrap:wrap);
+	&>.container{
+		@media screen and (min-width:$lg){
+			@include flexbox();
+		}
+	}
+}
+
+.introduce{
+	@include flexbox($wrap: wrap, $horizen: center);
+
+	@media screen and (min-width:$lg){
+		width: 60%;
+	}
+	p{
+		text-align: center;
+	}
+}
+
+//	form
+
+.signup{
+	padding: 16px;
+	border: 1px solid #f0f0f0;
+	
+	&__label{
+		width: 100%;
+	}
+	&__button{
+		padding: 8px 16px;
+	}
+}

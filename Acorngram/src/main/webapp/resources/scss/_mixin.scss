@@ -4,3 +4,15 @@
 	justify-content: $horizen;
 	align-content: $vertical;
 }
+
+@mixin btn($bg: $white, $color:$main-color){
+	background: $bg;
+	color: $color;
+	border: 1px solid $color;
+	box-sizing: border-box;
+	transition: all .05s ease;
+	&:hover, &:active{
+		background: $color;
+		color: $bg;
+	}
+}
