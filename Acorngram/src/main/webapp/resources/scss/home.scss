@@ -7,6 +7,9 @@ main{
 	min-height: 640px;
 	@include flexbox($wrap:wrap);
 	&>.container{
+		padding: 16px;
+		border: 1px solid #aaa;
+		background: $white;
 		@media screen and (min-width:$lg){
 			@include flexbox();
 		}

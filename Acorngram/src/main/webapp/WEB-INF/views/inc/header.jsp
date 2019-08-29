@@ -40,7 +40,10 @@
 						</button>
 					</div>
 					<div class="header__writepost">
-						
+						<button type="button">
+							<i class="glyphicon glyphicon-edit"></i>
+							<span>작성</span> 
+						</button>
 					</div>
 				</c:otherwise>
 			</c:choose>
@@ -48,15 +51,40 @@
 		</div>
 	</div>
 </header>
-<nav class="user-menu">
-	<ul>
-		<li class="user-menu__mini-profile">
-			<strong class="user-menu__user-name"><c:out value="${name }" default="test" /></strong>
-			<span class="user-menu__user-id">@${id }</span>
-		</li>
-		<li class="user-menu__line"></li>
-		<li><i class="glyphicon--is-themed glyphicon-user"></i><a href="users/profile.do?usercode=${usercode }">프로필</a></li>
-		<li><i class="glyphicon--is-themed glyphicon-wrench"></i><a href="users/setting.do">설정</a></li>
-		<li><i class="glyphicon--is-themed glyphicon-log-out"></i><a href="users/signout.do">로그아웃</a></li>
-	</ul>
-</nav>
+
+<c:if test="${not empty id }">
+	<nav class="user-menu">
+		<ul>
+			<li class="user-menu__mini-profile">
+				<strong class="user-menu__user-name"><c:out value="${name }" default="test" /></strong>
+				<span class="user-menu__user-id">@${id }</span>
+			</li>
+			<li class="user-menu__line"></li>
+			<li><i class="glyphicon--is-themed glyphicon-user"></i><a href="users/profile.do?usercode=${usercode }">프로필</a></li>
+			<li><i class="glyphicon--is-themed glyphicon-wrench"></i><a href="users/setting.do">설정</a></li>
+			<li><i class="glyphicon--is-themed glyphicon-log-out"></i><a href="users/signout.do">로그아웃</a></li>
+		</ul>
+	</nav>
+	
+	<div class="writepost container">
+		<form action="post/write.do" id="form__writepost" class="form__writepost" enctype="multipart/form-data" method="post">
+				<fieldset>
+					<legend>
+						<span>지금 내 앞엔?</span>
+						<button><i class="glyphicon glyphicon-check"></i> 전송</button>
+					</legend>
+					<div class="form__writepost__body">
+						<label for="form__writepost-img">
+							<input type="file" name="file" id="form__writepost-img" accept="image/*" required/>
+							<div class="form__writepost__image">
+								<i class="glyphicon glyphicon-picture"></i>
+								<p>클릭해서 사진 파일 업로드</p>
+							</div>
+							<img id="preview" width="360">
+						</label>
+						<textarea name="content" class="form__writepost__content" placeholder="내용" required></textarea>
+					</div>
+				</fieldset>
+		</form>
+	</div>
+</c:if>

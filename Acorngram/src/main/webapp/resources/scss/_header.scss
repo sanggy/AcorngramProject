@@ -7,6 +7,7 @@ header{
 		$main-color, desaturate($main-color, 20%)
 		);
 	color: $white;
+	z-index: 999;
 	@media screen and(max-width:$sm){
 		height:$header-mobile-height
 	}
@@ -23,6 +24,10 @@ header{
 		font-family: 'Pacifico', cursive;
 		color: $white
 	}
+	&__right{
+		@include flexbox();
+	}
+
 	&__signin{
 		&>label{
 			//	로그인 버튼
@@ -78,8 +83,30 @@ header{
 			}
 		}
 	}
+
+	&__writepost button{
+		display: inline-block;
+		width: 160px;
+		height: $icon-size;
+		line-height: $icon-size;
+		vertical-align: middle;
+		border-radius: 8px;
+		text-align: center;
+		font-size: 1.14rem;
+		font-weight: bold;
+		box-sizing: border-box;
+		@include btn($color:$white, $bg:$main-color);
+		@media screen and (max-width: $sm){
+			width: $icon-size;
+			span{display: none;}
+		}
+	}
+
 	&__user-info{
 		&>button{
+			width: $icon-size;
+			height: $icon-size;
+			margin-right: 2vw;
 			background: none;
 			border-radius: 300px;
 			overflow: hidden;

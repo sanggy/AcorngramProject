@@ -24,7 +24,8 @@ const toggle = {
 						document.querySelector('.cover').remove();
 			}
 		})
-		:''
+		:'';
+		return this;
 	}
 }
 
@@ -32,6 +33,10 @@ toggle.run(
 	document.querySelector('.header__user-info'),
 	document.querySelector('nav.user-menu'),
 	true
+).run(
+	document.querySelector('[class*="writepost"] button'),
+	document.querySelector('.writepost form'),
+	false
 );
 
 function toggleWritePopup(){

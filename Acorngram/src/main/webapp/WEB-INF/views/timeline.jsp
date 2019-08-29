@@ -1,8 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<% 
-	request.getSession().setAttribute("id", "test");
-	request.getSession().setAttribute("usercode", 1);
+<%
+	session.setMaxInactiveInterval(600);
+	session.setAttribute("id", "test");
 %>
 <!DOCTYPE html>
 <html>
@@ -16,25 +16,6 @@
 	<jsp:include page="inc/header.jsp" />
 	<main>
 		<div class="container">
-			<form action="post/write.do" id="write-post" enctype="multipart/form-data" method="post">
-				<fieldset>
-					<legend>
-						<span>지금 내 앞엔?</span>
-						<button>전송</button>
-					</legend>
-					<div class="flexbox">
-						<label for="write-post-img">
-							<input type="file" name="write-post-img" id="write-post-img" accept="image/*" required/>
-							<div class="write-post__area">
-								<i class="material-icons"> insert_photo </i>
-								<p>클릭해서 사진 파일 업로드</p>
-							</div>
-							<img id="preview" width="360">
-						</label>
-						<textarea name="description" id="description" placeholder="내용" required></textarea>
-					</div>
-				</fieldset>
-			</form>
 			<c:if test="${not empty list }">
 				<c:forEach var="post" items="list">
 					<article class="post post-${post.num }">

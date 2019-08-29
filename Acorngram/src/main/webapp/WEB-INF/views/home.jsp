@@ -50,7 +50,10 @@
 							<input type="checkbox" name="agree" id="signup-agree" class="form-check-input" />
 							<label for="signup-agree" class="form-check-label"><a href="">회원규약</a>을 읽었으며 회원가입에 동의합니다.</label>
 						</div>
-						<button class="signup__button"><span class="glyphicon glyphicon-saved"></span> 회원등록</button>
+						<button class="signup__button">
+							<span class="glyphicon glyphicon-saved"></span> 
+							<span>회원등록</span>
+							</button>
 					</fieldset>
 				</form>
 			</section>
