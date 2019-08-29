@@ -54,36 +54,68 @@ function confirmAccess(url){
 
 
 function likeControl(num){
-	
+	const flag = document.querySelector('.post-'+num+' .post__like a');
+	const mode = flag.classList.contains('liked')?
+		'unlike':'like';
+	$.ajax({
+		url:"post/"+mode+'.do?num'+num,
+		type:'get',
+		dataType:'json'
+	}).done(res=>{
+		if(res.result) {
+			switch (mode){
+			case 'unlike':
+				flag.querySelector('i').classList.replace('glyphicon-heart', 'glyphicon-heart-empty');
+				break;
+			case 'like':
+				flag.querySelector('i').classList.replace('glyphicon-heart-empty', 'glyphicon-heart');
+				break;
+			}
+		}
+	})
 }
 
 function deletePost(num){
 	var result:boolean = window.confirm('정말로 삭제하시겠습니까?');
 	if(result){
-		$.ajax({
-			url : "post/delete.do",
-			type : "get",
-			data : {'num' : num},
-			dataType: "json",
-		}).done(
-			res => {
+		fetch('post/delete.do?num='+num)
+		.then(res=>res.json())
+		.then(
+			res=>{
 				if(res.result){
 					window.alert('성공적으로 삭제되었습니다.');
+					$('.post-'+num).fadeOut(300, function() { $(this).remove(); });
 				}else{
 					window.alert('오류가 발생했습니다.');
 				}
 			}
-		);
+		).catch(
+			error=>{
+				$('.post-'+num).fadeOut(300, function() { $(this).remove(); });
+			}
+		)
+
+		// $.ajax({
+		// 	url : "post/delete.do",
+		// 	type : "get",
+		// 	data : {'num' : num},
+		// 	dataType: "json",
+		// }).done(
+		// 	res => {
+		// 		if(res.result){
+		// 			window.alert('성공적으로 삭제되었습니다.');
+		// 			$('.post-'+num).fadeOut(300, function() { $(this).remove(); });
+		// 		}else{
+		// 			window.alert('오류가 발생했습니다.');
+		// 		}
+		// 	}
+		// ).fail(
+		// 	error=>{
+		// 		$('.post-'+num).fadeOut(300, function() { $(this).remove(); });
+		// 	}
+		// )
 	}
 }
-
-$('#write-post-img').on('change', function (e) {
-    var reader = new FileReader();
-    reader.onload = function (e) {
-        $("#preview").attr('src', e.target.result);
-    }
-    reader.readAsDataURL(e.target.files[0]);
-});
 
 (function loadPost(){
 	$('time').val(
@@ -96,3 +128,11 @@ $('#write-post-img').on('change', function (e) {
 			.toggleClass('glyphicon-heart-empty');
 	});
 })();
+
+$('#form__writepost-img').on('change', function (e) {
+	var reader = new FileReader();
+	reader.onload = function (e) {
+		$("#preview").attr('src', e.target.result);
+	}
+	reader.readAsDataURL(e.target.files[0]);
+});

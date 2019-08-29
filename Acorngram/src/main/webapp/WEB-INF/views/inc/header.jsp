@@ -2,7 +2,7 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <header class="header">
 	<div class="container">
-		<c:if test="${not empty id }">
+		<c:if test="${not empty usercode }">
 			<%-- 메뉴 자리 --%>
 		</c:if>
 		
@@ -13,7 +13,7 @@
 		<div class="header__right">
 			
 			<c:choose>
-				<c:when test="${empty id }">
+				<c:when test="${empty usercode }">
 					<div class="header__signin">
 						<input type="checkbox" class="toggler" id="signinform-toggler">
 						<label class="toggler" for="signinform-toggler">로그인</label>
@@ -52,7 +52,7 @@
 	</div>
 </header>
 
-<c:if test="${not empty id }">
+<c:if test="${not empty usercode }">
 	<nav class="user-menu">
 		<ul>
 			<li class="user-menu__mini-profile">
@@ -71,7 +71,10 @@
 				<fieldset>
 					<legend>
 						<span>지금 내 앞엔?</span>
-						<button><i class="glyphicon glyphicon-check"></i> 전송</button>
+						<button>
+							<i class="glyphicon glyphicon-check"></i> 
+							<span>전송</span>	
+						</button>
 					</legend>
 					<div class="form__writepost__body">
 						<label for="form__writepost-img">

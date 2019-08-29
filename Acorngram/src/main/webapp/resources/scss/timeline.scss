@@ -21,6 +21,10 @@
 
 	@include material-box;
 	animation: fadein 3s ease;
+
+	@media screen and (max-width:$md){
+		width: 100%;
+	}
 	
 	& > div{
 		margin-bottom: 20px;
