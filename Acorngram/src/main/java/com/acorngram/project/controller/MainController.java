@@ -1,6 +1,5 @@
 package com.acorngram.project.controller;
 
-import java.net.URLEncoder;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -16,7 +15,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.acorngram.project.dto.PostDto;
 import com.acorngram.project.dto.UsersDto;
+import com.acorngram.project.service.PostService;
 import com.acorngram.project.service.UsersService;
 
 @Controller
@@ -24,6 +25,9 @@ public class MainController {
 	
 	@Autowired
 	private UsersService usersService;
+	@Autowired
+	private PostService postService;
+	
 	
 	@RequestMapping(value="/users/signup.do", method = RequestMethod.POST)
 	public ModelAndView signup(@ModelAttribute UsersDto dto, ModelAndView mView) {
@@ -37,9 +41,9 @@ public class MainController {
 	public 	ModelAndView signIn(@ModelAttribute UsersDto dto, ModelAndView mView, HttpServletRequest request) {
 		
 		boolean isSuccessful = usersService.validUser(dto, mView, request.getSession());
-		//원래 가려던 url 정보를 reqeust 에 담는다.
-//		String encodedUrl = URLEncoder.encode(request.getParameter("url"));
-//		request.setAttribute("encodedUrl", encodedUrl);
+		//	원래 가려던 url 정보를 reqeust 에 담는다.
+		//	String encodedUrl = URLEncoder.encode(request.getParameter("url"));
+		//	request.setAttribute("encodedUrl", encodedUrl);
 		
 		if(isSuccessful) {
 			mView.setViewName("redirect:/home.do");
@@ -96,6 +100,20 @@ public class MainController {
 		return "timeline";
 	}
 	
+	// ============= POST SECTION START =============
+	
+	// Upload content, img method
+	@RequestMapping("/post/list.do")
+	public ModelAndView postList(HttpServletRequest request) {
+		postService.getList(request);
+		return new ModelAndView("timeline");
+	}
+	
+	@RequestMapping("/post/write.do")
+	public ModelAndView authPostUload(@ModelAttribute PostDto dto, HttpServletRequest request) {
+		postService.savePost(dto, request);
+		return new ModelAndView("redirect:/post/list.do");
+	}
 	
 
 }//UsersController END

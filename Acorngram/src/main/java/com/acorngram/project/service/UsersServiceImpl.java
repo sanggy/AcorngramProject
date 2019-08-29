@@ -126,7 +126,7 @@ public class UsersServiceImpl implements UsersService{
 		UsersDto dto = new UsersDto();
 		//아이디와 프로파일 이미지 경로 dto에 담고 보내기
 		dto.setId(id);
-		dto.setProfileImg(path);
+		dto.setProfile_img(path);
 		//UsersDao를 통해 DB에 src패스 반영하기
 		dao.updateProfileImg(dto);
 		

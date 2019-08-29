@@ -1,14 +1,37 @@
 package com.acorngram.project.dto;
 
+import org.springframework.web.multipart.MultipartFile;
+
 public class PostDto {
-	private String name, id, content, image, video, regdate;
+	
+	// usersname 
+	private String name;
+	private String id;
+	private String content;
+	private String image;
+	private String video;
+	private String regdate;
 	int num, usercode, like_count;
+	
+	// FileName, Path, Size 
+	private String saveFileName;
+	private long fileSize;
+	
+	//페이징 처리를 위한 필드
+	private int startRowNum;
+	private int endRowNum;
+
+	// <input type="file" name="file"/> 에서 name 속성의 value 와 동일한 필드명으로 
+	// MultipartFile type 필드를 선언해야 한다.
+	private MultipartFile file;
 	
 	
 	public PostDto() {}
 
 
-	public PostDto(String name, String id, String content, String image, String video, String regdate, int num, int usercode, int like_count) {
+	public PostDto(String name, String id, String content, String image, String video, String regdate, int num,
+			int usercode, int like_count, String saveFileName, long fileSize, int startRowNum, int endRowNum,
+			MultipartFile file) {
 		super();
 		this.name = name;
 		this.id = id;
@@ -19,6 +42,31 @@ public class PostDto {
 		this.num = num;
 		this.usercode = usercode;
 		this.like_count = like_count;
+		this.saveFileName = saveFileName;
+		this.fileSize = fileSize;
+		this.startRowNum = startRowNum;
+		this.endRowNum = endRowNum;
+		this.file = file;
+	}
+
+
+	public String getName() {
+		return name;
+	}
+
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+
+	public String getId() {
+		return id;
+	}
+
+
+	public void setId(String id) {
+		this.id = id;
 	}
 
 
@@ -92,23 +140,53 @@ public class PostDto {
 	}
 
 
-	public String getName() {
-		return name;
+	public String getSaveFileName() {
+		return saveFileName;
 	}
 
 
-	public void setName(String name) {
-		this.name = name;
+	public void setSaveFileName(String saveFileName) {
+		this.saveFileName = saveFileName;
 	}
 
 
-	public String getId() {
-		return id;
+	public long getFileSize() {
+		return fileSize;
 	}
 
 
-	public void setId(String id) {
-		this.id = id;
+	public void setFileSize(long fileSize) {
+		this.fileSize = fileSize;
+	}
+
+
+	public int getStartRowNum() {
+		return startRowNum;
+	}
+
+
+	public void setStartRowNum(int startRowNum) {
+		this.startRowNum = startRowNum;
+	}
+
+
+	public int getEndRowNum() {
+		return endRowNum;
+	}
+
+
+	public void setEndRowNum(int endRowNum) {
+		this.endRowNum = endRowNum;
+	}
+
+
+	public MultipartFile getFile() {
+		return file;
+	}
+
+
+	public void setFile(MultipartFile file) {
+		this.file = file;
 	}
 	
 	

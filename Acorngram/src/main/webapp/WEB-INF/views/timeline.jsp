@@ -19,7 +19,7 @@
 				</legend>
 				<div class="flexbox">
 					<label for="write-post-img">
-						<input type="file" name="write-post-img" id="write-post-img" accept="image/*" required/>
+						<input type="file" name="file" id="write-post-img" accept="image/*" required/>
 						<div class="write-post__area">
 							<i class="material-icons"> insert_photo </i>
 							<p>클릭해서 사진 파일 업로드</p>
