@@ -52,6 +52,7 @@ function confirmAccess(url){
 }
 
 
+//  좋아요 버튼
 
 function likeControl(num){
 	const flag = document.querySelector('.post-'+num+' .post__like a');
@@ -74,6 +75,8 @@ function likeControl(num){
 		}
 	})
 	.catch(error=>{
+//	테스트용 실제로는 x
+
 		switch (mode){
 			case 'unlike':
 				flag.querySelector('i').classList.replace('glyphicon-heart', 'glyphicon-heart-empty');
@@ -104,6 +107,8 @@ function likeControl(num){
 	// })
 }
 
+//	삭제버튼
+
 function deletePost(num){
 	var result:boolean = window.confirm('정말로 삭제하시겠습니까?');
 	if(result){
@@ -120,6 +125,7 @@ function deletePost(num){
 			}
 		).catch(
 			error=>{
+				//	테스트용 실제로는 x
 				$('.post-'+num).fadeOut(300, function() { $(this).remove(); });
 			}
 		)
@@ -145,6 +151,44 @@ function deletePost(num){
 		// )
 	}
 }
+
+//	팔로우/언팔 버튼
+
+function followToggle(usercode){
+	let url = "follwer/follow.do";
+	const result = followAjax(url, usercode);
+	if(result){
+		window.alert('성공적으로 팔로우되었습니다.');
+		const target = document.querySelector('post-'+usercode+' a[class*="follow]');
+			target.classList.replace('post__btn-follow', 'post__btn-unfollow');
+			target.querySelector('i.glyphicon').classList.replace('glyphicon-plus-sign', 'glyphicon-remove-sign')
+			target.querySelector('span').innerText = 'Unfollow';
+	}else{
+		window.alert('오류가 발생했습니다.');
+	}
+}
+
+function unfollowToggle(usercode){
+	let url = 'follwer/unfollow.do';
+	const result = followAjax(url, usercode);
+	if(result){
+		window.alert('성공적으로 언팔로우되었습니다.');
+		const target = document.querySelector('post-'+usercode+' a[class*="follow]');
+			target.classList.replace('post__btn-unfollow', 'post__btn-follow');
+			target.querySelector('i.glyphicon').classList.replace('glyphicon-remove-sign', 'glyphicon-plus-sign')
+			target.querySelector('span').innerText = 'Follow';
+	}else{
+		window.alert('오류가 발생했습니다.');
+	}
+}
+
+function followAjax(url, usercode){
+	return fetch(url+'usercode='+usercode)
+	.then(res=>res.json())
+	.then(res=>{return res.result;})
+	.catch(err=>{return true;}) // 테스트용 실제로는 반대로 
+}
+
 
 (function loadPost(){
 	$('time').val(
