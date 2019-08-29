@@ -26,7 +26,7 @@
 						</div>
 						<img id="preview" width="360">
 					</label>
-					<textarea name="description" id="description" placeholder="내용" required></textarea>
+					<textarea name="content" id="content" placeholder="내용" required></textarea>
 				</div>
 			</fieldset>
 		</form>
