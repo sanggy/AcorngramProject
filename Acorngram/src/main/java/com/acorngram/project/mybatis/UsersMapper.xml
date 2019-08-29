@@ -9,7 +9,7 @@
 	</select>
 	
 	<select id="getSimpleData" parameterType="usersDto" resultType="usersDto">
-		SELECT usercode, id, nickname, acc_private, profile_img
+		SELECT usercode
 		FROM users_db
 	</select>
 	
