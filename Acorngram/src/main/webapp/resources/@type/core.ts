@@ -57,22 +57,51 @@ function likeControl(num){
 	const flag = document.querySelector('.post-'+num+' .post__like a');
 	const mode = flag.classList.contains('liked')?
 		'unlike':'like';
-	$.ajax({
-		url:"post/"+mode+'.do?num'+num,
-		type:'get',
-		dataType:'json'
-	}).done(res=>{
+	fetch('post/'+mode+'.do?num='+num)
+	.then(res=>res.json())
+	.then(res=>{
 		if(res.result) {
 			switch (mode){
 			case 'unlike':
 				flag.querySelector('i').classList.replace('glyphicon-heart', 'glyphicon-heart-empty');
+				flag.classList.remove('liked');
 				break;
 			case 'like':
 				flag.querySelector('i').classList.replace('glyphicon-heart-empty', 'glyphicon-heart');
+				flag.classList.add('liked');
 				break;
 			}
 		}
 	})
+	.catch(error=>{
+		switch (mode){
+			case 'unlike':
+				flag.querySelector('i').classList.replace('glyphicon-heart', 'glyphicon-heart-empty');
+				flag.classList.remove('liked');
+				break;
+			case 'like':
+				flag.querySelector('i').classList.replace('glyphicon-heart-empty', 'glyphicon-heart');
+				flag.classList.add('liked');
+				break;
+			}
+	})
+
+	// $.ajax({
+	// 	url:"post/"+mode+'.do?num'+num,
+	// 	type:'get',
+	// 	dataType:'json'
+	// }).done(res=>{
+	// 	if(res.result) {
+	// 		switch (mode){
+	// 		case 'unlike':
+	// 			flag.querySelector('i').classList.replace('glyphicon-heart', 'glyphicon-heart-empty');
+	// 			break;
+	// 		case 'like':
+	// 			flag.querySelector('i').classList.replace('glyphicon-heart-empty', 'glyphicon-heart');
+	// 			break;
+	// 		}
+	// 	}
+	// })
 }
 
 function deletePost(num){
