@@ -1,12 +1,16 @@
 header{
 	position:sticky;
 	top: 0;
-	min-height: 64px;
+	height: $header-height;
+	min-height: $header-mobile-height;
 	background: linear-gradient(
 		$main-color, desaturate($main-color, 20%)
-	);
+		);
 	color: $white;
-	height: $header-height;
+	z-index: 999;
+	@media screen and(max-width:$sm){
+		height:$header-mobile-height
+	}
 	& > .container{
 		position: relative;
 		top: 50%;
@@ -14,11 +18,16 @@ header{
 		@include flexbox();
 	}
 }
+
 .header{
 	#logo a{
 		font-family: 'Pacifico', cursive;
 		color: $white
 	}
+	&__right{
+		@include flexbox();
+	}
+
 	&__signin{
 		&>label{
 			//	로그인 버튼
@@ -48,33 +57,98 @@ header{
 			right: 0;
 			padding: 16px;
 			width: 360px;
-			background: $white;
-			box-shadow: 0 2px 4px rgba($black,.3);
-			box-sizing: border-box;
+			@include menu();
 			@media screen and (max-width: $md){
 				width: 100%;
 			}
-		}
-		input:checked ~ &-form{
-			display: block;
-			position: absolute;
+			input:checked ~ &{
+				display: block;
+				position: absolute;
+			}
 		}
 		input:checked+label{
 			background: $white;
 			color: $main-color;
 		}
+		.signin{
+			&__label{
+				color: $main-color;
+			}
+			&__button{
+				width: 100%;
+				padding: 8px;
+				box-sizing: border-box;
+				font-weight: bold;
+				font-size: 1.2rem;
+			}
+		}
+	}
+
+	&__writepost button{
+		display: inline-block;
+		width: 160px;
+		height: $icon-size;
+		line-height: $icon-size;
+		vertical-align: middle;
+		border-radius: 8px;
+		text-align: center;
+		font-size: 1.14rem;
+		font-weight: bold;
+		box-sizing: border-box;
+		@include btn($color:$white, $bg:$main-color);
+		@media screen and (max-width: $sm){
+			width: $icon-size;
+			span{display: none;}
+		}
+	}
+
+	&__user-info{
+		&>button{
+			width: $icon-size;
+			height: $icon-size;
+			margin-right: 2vw;
+			background: none;
+			border-radius: 300px;
+			overflow: hidden;
+			&:hover{
+				border:0;
+			}
+		}
 	}
 }
 
-.signin{
-	&__label{
+.user-menu{
+	position:fixed;
+	top:$header-height;
+	right:0;
+	padding: 16px;
+	width: 360px;
+	height: calc(100% - #{$header-height});
+	@include menu();
+	transform: translateX(360px);
+	transition: all .2s ease;
+	z-index: 3;
+	@media screen and (max-width:$sm){
+		top: $header-mobile-height;
+		height: calc(100% - #{$header-mobile-height});
+		width: 70vw;
+		transform: translateX(70vw);
+	}
+	&.is-active{
+		transform: translateX(0);
+	}
+	li{
+		padding: 5% 1%;
+		> [class*="glyphicon"]{
+			margin-right: 16px;
+		}
+	}
+	&__mini-profile{
 		color: $main-color;
 	}
-	&__button{
-		width: 100%;
-		padding: 8px;
-		box-sizing: border-box;
-		font-weight: bold;
-		font-size: 1.2rem;
+	&__line{
+		border-bottom: 1px solid $main-color;
+		padding: 0 !important;
 	}
 }
+

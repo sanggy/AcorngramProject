@@ -1,3 +1,4 @@
+
 package com.acorngram.project.controller;
 
 import java.net.URLEncoder;
@@ -18,8 +19,10 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.acorngram.project.dto.FollowerDto;
+import com.acorngram.project.dto.PostDto;
 import com.acorngram.project.dto.UsersDto;
 import com.acorngram.project.service.FollowerService;
+import com.acorngram.project.service.PostService;
 import com.acorngram.project.service.UsersService;
 
 @Controller
@@ -27,6 +30,8 @@ public class MainController {
 	
 	@Autowired
 	private UsersService usersService;
+	
+	@Autowired PostService postService;
 	
 	@Autowired private FollowerService followerService;
 	
@@ -128,6 +133,20 @@ public class MainController {
 		return mView;
 	}
 	
+	// ============= POST SECTION START =============
 	
+		// Upload content, img method
+		@RequestMapping("/post/list.do")
+		public ModelAndView postList(HttpServletRequest request) {
+			postService.getList(request);
+			return new ModelAndView("timeline");
+		}
+		
+		@RequestMapping("/post/write.do")
+		public ModelAndView authPostUload(@ModelAttribute PostDto dto, HttpServletRequest request) {
+			PostService.savePost(dto, request);
+			return new ModelAndView("redirect:/post/list.do");
+		}
 
 }//UsersController END
+

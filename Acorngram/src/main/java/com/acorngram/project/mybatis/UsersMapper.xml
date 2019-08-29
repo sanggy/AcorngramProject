@@ -8,7 +8,12 @@
 		WHERE id = #{id}
 	</select>
 	
-	<insert id="insert" parameterType="UsersDto" >
+	<select id="getSimpleData" parameterType="usersDto" resultType="usersDto">
+		SELECT usercode
+		FROM users_db
+	</select>
+	
+	<insert id="insert" parameterType="usersDto" >
 		INSERT INTO users_db
 		(usercode, id, nickname, pw, email, regdate)
 		VALUES(usercode_seq.NEXTVAL, #{id}, #{nickname},#{pw}, #{email}, SYSDATE)
@@ -22,7 +27,7 @@
 	
 	<select id="updateProfileImg" parameterType="UsersDto">
 		UPDATE users_db
-		SET profile_img = #{profileImg}
+		SET profile_img = #{profile_img}
 		WHERE id = #{id}
 	</select>
 
@@ -48,5 +53,5 @@
 		SET pw = #{pw}
 		WHERE id = #{id}
 	</update>
-	
+
 </mapper>

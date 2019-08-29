@@ -1,0 +1,105 @@
+.form__writepost{
+	box-sizing: border-box;
+	width: 100%;
+	padding: 20px;
+	@include material-box;
+	transition: all .2s ease;
+	transform: translateY(-1500px);
+
+	&.is-active{
+		transform: translateY(2vh);
+	}
+
+	fieldset{
+		padding: 24px;
+		border: 0;	
+		@include border-radius;
+		.flexbox{
+			@include flexbox($horizen:space-between, $wrap:nowrap);
+		}
+	}
+
+	legend{
+		width: 100%;
+		@include flexbox($horizen:space-between, $wrap:nowrap);
+		&>span{
+			font-size: 1.75rem;
+			font-weight: bold;
+		}
+		button{
+			height: 100%;
+			padding: 8px 16px;
+			font-size: 1rem;
+			font-weight: bold;
+			box-sizing: border-box;
+			@media screen and(max-width:$sm){
+				span{
+					display: none;
+				}
+			}
+		}
+	}
+
+	&__body{
+		height: 25vh;
+		min-height: 150px;
+		@include flexbox();
+		@media screen and(max-width: $md){
+			height: auto;
+			flex-wrap: wrap;
+		}
+	}
+
+	input[type="file"]{
+		width: 0;
+		height: 0;
+		visibility: hidden;
+	}
+	label[for="form__writepost-img"]{
+		position: relative;
+		width: 30%;
+		height: 25vh;
+		min-height: 150px;
+		@include border-radius;
+		background: #eee;
+		overflow: hidden;
+		text-align: center;
+		@media screen and(max-width: $md){
+			width: 100%;
+			margin-bottom: 2vh;
+		}
+	}
+
+	img#preview{
+		width: 100%;
+		transform: translateY(50%);
+	}
+
+	&__image{
+		position: absolute;
+		top: calc(50% - 50px/2);
+		left: calc(50% - 150px/2);
+		text-align: center;
+		color: #333;
+		p{
+			font-size: 0.9rem;
+			line-height: 1.75rem;
+		}
+	}
+
+	&__content{
+		width: 60%;
+		padding: 20px;
+		resize: none;
+		box-sizing: border-box;
+		border: 2px solid rgba($main-color,.5);
+		border-radius: 8px;
+		font-family: $main-font;
+		font-size: 1.2rem;
+		outline:0;
+		@media screen and(max-width: $md){
+			width: 100%;
+			min-height: 15vh;
+		}
+	}
+}

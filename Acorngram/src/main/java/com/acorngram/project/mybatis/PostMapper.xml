@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="post">
+	
+	<select id="getList" parameterType="postDto" resultType="postDto">
+		SELECT num,saveFileName,fileSize,regdate
+		FROM post_db ORDER BY num DESC
+	</select>
+	
+	<insert id="insert" parameterType="postDto" >
+		INSERT INTO post_db
+		(num, content, usercode, saveFileName, fileSize, regdate)
+		VALUES(post_seq.NEXTVAL, #{content}, #{usercode},
+				#{saveFileName},#{fileSize}, SYSDATE)
+	</insert>
+	
+</mapper>

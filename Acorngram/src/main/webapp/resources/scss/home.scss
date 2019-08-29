@@ -7,6 +7,9 @@ main{
 	min-height: 640px;
 	@include flexbox($wrap:wrap);
 	&>.container{
+		padding: 16px;
+		border: 1px solid #aaa;
+		background: $white;
 		@media screen and (min-width:$lg){
 			@include flexbox();
 		}
@@ -39,7 +42,7 @@ main{
 			line-height: 1.5rem;
 		}
 	}
-	@media screen and (max-width:$lg),screen and (max-height:768px){
+	@media screen and (max-width:$lg),screen and (max-height:720px){
 		display: none;
 	}
 }

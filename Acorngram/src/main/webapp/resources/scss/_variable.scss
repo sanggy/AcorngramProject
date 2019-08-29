@@ -8,6 +8,13 @@ $sub-color: lighten($main-color, .3);
 
 $like-color: #FA040D;
 
+$primary: #1F88F6;
+$success: #429C42;
+$warning: #ECAC04;
+$danger: #CD3230;
+
+$bg-color: #f0f0f0;
+
 //	size variable
 
 $xs: 360px;
@@ -15,6 +22,8 @@ $sm: 480px;
 $md: 720px;
 $xm: 960px;
 $lg: 1200px;
+
+$icon-size: 48px;
 
 //	font 
 
@@ -26,4 +35,7 @@ $icon-font-name: 'glyphicons-halflings-regular';
 
 //	layout
 $header-height: 8vh;
+$header-mobile-height: 64px;
 $footer-height: 10vh;
+$footer-mobile-height: 96px;
+
