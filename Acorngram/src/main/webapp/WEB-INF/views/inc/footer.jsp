@@ -10,3 +10,4 @@
 <script src="${pageContext.request.contextPath}/resources/js/jquery-3.4.1.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/locale/ko.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/core.js"></script>

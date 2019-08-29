@@ -25,11 +25,28 @@ a{
 }
 
 [role="button"], button, .btn{
-	@include btn();
+	outline: 0;
+	@include btn($color: $main-color);
 	&.reversed{
 		@include btn($bg: $main-color, $color: $white);
 	}
+	@include likeBootstrap();
 }
+
+.cover{
+	position: absolute;
+	top:$header-height;
+	left:0;
+	width: 100%;
+	height: calc(100% - #{$header-height});
+	@media screen and (max-width:$sm){
+		top:$header-mobile-height;
+		height: calc(100% - #{$header-mobile-height});
+		background: rgba($black, .3);
+	}
+}
+
+body{ background: $bg-color; }
 
 // Those scss files forked by Bootstrap 4.3.1
 // Copyright 2011-2019 The Bootstrap Authors
@@ -61,3 +78,14 @@ a{
 		margin: 0;
 	}
 }
+
+.glyphicon--is-themed{
+	@extend .glyphicon;
+	&:before{
+		color: $main-color;
+	}
+}
+.glyphicon{
+	z-index:0;
+}
+
