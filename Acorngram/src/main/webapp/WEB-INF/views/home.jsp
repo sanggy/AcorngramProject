@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<c:if test="${not empty user}">   
+<c:if test="${not empty usercode}">   
 	<c:redirect url="timeline.do"/> 
 </c:if>
 <!DOCTYPE html>
@@ -8,7 +8,7 @@
 <head>
 	<jsp:include page="inc/head.jsp">
 		<jsp:param value="메인페이지" name="title"/>
-		<jsp:param value="home.css" name="css" />
+		<jsp:param value="home" name="css" />
 	</jsp:include>
 </head>
 <body>

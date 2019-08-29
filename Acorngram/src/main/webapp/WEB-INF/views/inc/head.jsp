@@ -8,4 +8,4 @@
 
 	<title>${param.title }</title>
 
-	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/${param.css}">
+	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/${param.css}.css">
