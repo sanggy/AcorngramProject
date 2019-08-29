@@ -8,7 +8,7 @@
 <head>
 	<jsp:include page="inc/head.jsp">
 		<jsp:param value="메인페이지" name="title"/>
-		<jsp:param value="home.css" name="css" />
+		<jsp:param value="home" name="css" />
 	</jsp:include>
 </head>
 <body>
