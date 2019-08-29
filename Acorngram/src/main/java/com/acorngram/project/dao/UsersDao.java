@@ -35,5 +35,8 @@ public interface UsersDao {
 	//회원 비번 수정 메소드
 	public void updatePwd(UsersDto dto);
 	
+	//get simple data
+	public int simpleData(String id);
+	
 	
 }

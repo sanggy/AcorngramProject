@@ -3,15 +3,23 @@
 <mapper namespace="post">
 	
 	<select id="getList" parameterType="postDto" resultType="postDto">
-		SELECT num,saveFileName,fileSize,regdate
-		FROM post_db ORDER BY num DESC
+		SELECT *
+		FROM (SELECT result1.*, ROWNUM AS rnum
+		FROM (SELECT num, usercode, content, image, video, regdate, like_count, savefilename, filesize
+		FROM post_db
+		ORDER BY num DESC) result1)
+		WHERE rnum BETWEEN #{startRowNum} AND #{endRowNum}
 	</select>
 	
 	<insert id="insert" parameterType="postDto" >
 		INSERT INTO post_db
-		(num, content, usercode, saveFileName, fileSize, regdate)
-		VALUES(post_seq.NEXTVAL, #{content}, #{usercode},
-				#{saveFileName},#{fileSize}, SYSDATE)
+		(num, usercode, content, image, regdate, saveFileName, fileSize)
+		VALUES(post_seq.NEXTVAL, #{usercode}, #{content}, #{image}, SYSDATE, #{saveFileName},#{fileSize})
 	</insert>
+	
+	<select id="getCount" parameterType="PostDto" resultType="int">
+		SELECT NVL(MAX(ROWNUM), 0) AS num
+		FROM post_db
+	</select>
 	
 </mapper>

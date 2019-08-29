@@ -46,12 +46,14 @@ public class MainController {
 	@RequestMapping(value="/users/signin.do", method = RequestMethod.POST)
 	public 	ModelAndView signIn(@ModelAttribute UsersDto dto, ModelAndView mView, HttpServletRequest request) {
 		
-		boolean isSuccessful = usersService.validUser(dto, mView, request.getSession());
+		boolean isSuccessful = usersService.validUser(dto, mView, request.getSession(), request);
 		//원래 가려던 url 정보를 reqeust 에 담는다.
 //		String encodedUrl = URLEncoder.encode(request.getParameter("url"));
 //		request.setAttribute("encodedUrl", encodedUrl);
 		
 		if(isSuccessful) {
+			System.out.println("usercode in session? : "+request.getSession().getAttribute("usercode"));
+			System.out.println("id in session? : "+request.getSession().getAttribute("id"));
 			mView.setViewName("redirect:/home.do");
 		}
 		else {
@@ -144,7 +146,7 @@ public class MainController {
 		
 		@RequestMapping("/post/write.do")
 		public ModelAndView authPostUload(@ModelAttribute PostDto dto, HttpServletRequest request) {
-			PostService.savePost(dto, request);
+			postService.savePost(dto, request);
 			return new ModelAndView("redirect:/post/list.do");
 		}
 

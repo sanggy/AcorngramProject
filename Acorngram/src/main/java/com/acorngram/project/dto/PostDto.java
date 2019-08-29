@@ -5,17 +5,14 @@ import org.springframework.web.multipart.MultipartFile;
 public class PostDto {
 	
 	// usersname 
-	private String name;
-	private String id;
-	private String content;
-	private String image;
-	private String video;
-	private String regdate;
-	int num, usercode, like_count;
-	
+	private int num, usercode;
+	private String content, image, video, regdate;
+	private int like_count;
 	// FileName, Path, Size 
 	private String saveFileName;
 	private long fileSize;
+	
+	private String name, id;
 	
 	//페이징 처리를 위한 필드
 	private int startRowNum;
@@ -29,44 +26,44 @@ public class PostDto {
 	public PostDto() {}
 
 
-	public PostDto(String name, String id, String content, String image, String video, String regdate, int num,
-			int usercode, int like_count, String saveFileName, long fileSize, int startRowNum, int endRowNum,
+	public PostDto(int num, int usercode, String content, String image, String video, String regdate, int like_count,
+			String saveFileName, long fileSize, String name, String id, int startRowNum, int endRowNum,
 			MultipartFile file) {
 		super();
-		this.name = name;
-		this.id = id;
+		this.num = num;
+		this.usercode = usercode;
 		this.content = content;
 		this.image = image;
 		this.video = video;
 		this.regdate = regdate;
-		this.num = num;
-		this.usercode = usercode;
 		this.like_count = like_count;
 		this.saveFileName = saveFileName;
 		this.fileSize = fileSize;
+		this.name = name;
+		this.id = id;
 		this.startRowNum = startRowNum;
 		this.endRowNum = endRowNum;
 		this.file = file;
 	}
 
 
-	public String getName() {
-		return name;
+	public int getNum() {
+		return num;
 	}
 
 
-	public void setName(String name) {
-		this.name = name;
+	public void setNum(int num) {
+		this.num = num;
 	}
 
 
-	public String getId() {
-		return id;
+	public int getUsercode() {
+		return usercode;
 	}
 
 
-	public void setId(String id) {
-		this.id = id;
+	public void setUsercode(int usercode) {
+		this.usercode = usercode;
 	}
 
 
@@ -110,26 +107,6 @@ public class PostDto {
 	}
 
 
-	public int getNum() {
-		return num;
-	}
-
-
-	public void setNum(int num) {
-		this.num = num;
-	}
-
-
-	public int getUsercode() {
-		return usercode;
-	}
-
-
-	public void setUsercode(int usercode) {
-		this.usercode = usercode;
-	}
-
-
 	public int getLike_count() {
 		return like_count;
 	}
@@ -157,6 +134,26 @@ public class PostDto {
 
 	public void setFileSize(long fileSize) {
 		this.fileSize = fileSize;
+	}
+
+
+	public String getName() {
+		return name;
+	}
+
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+
+	public String getId() {
+		return id;
+	}
+
+
+	public void setId(String id) {
+		this.id = id;
 	}
 
 
@@ -188,6 +185,6 @@ public class PostDto {
 	public void setFile(MultipartFile file) {
 		this.file = file;
 	}
-	
+
 	
 }

@@ -78,6 +78,11 @@ public class UsersDaoImpl implements UsersDao{
 		List<UsersDto> list = session.selectList("users.getSimpleData",dto);
 		return list;
 	}
+
+	@Override
+	public int simpleData(String id) {
+		return session.selectOne("users.getSimpleData", id);
+	}
 	
 	
 	

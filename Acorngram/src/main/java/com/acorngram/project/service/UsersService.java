@@ -13,7 +13,7 @@ public interface UsersService {
 	// 회원 정보 DB 저장 
 	public void addUser(UsersDto dto, ModelAndView mView);
 	// 로그인 시 아이디 유무 체크 
-	public boolean validUser(UsersDto dto, ModelAndView mView, HttpSession session);
+	public boolean validUser(UsersDto dto, ModelAndView mView, HttpSession session, HttpServletRequest request);
 	// 회원 정보 
 	public void showInfo(HttpSession session, ModelAndView mView);
 	// 아이디 중복 체크 
