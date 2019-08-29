@@ -1,5 +1,5 @@
-@mixin flexbox($align:row, $wrap:no-wrap, $horizen:space-between, $vertical: center){
-	display: flex;
+@mixin flexbox($align:row, $wrap:no-wrap, $horizen:space-between, $vertical: center, $flex-mode: flex){
+	display: $flex-mode;
 	flex-direction: $align;
 	flex-wrap: $wrap;
 	justify-content: $horizen;
@@ -17,4 +17,11 @@
 		background: $color;
 		color: $bg;
 	}
+}
+
+@mixin menu(){
+	background: $white;
+	border-radius: 8px;
+	box-shadow: 0 2px 4px rgba($black,.3);
+	box-sizing: border-box;
 }

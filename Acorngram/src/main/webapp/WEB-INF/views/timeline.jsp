@@ -31,8 +31,8 @@
 			</fieldset>
 		</form>
 		<ul>
-		<c:if test="${not empty dto }">
-			<c:forEach var="post" items="dto">
+		<c:if test="${not empty list }">
+			<c:forEach var="post" items="list">
 				<li>num: ${post.num }</li>
 				<li>usercode: ${post.usercode }</li>
 				<li>username: ${post.name }</li>				

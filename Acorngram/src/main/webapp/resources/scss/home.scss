@@ -39,7 +39,7 @@ main{
 			line-height: 1.5rem;
 		}
 	}
-	@media screen and (max-width:$lg),screen and (max-height:768px){
+	@media screen and (max-width:$lg),screen and (max-height:720px){
 		display: none;
 	}
 }
