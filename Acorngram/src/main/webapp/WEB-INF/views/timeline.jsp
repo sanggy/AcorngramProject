@@ -31,8 +31,8 @@
 			</fieldset>
 		</form>
 		<ul>
-		<c:if test="${not empty dto }">
-			<c:forEach var="post" items="dto">
+		<c:if test="${not empty list }">
+			<c:forEach var="post" items="list">
 				<li>num: ${post.num }</li>
 				<li>usercode: ${post.usercode }</li>
 				<li>username: ${post.name }</li>				
@@ -40,7 +40,7 @@
 				<li><img src="${post.image }" alt="" width="300"/></li>
 				<li>content: ${post.content }</li>
 				<li>like: ${post.like_count }</li>		
-				<li>regdate: ${post.regdate }</li>		
+				<li>regdate: ${post.regdate }</li>
 			</c:forEach>
 		</c:if>
 		</ul>

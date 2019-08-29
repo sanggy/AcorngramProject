@@ -2,6 +2,7 @@ package com.acorngram.project.controller;
 
 import java.net.URLEncoder;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -16,7 +17,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.acorngram.project.dto.FollowerDto;
 import com.acorngram.project.dto.UsersDto;
+import com.acorngram.project.service.FollowerService;
 import com.acorngram.project.service.UsersService;
 
 @Controller
@@ -24,6 +27,8 @@ public class MainController {
 	
 	@Autowired
 	private UsersService usersService;
+	
+	@Autowired private FollowerService followerService;
 	
 	@RequestMapping(value="/users/signup.do", method = RequestMethod.POST)
 	public ModelAndView signup(@ModelAttribute UsersDto dto, ModelAndView mView) {
@@ -94,6 +99,33 @@ public class MainController {
 	@RequestMapping("timeline.do")
 	public String timeline(HttpServletRequest request) {
 		return "timeline";
+	}
+	
+	
+	//==============follow/unfollow 작업 요청 부분 ===============
+	
+	@RequestMapping(value = "follower/follow.do", method = RequestMethod.POST)
+	public ModelAndView authFollow(HttpServletRequest request,@RequestParam int target_userCode) {
+		ModelAndView mView = new ModelAndView();
+		followerService.follow(target_userCode, request, mView);
+		//성공적으로 follow가 DB에 반영이 되었는지의 여부를 담아 JSON타입으로 mView에 담고 리턴하기
+		return mView;
+	}
+	
+	@RequestMapping(value = "follower/unfollow.do", method = RequestMethod.POST)
+	public ModelAndView authUnfollow(HttpServletRequest request, @RequestParam int target_userCode) {
+		ModelAndView mView = new ModelAndView();
+		followerService.unfollow(target_userCode, request, mView);
+		//성공적으로 unfollow가 DB에 반영이 되었는지의 여부를 담아 JSON타입으로 mView에 담고 리턴하기
+		return mView;
+	}
+	
+	@RequestMapping("follower/followerList.do")
+	public ModelAndView authFollowerList(HttpServletRequest request, @RequestParam int self_userCode) {
+		ModelAndView mView = new ModelAndView();
+		List<FollowerDto> list = followerService.followerList(self_userCode);
+		mView.addObject("followerList", list);
+		return mView;
 	}
 	
 	
