@@ -13,9 +13,14 @@
 	border-radius: 4px;
 	box-sizing: border-box;
 	transition: all .05s ease;
-	&:hover, &:active{
+	&:hover{
 		background: $color;
 		color: $bg;
+		border-color: $bg;
+	}
+	&:active{
+		background: darken($color, 15%);
+		border-color: $bg;
 	}
 }
 
@@ -24,4 +29,25 @@
 	border-radius: 8px;
 	box-shadow: 0 2px 4px rgba($black,.3);
 	box-sizing: border-box;
+}
+
+@mixin material-box ($bg: #fff) {
+	border-radius: 8px;
+	background: $bg;
+	box-shadow: 0 2px 4px rgba($black, .3);
+}
+
+@mixin likeBootstrap(){
+
+	$bootstrap-colors: $primary, $success, $warning, $danger;
+
+	@each $color-type in $bootstrap-colors {
+		$color : '$' + $color-type;
+	
+		&[class*="#{$color-type}"]{
+			background: $color;
+			color: $white;
+		}
+	}
+
 }

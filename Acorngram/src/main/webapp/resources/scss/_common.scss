@@ -25,10 +25,11 @@ a{
 }
 
 [role="button"], button, .btn{
-	@include btn();
+	@include btn($color: $main-color);
 	&.reversed{
 		@include btn($bg: $main-color, $color: $white);
 	}
+	@include likeBootstrap();
 }
 
 .cover{
@@ -84,3 +85,4 @@ a{
 .glyphicon{
 	z-index:0;
 }
+

@@ -8,6 +8,11 @@ $sub-color: lighten($main-color, .3);
 
 $like-color: #FA040D;
 
+$primary: #1F88F6;
+$success: #429C42;
+$warning: #ECAC04;
+$danger: #CD3230;
+
 //	size variable
 
 $xs: 360px;
@@ -15,6 +20,8 @@ $sm: 480px;
 $md: 720px;
 $xm: 960px;
 $lg: 1200px;
+
+$icon-size: 48px;
 
 //	font 
 
