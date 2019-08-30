@@ -67,7 +67,7 @@
 	</nav>
 	
 	<div class="writepost container">
-		<form action="post/write.do" id="form__writepost" class="form__writepost" enctype="multipart/form-data" method="post">
+		<form action="post/write.do" id="form__writepost" class="writepost__form" enctype="multipart/form-data" method="post">
 				<fieldset>
 					<legend>
 						<span>지금 내 앞엔?</span>

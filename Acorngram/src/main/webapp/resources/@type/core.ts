@@ -23,7 +23,7 @@ function toggleWritePopup(){
 
 //	업로드전 이미지 표시
 
-$('#form__writepost-img').on('change', function (e) {
+$('.writepost__img').on('change', function (e) {
 	var reader = new FileReader();
 	reader.onload = function (e) {
 		$("#preview").attr('src', e.target.result);
@@ -207,7 +207,7 @@ function unfollowToggle(usercode){
 }
 
 function followAjax(url, usercode){
-	return fetch(url+'usercode='+usercode)
+	return fetch(url+'?usercode='+usercode)
 	.then(res=>res.json())
 	.then(res=>{return res.result;})
 	.catch(err=>{return false;}) // 테스트용 실제로는 반대로 
