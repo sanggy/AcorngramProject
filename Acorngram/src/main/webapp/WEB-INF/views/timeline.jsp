@@ -48,9 +48,7 @@
 							</div>
 						</div>
 						<div class="post__img" style="
-
 							background-image: url('${pageContext.request.contextPath}/upload/${post.saveFileName }')">
-
 						</div>
 						<div class="post__info">
 							<div class="post__like">
@@ -136,6 +134,40 @@
 				<div class="post__body">
 					<h3>${post.nickname } </h3>
 					<p>${post.content }</p>
+				</div>
+				<div class="post__comment">
+					<div class="comment__form">
+						<form action="comment/write.do" method="post">
+							<textarea name="content" id="comment-content"></textarea>
+							<button>전송</button>
+						</form>
+					</div>
+					<div class="comment__area">
+						<ul class="comment__list">
+						<c:forEach var="cmt" items="${comments }">
+							<c:choose>
+								<c:when test="${cmt.deleted eq no }">
+									<li>
+										<p>
+											<strong>${cmt.writer } </strong>
+											<span>${cmt.content } </span>
+										</p>
+										<p>
+											<time datetime="${cmt.regdate }"></time>
+											<span>
+												<a href="comment/edit.do">수정</a>
+												<a href="comment/delete.do">삭제</a>
+											</span>
+										</p>
+									</li>
+								</c:when>
+								<c:otherwise>
+									<li class="comment-deleted">삭제된 댓글 입니다.</li>
+								</c:otherwise>
+							</c:choose>
+						</c:forEach>
+						</ul>
+					</div>
 				</div>
 			</div>
 			
