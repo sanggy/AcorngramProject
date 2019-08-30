@@ -1,7 +1,6 @@
 
 package com.acorngram.project.controller;
 
-import java.net.URLEncoder;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -10,7 +9,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,6 +18,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.acorngram.project.dto.CommentDto;
 import com.acorngram.project.dto.FollowerDto;
 import com.acorngram.project.dto.PostDto;
 import com.acorngram.project.dto.UsersDto;
@@ -59,7 +58,7 @@ public class MainController {
 			mView.setViewName("redirect:/home.do");
 		}
 		else {
-			mView.setViewName("/users/tryagainasshole.do");
+			mView.setViewName("redirect:/home.do");
 		}
 
 		return mView;	
@@ -107,7 +106,8 @@ public class MainController {
 	
 	@RequestMapping("/users/setting.do")
 	public ModelAndView authUsersSetting(HttpServletRequest request, ModelAndView mView) {
-		return new ModelAndView("users/settings");
+		
+		return new ModelAndView(request.getContextPath()+"/users/settings");
 	}
 	
 	
@@ -177,6 +177,8 @@ public class MainController {
 //			return map;
 //		}
 		
+//================================ POST DETAIL 영역 요청 처리 부분 ===========================================
+		
 		@RequestMapping("/post/detail.do")
 		public ModelAndView authDetail(HttpServletRequest request, @RequestParam int num, ModelAndView mView) {
 			postService.getPostData(num, request, mView);
@@ -186,6 +188,13 @@ public class MainController {
 			
 			return mView;
 		}
+		
+//================================COMMENTS 요청 처리 부분 ===================================================
+		
+//		@RequestMapping("/comments/write.do")
+//		public ModelAndView authWrite(HttpServletRequest request, @ModelAttribute CommentDto commentDto) {
+//			
+//		}
 	
 }//UsersController END
 
