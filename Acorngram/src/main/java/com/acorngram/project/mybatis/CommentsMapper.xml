@@ -5,7 +5,7 @@
 	<select id="getList" parameterType="int" resultType="commentDto">
 		SELECT num, usercode, content, target_code, ref_group, comment_group, deleted, regdate
 		FROM comment_db
-		WHERE ref_group = #{num}
+		WHERE ref_group = #{ref_group}
 	</select>
 	
 	<insert id="insert" parameterType="commentDto">

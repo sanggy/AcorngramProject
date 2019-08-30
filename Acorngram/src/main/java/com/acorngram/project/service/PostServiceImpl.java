@@ -237,7 +237,7 @@ public class PostServiceImpl implements PostService {
 	}
 
 	@Override
-	public void getPostData(Map<String, Object> map, int num) {
+	public void getPostData(int num, HttpServletRequest request, ModelAndView mView) {
 		//num번의 post 정보를 먼저 가지고 와서 담는다
 		PostDto postDto = postDao.getData(num);
 		System.out.println("Post Service부분에서 postDto의 정보가 확인이 된다? : " + postDto.getNum());
@@ -252,9 +252,35 @@ public class PostServiceImpl implements PostService {
 		System.out.println("commentList가 정보를 가지고 있나? : " + commentList.size());
 		
 		//댓글과 포스트 정보를 다 불러왔으면 이제 Map에 put을 통해 JSON형으로 response해준다.
-		map.put("postDto", postDto);
-		map.put("commentList", commentList);
+		mView.addObject("post", postDto);
+		mView.addObject("commentList", commentList);
+		mView.setViewName("post/detail");
+		
+		System.out.println("POST SERVICE 입니다 : " + postDto.getNum());
+		System.out.println(commentList.get(0).getContent());
 	}
+
+//	@Override
+//	public void getPostData(Map<String, Object> map, int num) {
+//		//num번의 post 정보를 먼저 가지고 와서 담는다
+//		PostDto postDto = postDao.getData(num);
+//		System.out.println("Post Service부분에서 postDto의 정보가 확인이 된다? : " + postDto.getNum());
+//		
+//		//postDto의 num은 comments의 ref_group 번호와 같아야 한다...
+//		int ref_group = postDto.getNum();
+//		
+//		//가지고 온 postDto의 정보와 관련된 모든 comments를 불러와서 List<CommentDto>에 담는다
+//		List<CommentDto> commentList = commentDao.getList(ref_group);
+//		
+//		//List가 생성이되서 값을 가지고 있는지 여부를 체크하는 중...
+//		System.out.println("commentList가 정보를 가지고 있나? : " + commentList.size());
+//		
+//		//댓글과 포스트 정보를 다 불러왔으면 이제 Map에 put을 통해 JSON형으로 response해준다.
+//		map.put("postDto", postDto);
+//		map.put("commentList", commentList);
+//	}
+	
+	
 
 
 }

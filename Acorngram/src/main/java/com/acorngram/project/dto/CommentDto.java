@@ -2,13 +2,12 @@ package com.acorngram.project.dto;
 
 public class CommentDto {
 	private int num, usercode, target_code, ref_group, comment_group;
-	private String content;
-	private boolean deleted;
+	private String content, deleted, regdate;
 	
 	public CommentDto() {}
 
 	public CommentDto(int num, int usercode, int target_code, int ref_group, int comment_group, String content,
-			boolean deleted) {
+			String deleted, String regdate) {
 		super();
 		this.num = num;
 		this.usercode = usercode;
@@ -17,6 +16,7 @@ public class CommentDto {
 		this.comment_group = comment_group;
 		this.content = content;
 		this.deleted = deleted;
+		this.regdate = regdate;
 	}
 
 	public int getNum() {
@@ -67,13 +67,20 @@ public class CommentDto {
 		this.content = content;
 	}
 
-	public boolean isDeleted() {
+	public String getDeleted() {
 		return deleted;
 	}
 
-	public void setDeleted(boolean deleted) {
+	public void setDeleted(String deleted) {
 		this.deleted = deleted;
 	}
-	
+
+	public String getRegdate() {
+		return regdate;
+	}
+
+	public void setRegdate(String regdate) {
+		this.regdate = regdate;
+	}
 	
 }

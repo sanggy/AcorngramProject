@@ -161,13 +161,24 @@ public class MainController {
 			return map;
 		}
 		
+		//호진이가 다음에 AJAX로 사용할때 활용한대
+//		@RequestMapping("/post/detail.do")
+//		@ResponseBody
+//		public Map<String, Object> authDetail(HttpServletRequest request, HttpServletResponse response,@RequestParam int num){
+//			Map<String, Object> map = new HashMap<>();
+//			postService.getPostData(map, num);
+//			//map을 리턴해줌
+//			return map;
+//		}
+		
 		@RequestMapping("/post/detail.do")
-		@ResponseBody
-		public Map<String, Object> authDetail(HttpServletRequest request, HttpServletResponse response, int num){
-			Map<String, Object> map = new HashMap<>();
-			postService.getPostData(map, 32);
-			//map을 리턴해줌
-			return map;
+		public ModelAndView authDetail(HttpServletRequest request, @RequestParam int num, ModelAndView mView) {
+			postService.getPostData(num, request, mView);
+			
+			//check if mView added objects have crossed over
+			System.out.println("controller에서의 commentList : " + request.getAttribute("commentList"));
+			
+			return mView;
 		}
 	
 }//UsersController END

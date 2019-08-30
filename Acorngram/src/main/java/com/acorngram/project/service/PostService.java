@@ -19,7 +19,7 @@ public interface PostService {
 	//파일 저장 비즈니스 로직 처리 
 	public void savePost(PostDto dto, HttpServletRequest request);
 	//파일 정보 가져오는 비즈니스 로직 처리 
-	public void getPostData(Map<String, Object> map, int num);
+	public void getPostData(int num, HttpServletRequest request, ModelAndView mView);
 	//post detail page 요청 처리
 //	public void getDetail(int num, HttpServletRequest request, Map<String, Object> map);
 	
