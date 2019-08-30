@@ -107,7 +107,7 @@ public class MainController {
 	@RequestMapping("/users/setting.do")
 	public ModelAndView authUsersSetting(HttpServletRequest request, ModelAndView mView) {
 		
-		return new ModelAndView(request.getContextPath()+"/users/settings");
+		return new ModelAndView("users/settings");
 	}
 	
 	
