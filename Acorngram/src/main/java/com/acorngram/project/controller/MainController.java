@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -68,7 +69,7 @@ public class MainController {
 	public ModelAndView authUpdateUserInfo(@ModelAttribute UsersDto dto, ModelAndView mView, HttpServletRequest request) {
 		//유저 정보 수정 하는 메소드 호출
 		usersService.updateUser(dto, request);
-		mView.setViewName("users/settings.do");
+		mView.setViewName("users/setting.do");
 		return mView;
 	}
 	
@@ -102,6 +103,11 @@ public class MainController {
 	public String logout(HttpServletRequest request, ModelAndView mView) {
 		request.getSession().invalidate();
 		return "redirect:/home.do";
+	}
+	
+	@RequestMapping("/users/setting.do")
+	public ModelAndView authUsersSetting(HttpServletRequest request, ModelAndView mView) {
+		return new ModelAndView("users/settings");
 	}
 	
 	
