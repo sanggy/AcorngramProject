@@ -1,18 +1,37 @@
 // import * as $ from 'jquery';
 
 //	Timeline load시 실행
-
 (function loadPost(){
-	$('time').val(
-		new moment($(this).datetime).format('YYYY/MM/DD hh:mm:ss')
-	);
+	moment.locale('ko');
+
+	//	시간 설정
+	document.querySelectorAll('time').forEach(e=>{
+		var regdate = moment().utc(e.dateTime);
+		e.innerText = 
+			regdate
+		//	new moment(regdate).fromNow()
+	})
+
+	//	좋아요 버튼 hover 효과
 	$('.post__btn-like').on('hover',function(){
 		console.dir($(this).children('.glyphicon'));
 		$(this).children('.glyphicon')
 			.toggleClass('glyphicon-heart')
 			.toggleClass('glyphicon-heart-empty');
 	});
+
+	//	to post/detail?num=?
+
+	$('.post').on('click',function(e){
+		const num:number = $(this).attr('id').replace(/\D/g, "");
+		if(e.target.className.match(/img/)){
+			location.href='post/detail.do?num='+num;
+		}
+	});
+
 })();
+
+var test;
 
 //	글쓰기 창 토글
 
