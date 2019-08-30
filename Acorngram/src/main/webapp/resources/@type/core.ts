@@ -74,20 +74,7 @@ function likeControl(num){
 			}
 		}
 	})
-	.catch(error=>{
-//	테스트용 실제로는 x
-
-		switch (mode){
-			case 'unlike':
-				flag.querySelector('i').classList.replace('glyphicon-heart', 'glyphicon-heart-empty');
-				flag.classList.remove('liked');
-				break;
-			case 'like':
-				flag.querySelector('i').classList.replace('glyphicon-heart-empty', 'glyphicon-heart');
-				flag.classList.add('liked');
-				break;
-			}
-	})
+	.catch(error=>{window.alert('통신 실패') })
 
 	// $.ajax({
 	// 	url:"post/"+mode+'.do?num'+num,
@@ -123,12 +110,7 @@ function deletePost(num){
 					window.alert('오류가 발생했습니다.');
 				}
 			}
-		).catch(
-			error=>{
-				//	테스트용 실제로는 x
-				$('.post-'+num).fadeOut(300, function() { $(this).remove(); });
-			}
-		)
+		).catch(error=>{window.alert('통신 실패') })
 
 		// $.ajax({
 		// 	url : "post/delete.do",
@@ -183,10 +165,10 @@ function unfollowToggle(usercode){
 }
 
 function followAjax(url, usercode){
-	return fetch(url+'usercode='+usercode)
+	return fetch(url+'?usercode='+usercode)
 	.then(res=>res.json())
 	.then(res=>{return res.result;})
-	.catch(err=>{return true;}) // 테스트용 실제로는 반대로 
+	.catch(err=>{return false;}) // 테스트용 실제로는 반대로 
 }
 
 
