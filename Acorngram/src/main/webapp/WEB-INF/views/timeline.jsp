@@ -1,10 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%
-	session.setMaxInactiveInterval(1);
-	session.setAttribute("usercode", 1);
-	session.setAttribute("id", "test");
-%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -144,7 +139,7 @@
 					</div>
 					<div class="comment__area">
 						<ul class="comment__list">
-						<c:forEach var="cmt" items="${comments }">
+						<c:forEach var="cmt" items="">
 							<c:choose>
 								<c:when test="${cmt.deleted eq no }">
 									<li>
