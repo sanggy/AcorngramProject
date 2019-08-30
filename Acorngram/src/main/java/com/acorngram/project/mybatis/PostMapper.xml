@@ -4,10 +4,12 @@
 	
 	<select id="getList" parameterType="postDto" resultType="postDto">
 		SELECT *
-		FROM (SELECT result1.*, ROWNUM AS rnum
+		FROM (SELECT result1.*, ROWNUM AS rnum, users_db.nickname, users_db.id, users_db.profile_img
 		FROM (SELECT num, usercode, content, image, video, regdate, like_count, savefilename, filesize
 		FROM post_db
-		ORDER BY num DESC) result1)
+		ORDER BY num DESC) 
+		result1 INNER JOIN users_db
+		ON result1.usercode = users_db.usercode)
 		WHERE rnum BETWEEN #{startRowNum} AND #{endRowNum}
 	</select>
 	

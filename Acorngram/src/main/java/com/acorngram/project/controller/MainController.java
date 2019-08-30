@@ -160,6 +160,15 @@ public class MainController {
 			}
 			return map;
 		}
+		
+		@RequestMapping("/post/detail.do")
+		@ResponseBody
+		public Map<String, Object> authDetail(HttpServletRequest request, HttpServletResponse response, int num){
+			Map<String, Object> map = new HashMap<>();
+			postService.getPostData(map, 32);
+			//map을 리턴해줌
+			return map;
+		}
 	
 }//UsersController END
 
