@@ -1,0 +1,66 @@
+// $page-type = timeline or detail
+
+.post__comment{
+
+}
+
+.comment{
+	@if $page-type == 'detail' {
+		&__form{
+			min-height:80px;
+			height: 5%;
+			margin-bottom: 2%;
+			#comment-content{
+				width: 80%;
+				padding: 0.5rem;
+				resize:none;
+				float: left;
+				background: #e0e0e0;
+				border-radius: 4px;
+				font-size: 1rem;
+				line-height: 1.5rem;
+				box-sizing: border-box;
+			}
+			button{
+				display: inline-block;
+				width: 5rem;
+				height: 100%;
+				float: right;
+				line-height: 1.5rem;
+				font-size: 1rem;
+				font-weight: bold;
+			}
+			&:after{
+				clear: both;
+			}
+		}
+	}
+	&__area{
+		width: 100%;
+		padding: 1rem;
+		box-sizing: border-box;
+		background: #f0f0f0;
+	}
+
+	&__list{
+		li{
+			padding: 0.3rem;
+			margin-bottom: 1.5%;
+			background: #e0e0e0;
+			border-radius: 4px;
+			&:not(.comment-deleted){
+				@include flexbox($wrap:wrap);
+			}
+			&.comment-deleted{
+				color: #555;
+			}
+			&:last-child{
+				margin: 0;
+			}
+		}
+		time{
+			color: #555;
+		}
+	}
+
+}

@@ -35,6 +35,15 @@ const cpath = getCpath();
 		}
 	});
 
+	//	댓글 작성 textarea 자동 크기조절
+	var $textarea = $('#comment-content');
+	var lineHeight = parseInt($textarea.css('lineHeight'));
+	$textarea.on('input', function(e) {
+		var lines = ($(this).val() + '\n').match(/\n/g).length;
+		$(this).height(lineHeight * lines);
+	});
+	
+
 })();
 
 //	글쓰기 창 토글
