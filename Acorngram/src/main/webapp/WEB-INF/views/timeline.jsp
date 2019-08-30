@@ -19,7 +19,7 @@
 							<div class="post__header-left">
 								<img src="" alt="" class="post__icon"/>
 								<hgroup>
-									<h5 class="post__header-name"> ${post.name } </h5>
+									<h5 class="post__header-name"> ${post.nickname } </h5>
 									<h6 class="post__header-id"> @${post.id } </h6>
 								</hgroup>
 							</div>
@@ -32,10 +32,10 @@
 									<c:choose>
 										<c:when test="">
 										<%-- 이 유저와 팔로우 상태라면 --%>
-										<a href="javascript:followToggle(${post.usercode })" role="button" class="post__btn-unfollow" ><i class="glyphicon glyphicon-remove-sign"></i> Unfollow </a>
+										<a href="javascript:followToggle(${post.usercode })" role="button" class="post__btn-unfollow" ><i class="glyphicon glyphicon-remove-sign"></i> <span>Unfollow</span>  </a>
 										</c:when>
 										<c:otherwise>
-										<a href="javascript:followToggle(${post.usercode })" role="button" class="post__btn-follow"><i class="glyphicon glyphicon-plus-sign"></i> Follow </a>
+										<a href="javascript:followToggle(${post.usercode })" role="button" class="post__btn-follow"><i class="glyphicon glyphicon-plus-sign"></i> <span>Follow</span> </a>
 										</c:otherwise>
 									</c:choose>
 								</c:otherwise>
@@ -73,14 +73,14 @@
 		</div>
 	</main>
 	
-	<div class="container" style="display:flex;flex-wrap:wrap; justify-content:space-between;">
-		<!-- template-->
+	<template>
+		<div class="container" style="display:flex;flex-wrap:wrap; justify-content:space-between;">
 			<article class="post post-${i }">
 				<div class="post__header">
 					<div class="post__header-left">
 						<img src="" alt="" class="post__icon"/>
 						<hgroup>
-							<h5 class="post__header-name"> ${post.name } </h5>
+							<h5 class="post__header-name"> ${post.nickname } </h5>
 							<h6 class="post__header-id"> @${post.id } </h6>
 						</hgroup>
 					</div>
@@ -129,8 +129,8 @@
 					<p>${post.content }</p>
 				</div>
 			</article>
-		<!--  /template-->
-	</div>
+		</div>
+	</template>
 	<jsp:include page="inc/footer.jsp" />
 </body>
 </html>

@@ -1,7 +1,9 @@
+
 package com.acorngram.project.controller;
 
 import java.net.URLEncoder;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -16,7 +18,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.acorngram.project.dto.FollowerDto;
+import com.acorngram.project.dto.PostDto;
 import com.acorngram.project.dto.UsersDto;
+import com.acorngram.project.service.FollowerService;
+import com.acorngram.project.service.PostService;
 import com.acorngram.project.service.UsersService;
 
 @Controller
@@ -24,6 +30,10 @@ public class MainController {
 	
 	@Autowired
 	private UsersService usersService;
+	
+	@Autowired PostService postService;
+	
+	@Autowired private FollowerService followerService;
 	
 	@RequestMapping(value="/users/signup.do", method = RequestMethod.POST)
 	public ModelAndView signup(@ModelAttribute UsersDto dto, ModelAndView mView) {
@@ -36,12 +46,14 @@ public class MainController {
 	@RequestMapping(value="/users/signin.do", method = RequestMethod.POST)
 	public 	ModelAndView signIn(@ModelAttribute UsersDto dto, ModelAndView mView, HttpServletRequest request) {
 		
-		boolean isSuccessful = usersService.validUser(dto, mView, request.getSession());
+		boolean isSuccessful = usersService.validUser(dto, mView, request.getSession(), request);
 		//원래 가려던 url 정보를 reqeust 에 담는다.
 //		String encodedUrl = URLEncoder.encode(request.getParameter("url"));
 //		request.setAttribute("encodedUrl", encodedUrl);
 		
 		if(isSuccessful) {
+			System.out.println("usercode in session? : "+request.getSession().getAttribute("usercode"));
+			System.out.println("id in session? : "+request.getSession().getAttribute("id"));
 			mView.setViewName("redirect:/home.do");
 		}
 		else {
@@ -97,5 +109,46 @@ public class MainController {
 	}
 	
 	
+	//==============follow/unfollow 작업 요청 부분 ===============
+	
+	@RequestMapping(value = "follower/follow.do", method = RequestMethod.POST)
+	public ModelAndView authFollow(HttpServletRequest request,@RequestParam int target_userCode) {
+		ModelAndView mView = new ModelAndView();
+		followerService.follow(target_userCode, request, mView);
+		//성공적으로 follow가 DB에 반영이 되었는지의 여부를 담아 JSON타입으로 mView에 담고 리턴하기
+		return mView;
+	}
+	
+	@RequestMapping(value = "follower/unfollow.do", method = RequestMethod.POST)
+	public ModelAndView authUnfollow(HttpServletRequest request, @RequestParam int target_userCode) {
+		ModelAndView mView = new ModelAndView();
+		followerService.unfollow(target_userCode, request, mView);
+		//성공적으로 unfollow가 DB에 반영이 되었는지의 여부를 담아 JSON타입으로 mView에 담고 리턴하기
+		return mView;
+	}
+	
+	@RequestMapping("follower/followerList.do")
+	public ModelAndView authFollowerList(HttpServletRequest request, @RequestParam int self_userCode) {
+		ModelAndView mView = new ModelAndView();
+		List<FollowerDto> list = followerService.followerList(self_userCode);
+		mView.addObject("followerList", list);
+		return mView;
+	}
+	
+	// ============= POST SECTION START =============
+	
+		// Upload content, img method
+		@RequestMapping("/post/list.do")
+		public ModelAndView postList(HttpServletRequest request) {
+			postService.getList(request);
+			return new ModelAndView("timeline");
+		}
+		
+		@RequestMapping("/post/write.do")
+		public ModelAndView authPostUload(@ModelAttribute PostDto dto, HttpServletRequest request) {
+			postService.savePost(dto, request);
+			return new ModelAndView("redirect:/post/list.do");
+		}
 
 }//UsersController END
+
