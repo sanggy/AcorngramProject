@@ -36,7 +36,7 @@
 				<c:otherwise>
 					<div class="header__user-info">
 						<button type="button">
-							<img src="${pageContext.request.contextPath}/resources/images/0.png" alt="" width="48" height="48"/>
+							<img src="${pageContext.request.contextPath}/${profile_img }" alt="" width="48" height="48"/>
 						</button>
 					</div>
 					<div class="header__writepost">
@@ -67,27 +67,27 @@
 	</nav>
 	
 	<div class="writepost container">
-		<form action="post/write.do" id="form__writepost" class="form__writepost" enctype="multipart/form-data" method="post">
-				<fieldset>
-					<legend>
-						<span>지금 내 앞엔?</span>
-						<button>
-							<i class="glyphicon glyphicon-check"></i> 
-							<span>전송</span>	
-						</button>
-					</legend>
-					<div class="form__writepost__body">
-						<label for="form__writepost-img">
-							<input type="file" name="file" id="form__writepost-img" accept="image/*" required/>
-							<div class="form__writepost__image">
-								<i class="glyphicon glyphicon-picture"></i>
-								<p>클릭해서 사진 파일 업로드</p>
-							</div>
-							<img id="preview" width="360">
-						</label>
-						<textarea name="content" class="form__writepost__content" placeholder="내용" required></textarea>
-					</div>
-				</fieldset>
+		<form action="post/write.do" id="writepost-form" class="writepost__form" enctype="multipart/form-data" method="post">
+			<fieldset>
+				<legend>
+					<span>지금 내 앞엔?</span>
+					<button>
+						<i class="glyphicon glyphicon-check"></i> 
+						<span>전송</span>	
+					</button>
+				</legend>
+				<div class="writepost__body">
+					<label for="writepost__img">
+						<input type="file" name="file" id="writepost-img" accept="image/*" required/>
+						<div class="writepost__image">
+							<i class="glyphicon glyphicon-picture"></i>
+							<p>클릭해서 사진 파일 업로드</p>
+						</div>
+						<img id="preview" width="360">
+					</label>
+					<textarea name="content" class="writepost__content" placeholder="내용" required></textarea>
+				</div>
+			</fieldset>
 		</form>
 	</div>
 </c:if>
