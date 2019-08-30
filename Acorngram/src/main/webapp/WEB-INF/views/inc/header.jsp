@@ -18,7 +18,7 @@
 						<input type="checkbox" class="toggler" id="signinform-toggler">
 						<label class="toggler" for="signinform-toggler">로그인</label>
 						<section class="header__signin-form">
-							<form action="users/signin.do" method="post" id="signUp" class="signin__form">
+							<form action="${pageContext.request.contextPath}/users/signin.do" method="post" id="signUp" class="signin__form">
 								<div class="form-group">
 									<label class="signin__label">아이디</label>
 									<input type="text" name="id" id="signup-id" class="form-control form-control-sm"/>
@@ -60,14 +60,14 @@
 				<span class="user-menu__user-id">@${id }</span>
 			</li>
 			<li class="user-menu__line"></li>
-			<li><i class="glyphicon--is-themed glyphicon-user"></i><a href="users/profile.do?usercode=${usercode }">프로필</a></li>
-			<li><i class="glyphicon--is-themed glyphicon-wrench"></i><a href="users/setting.do">설정</a></li>
-			<li><i class="glyphicon--is-themed glyphicon-log-out"></i><a href="users/signout.do">로그아웃</a></li>
+			<li><i class="glyphicon--is-themed glyphicon-user"></i><a href="${pageContext.request.contextPath}/users/profile.do?usercode=${usercode }">프로필</a></li>
+			<li><i class="glyphicon--is-themed glyphicon-wrench"></i><a href="${pageContext.request.contextPath}/users/setting.do">설정</a></li>
+			<li><i class="glyphicon--is-themed glyphicon-log-out"></i><a href="${pageContext.request.contextPath}/users/signout.do">로그아웃</a></li>
 		</ul>
 	</nav>
 	
 	<div class="writepost container">
-		<form action="post/write.do" id="writepost-form" class="writepost__form" enctype="multipart/form-data" method="post">
+		<form action="${pageContext.request.contextPath}/post/write.do" id="writepost-form" class="writepost__form" enctype="multipart/form-data" method="post">
 			<fieldset>
 				<legend>
 					<span>지금 내 앞엔?</span>
@@ -77,9 +77,9 @@
 					</button>
 				</legend>
 				<div class="writepost__body">
-					<label for="writepost__img">
+					<label for="writepost-img">
 						<input type="file" name="file" id="writepost-img" accept="image/*" required/>
-						<div class="writepost__image">
+						<div class="writepost__image-info">
 							<i class="glyphicon glyphicon-picture"></i>
 							<p>클릭해서 사진 파일 업로드</p>
 						</div>

@@ -46,9 +46,10 @@ function toggleWritePopup(){
 
 //	업로드전 이미지 표시
 
-$('.writepost__img').on('change', function (e) {
+$('#writepost-img').on('change', function (e) {
 	var reader = new FileReader();
 	reader.onload = function (e) {
+		$('.writepost__image-info')[0].style.display = 'none';
 		$("#preview").attr('src', e.target.result);
 	}
 	reader.readAsDataURL(e.target.files[0]);
