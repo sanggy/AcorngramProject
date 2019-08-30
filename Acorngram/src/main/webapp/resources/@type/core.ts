@@ -1,5 +1,40 @@
 // import * as $ from 'jquery';
 
+//	Timeline load시 실행
+
+(function loadPost(){
+	$('time').val(
+		new moment($(this).datetime).format('YYYY/MM/DD hh:mm:ss')
+	);
+	$('.post__btn-like').on('hover',function(){
+		console.dir($(this).children('.glyphicon'));
+		$(this).children('.glyphicon')
+			.toggleClass('glyphicon-heart')
+			.toggleClass('glyphicon-heart-empty');
+	});
+})();
+
+//	글쓰기 창 토글
+
+function toggleWritePopup(){
+	var block:HTMLElement = document.querySelector('.write-post');
+	block.classList.toggle('is-visible');
+}
+
+//	업로드전 이미지 표시
+
+$('#form__writepost-img').on('change', function (e) {
+	var reader = new FileReader();
+	reader.onload = function (e) {
+		$("#preview").attr('src', e.target.result);
+	}
+	reader.readAsDataURL(e.target.files[0]);
+});
+
+
+
+//	유저메뉴 토글
+
 var makeCover = ()=>{
 	var item = document.createElement('div');
 	item.className = 'cover';
@@ -29,6 +64,7 @@ const toggle = {
 	}
 }
 
+
 toggle.run(
 	document.querySelector('.header__user-info'),
 	document.querySelector('nav.user-menu'),
@@ -39,10 +75,11 @@ toggle.run(
 	false
 );
 
-function toggleWritePopup(){
-	var block:HTMLElement = document.querySelector('.write-post');
-	block.classList.toggle('is-visible');
-}
+//	유저메뉴 토글 끝
+
+
+
+//	특정조작시 리다이렉트
 
 function confirmAccess(url){
 	var result:boolean = window.confirm('정말로 하시겠습니까?');
@@ -76,17 +113,7 @@ function likeControl(num){
 	})
 	.catch(error=>{
 //	테스트용 실제로는 x
-
-		switch (mode){
-			case 'unlike':
-				flag.querySelector('i').classList.replace('glyphicon-heart', 'glyphicon-heart-empty');
-				flag.classList.remove('liked');
-				break;
-			case 'like':
-				flag.querySelector('i').classList.replace('glyphicon-heart-empty', 'glyphicon-heart');
-				flag.classList.add('liked');
-				break;
-			}
+		window.alert('서버와 통신 도중 에러가 발생했습니다.');
 	})
 
 	// $.ajax({
@@ -114,19 +141,16 @@ function deletePost(num){
 	if(result){
 		fetch('post/delete.do?num='+num)
 		.then(res=>res.json())
-		.then(
-			res=>{
+		.then(res=>{
 				if(res.result){
 					window.alert('성공적으로 삭제되었습니다.');
 					$('.post-'+num).fadeOut(300, function() { $(this).remove(); });
 				}else{
 					window.alert('오류가 발생했습니다.');
 				}
-			}
-		).catch(
+		}).catch(
 			error=>{
-				//	테스트용 실제로는 x
-				$('.post-'+num).fadeOut(300, function() { $(this).remove(); });
+				window.alert('서버와 통신 도중 에러가 발생했습니다.')
 			}
 		)
 
@@ -186,26 +210,11 @@ function followAjax(url, usercode){
 	return fetch(url+'usercode='+usercode)
 	.then(res=>res.json())
 	.then(res=>{return res.result;})
-	.catch(err=>{return true;}) // 테스트용 실제로는 반대로 
+	.catch(err=>{return false;}) // 테스트용 실제로는 반대로 
 }
 
+//	팔로우 언팔 끝
 
-(function loadPost(){
-	$('time').val(
-		new moment($(this).datetime).format('YYYY/MM/DD hh:mm:ss')
-	);
-	$('.post__btn-like').on('hover',function(){
-		console.dir($(this).children('.glyphicon'));
-		$(this).children('.glyphicon')
-			.toggleClass('glyphicon-heart')
-			.toggleClass('glyphicon-heart-empty');
-	});
-})();
 
-$('#form__writepost-img').on('change', function (e) {
-	var reader = new FileReader();
-	reader.onload = function (e) {
-		$("#preview").attr('src', e.target.result);
-	}
-	reader.readAsDataURL(e.target.files[0]);
-});
+
+

@@ -36,7 +36,7 @@
 				<c:otherwise>
 					<div class="header__user-info">
 						<button type="button">
-							<img src="${pageContext.request.contextPath}/resources/images/0.png" alt="" width="48" height="48"/>
+							<img src="${pageContext.request.contextPath}/${profile_img }" alt="" width="48" height="48"/>
 						</button>
 					</div>
 					<div class="header__writepost">

@@ -6,9 +6,7 @@
 @import 'writepost';
 
 .timeline{
-	position: relative;
-	margin-top: -330px;
-	transition: all .2s ease;
+	@include flexbox($wrap:wrap, $horizen: space-between)
 }
 
 .post{
