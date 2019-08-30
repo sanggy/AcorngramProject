@@ -14,9 +14,9 @@
 		<nav class="detail__header">
 			
 		</nav>
-		<article class="post post-${num }">
+		<article class="post post-${post.num }">
 			<div class="post__img" style="
-				background-image: url('${pageContext.request.contextPath}/upload/${post.image }')">
+				background-image: url('${pageContext.request.contextPath}/upload/${post.saveFileName }')">
 			</div>
 
 			<div class="post__content">
@@ -50,7 +50,7 @@
 				<div class="post__info">
 					<div class="post__like ">
 						<c:choose>
-							<c:when test="${post.liked}">
+							<c:when test="post.like">
 							<%-- 이 게시글에 like 했다면 --%>
 								<a href="javascript:likeControl(${i})" class="post__btn-like liked"><i class="glyphicon glyphicon-heart "></i></a>
 							</c:when>
@@ -78,12 +78,12 @@
 					</div>
 					<div class="comment__area">
 						<ul class="comment__list">
-						<c:forEach var="cmt" items="">
-							<c:choose>
-								<c:when test="${cmt.deleted eq no }">
+						<c:forEach var="cmt" items="${commentList }">
+							<%-- <c:choose>
+								<c:when test="${cmt.deleted eq no }"> --%>
 									<li>
 										<p>
-											<strong>${cmt.writer } </strong>
+											<strong>${cmt.usercode } </strong>
 											<span>${cmt.content } </span>
 										</p>
 										<p>
@@ -94,11 +94,11 @@
 											</span>
 										</p>
 									</li>
-								</c:when>
+								<%-- </c:when>
 								<c:otherwise>
 									<li class="comment-deleted">삭제된 댓글 입니다.</li>
 								</c:otherwise>
-							</c:choose>
+							</c:choose> --%>
 						</c:forEach>
 						</ul>
 					</div>

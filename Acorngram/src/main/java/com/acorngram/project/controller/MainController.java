@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -68,7 +69,7 @@ public class MainController {
 	public ModelAndView authUpdateUserInfo(@ModelAttribute UsersDto dto, ModelAndView mView, HttpServletRequest request) {
 		//유저 정보 수정 하는 메소드 호출
 		usersService.updateUser(dto, request);
-		mView.setViewName("users/settings.do");
+		mView.setViewName("users/setting.do");
 		return mView;
 	}
 	
@@ -102,6 +103,11 @@ public class MainController {
 	public String logout(HttpServletRequest request, ModelAndView mView) {
 		request.getSession().invalidate();
 		return "redirect:/home.do";
+	}
+	
+	@RequestMapping("/users/setting.do")
+	public ModelAndView authUsersSetting(HttpServletRequest request, ModelAndView mView) {
+		return new ModelAndView("users/settings");
 	}
 	
 	
@@ -159,6 +165,26 @@ public class MainController {
 				map.put("result", false);
 			}
 			return map;
+		}
+		
+		//호진이가 다음에 AJAX로 사용할때 활용한대
+//		@RequestMapping("/post/detail.do")
+//		@ResponseBody
+//		public Map<String, Object> authDetail(HttpServletRequest request, HttpServletResponse response,@RequestParam int num){
+//			Map<String, Object> map = new HashMap<>();
+//			postService.getPostData(map, num);
+//			//map을 리턴해줌
+//			return map;
+//		}
+		
+		@RequestMapping("/post/detail.do")
+		public ModelAndView authDetail(HttpServletRequest request, @RequestParam int num, ModelAndView mView) {
+			postService.getPostData(num, request, mView);
+			
+			//check if mView added objects have crossed over
+			System.out.println("controller에서의 commentList : " + request.getAttribute("commentList"));
+			
+			return mView;
 		}
 	
 }//UsersController END

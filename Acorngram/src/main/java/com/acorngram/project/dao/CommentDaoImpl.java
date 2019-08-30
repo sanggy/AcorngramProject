@@ -14,26 +14,26 @@ public class CommentDaoImpl implements CommentDao{
 
 	@Override
 	public List<CommentDto> getList(int ref_group) {
-		return session.selectList("comment.getList", ref_group);
+		return session.selectList("comments.getList", ref_group);
 	}
 
 	@Override
 	public void delete(int num) {
-		session.delete("comment.delete", num);
+		session.delete("comments.delete", num);
 	}
 
 	@Override
 	public void insert(CommentDto dto) {
-		session.insert("comment.insert", dto);
+		session.insert("comments.insert", dto);
 	}
 
 	@Override
 	public int getSequence() {
-		return session.selectOne("comment.getSequence");
+		return session.selectOne("comments.getSequence");
 	}
 
 	@Override
 	public void update(CommentDto dto) {
-		session.update("comment.update", dto);
+		session.update("comments.update", dto);
 	}
 }

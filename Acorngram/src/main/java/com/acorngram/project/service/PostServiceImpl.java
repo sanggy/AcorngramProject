@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -13,8 +14,10 @@ import org.springframework.stereotype.Repository;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.acorngram.project.dao.CommentDao;
 import com.acorngram.project.dao.PostDao;
 import com.acorngram.project.dao.UsersDao;
+import com.acorngram.project.dto.CommentDto;
 import com.acorngram.project.dto.PostDto;
 import com.acorngram.project.dto.UsersDto;
 
@@ -26,6 +29,8 @@ public class PostServiceImpl implements PostService {
 	
 	@Autowired
 	private PostDao postDao;
+	
+	@Autowired CommentDao commentDao;
 	
 	
 	// 리스트 불러오기 
@@ -232,9 +237,50 @@ public class PostServiceImpl implements PostService {
 	}
 
 	@Override
-	public void getPostData(ModelAndView mView, int num) {
-		// TODO Auto-generated method stub
+	public void getPostData(int num, HttpServletRequest request, ModelAndView mView) {
+		//num번의 post 정보를 먼저 가지고 와서 담는다
+		PostDto postDto = postDao.getData(num);
+		System.out.println("Post Service부분에서 postDto의 정보가 확인이 된다? : " + postDto.getNum());
 		
+		//postDto의 num은 comments의 ref_group 번호와 같아야 한다...
+		int ref_group = postDto.getNum();
+		
+		//가지고 온 postDto의 정보와 관련된 모든 comments를 불러와서 List<CommentDto>에 담는다
+		List<CommentDto> commentList = commentDao.getList(ref_group);
+		
+		//List가 생성이되서 값을 가지고 있는지 여부를 체크하는 중...
+		System.out.println("commentList가 정보를 가지고 있나? : " + commentList.size());
+		
+		//댓글과 포스트 정보를 다 불러왔으면 이제 Map에 put을 통해 JSON형으로 response해준다.
+		mView.addObject("post", postDto);
+		mView.addObject("commentList", commentList);
+		mView.setViewName("post/detail");
+		
+		System.out.println("POST SERVICE 입니다 : " + postDto.getNum());
+		System.out.println(commentList.get(0).getContent());
 	}
+
+//	@Override
+//	public void getPostData(Map<String, Object> map, int num) {
+//		//num번의 post 정보를 먼저 가지고 와서 담는다
+//		PostDto postDto = postDao.getData(num);
+//		System.out.println("Post Service부분에서 postDto의 정보가 확인이 된다? : " + postDto.getNum());
+//		
+//		//postDto의 num은 comments의 ref_group 번호와 같아야 한다...
+//		int ref_group = postDto.getNum();
+//		
+//		//가지고 온 postDto의 정보와 관련된 모든 comments를 불러와서 List<CommentDto>에 담는다
+//		List<CommentDto> commentList = commentDao.getList(ref_group);
+//		
+//		//List가 생성이되서 값을 가지고 있는지 여부를 체크하는 중...
+//		System.out.println("commentList가 정보를 가지고 있나? : " + commentList.size());
+//		
+//		//댓글과 포스트 정보를 다 불러왔으면 이제 Map에 put을 통해 JSON형으로 response해준다.
+//		map.put("postDto", postDto);
+//		map.put("commentList", commentList);
+//	}
+	
+	
+
 
 }
