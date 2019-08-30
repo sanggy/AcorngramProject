@@ -16,7 +16,7 @@ a{
 .container{
 	width: $lg;
 	margin: auto;
-	&-fluid{
+	&-full{
 		width: 100%;
 	}
 	@media screen and (max-width: $lg){

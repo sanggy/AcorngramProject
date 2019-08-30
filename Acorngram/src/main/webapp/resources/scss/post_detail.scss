@@ -12,10 +12,10 @@
 	width: 100%;
 	min-height: 250px;
 	box-sizing: border-box;
+	transition: all .2s ease;
 
 	@include material-box;
-	@include flexbox($horizen: space-between)
-	transition: all .2s ease;
+	@include flexbox($horizen: space-between);
 
 	@media screen and(max-width:$md){
 		flex-wrap: wrap;

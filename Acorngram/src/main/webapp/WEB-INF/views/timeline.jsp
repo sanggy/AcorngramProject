@@ -17,11 +17,13 @@
 					<article class="post" id="post-${post.num }">
 						<div class="post__header">
 							<div class="post__header-left">
-								<img src="" alt="" class="post__icon"/>
-								<hgroup>
-									<h5 class="post__header-name"> ${post.usercode } </h5>
-									<h6 class="post__header-id"> @${post.id } </h6>
-								</hgroup>
+								<a href="users/profile.do?num=${post.usercode }">
+									<img src="" alt="" class="post__icon"/>
+									<hgroup>
+										<h5 class="post__header-name"> ${post.usercode } </h5>
+										<h6 class="post__header-id"> @${post.id } </h6>
+									</hgroup>
+								</a>
 							</div>
 							<div class="post__header-right">
 							<c:choose>

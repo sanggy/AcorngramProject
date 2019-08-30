@@ -11,4 +11,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment-timezone/0.5.26/moment-timezone.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/locale/ko.js"></script>
+<script>
+	sessionStorage.setItem("cpath", '${pageContext.request.contextPath}');
+</script>
 <script src="${pageContext.request.contextPath}/resources/js/core.js"></script>

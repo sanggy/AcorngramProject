@@ -1,5 +1,11 @@
 // import * as $ from 'jquery';
 
+//	getCpath
+function getCpath(){
+	return sessionStorage.getItem('cpath')+'/';
+}
+const cpath = getCpath();
+
 //	Timeline load시 실행
 (function loadPost(){
 	moment.locale('ko');
@@ -25,13 +31,11 @@
 	$('.post').on('click',function(e){
 		const num:number = $(this).attr('id').replace(/\D/g, "");
 		if(e.target.className.match(/img/)){
-			location.href='post/detail.do?num='+num;
+			location.href=cpath+'post/detail.do?num='+num;
 		}
 	});
 
 })();
-
-var test;
 
 //	글쓰기 창 토글
 
@@ -103,7 +107,7 @@ toggle.run(
 function confirmAccess(url){
 	var result:boolean = window.confirm('정말로 하시겠습니까?');
 	if(result){
-		location.href = url;
+		location.href = cpath+url;
 	}
 }
 
@@ -114,7 +118,8 @@ function likeControl(num){
 	const flag = document.querySelector('.post-'+num+' .post__like a');
 	const mode = flag.classList.contains('liked')?
 		'unlike':'like';
-	fetch('post/'+mode+'.do?num='+num)
+		console.log(flag);
+	fetch(cpath+'post/'+mode+'.do?num='+num)
 	.then(res=>res.json())
 	.then(res=>{
 		if(res.result) {
@@ -158,7 +163,7 @@ function likeControl(num){
 function deletePost(num){
 	var result:boolean = window.confirm('정말로 삭제하시겠습니까?');
 	if(result){
-		fetch('post/delete.do?num='+num)
+		fetch(cpath+'post/delete.do?num='+num)
 		.then(res=>res.json())
 		.then(res=>{
 				if(res.result){
@@ -198,7 +203,7 @@ function deletePost(num){
 //	팔로우/언팔 버튼
 
 function followToggle(usercode){
-	let url = "follwer/follow.do";
+	let url = cpath+"follwer/follow.do";
 	const result = followAjax(url, usercode);
 	if(result){
 		window.alert('성공적으로 팔로우되었습니다.');
@@ -226,7 +231,7 @@ function unfollowToggle(usercode){
 }
 
 function followAjax(url, usercode){
-	return fetch(url+'?usercode='+usercode)
+	return fetch(cpath+url+'?usercode='+usercode)
 	.then(res=>res.json())
 	.then(res=>{return res.result;})
 	.catch(err=>{return false;}) // 테스트용 실제로는 반대로 

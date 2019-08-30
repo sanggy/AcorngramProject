@@ -11,7 +11,10 @@
 <body>
 	<jsp:include page="../inc/header.jsp" />
 	<main>
-		<article class="post post-${i }">
+		<nav class="detail__header">
+			
+		</nav>
+		<article class="post post-${num }">
 			<div class="post__img" style="
 				background-image: url('${pageContext.request.contextPath}/upload/${post.image }')">
 			</div>
