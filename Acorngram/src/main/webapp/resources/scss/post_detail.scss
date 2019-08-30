@@ -5,6 +5,13 @@
 
 @import 'writepost';
 
+.detail{
+	&__header{
+		@include bordered-box();
+		margin-top: 2%;
+	}
+}
+
 .post{
 	// position: absolute;
 	margin: 5% 0;
