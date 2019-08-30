@@ -155,8 +155,24 @@ public class PostServiceImpl implements PostService {
 	}
 
 	@Override
-	public void removePostInfo(int num, HttpServletRequest request, HttpServletResponse response) {
-		postDao.delete(num);
+	public boolean removePostInfo(int num, HttpServletRequest request, HttpServletResponse response) {
+		// 삭제 할 정보 가지고 오기 
+		PostDto postDto = postDao.getData(num);
+		// 1. 파일 시스템에서 파일 삭제
+		String saveFileName = postDto.getSaveFileName();
+		// 2. 삭제할 파일의 절대 경로 
+		String path = request.getServletContext().getRealPath("/upload")+
+				File.separator+saveFileName;
+		// 파일 객체를 이용해서 삭제
+		new File(path).delete();
+		// DB 삭제 
+		int deletedRows = postDao.delete(num);
+		if(deletedRows > 0) {
+			return true;
+		} else {
+			return false;
+		}
+		
 	}
 
 	@Override

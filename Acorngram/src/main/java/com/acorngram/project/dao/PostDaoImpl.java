@@ -26,7 +26,8 @@ public class PostDaoImpl implements PostDao{
 
 	@Override
 	public PostDto getData(int num) {
-		//post를 선택하면 다른 뷰페이지에 보이기위해 사용될 post 하나 불러오는 메소드
+		// 1. post 삭제 시 post 정보 가지고 올떄 사용
+		// 2. post를 선택하면 다른 뷰페이지에 보이기위해 사용될 post 하나 불러오는 메소드
 		return session.selectOne("post.getData", num);
 	}
 
@@ -37,9 +38,9 @@ public class PostDaoImpl implements PostDao{
 	}
 
 	@Override
-	public void delete(int num) {
+	public int delete(int num) {
 		//post를 삭제 하는 메소드
-		session.delete("post.delete", num);
+		return session.delete("post.delete", num);
 	}
 
 	@Override

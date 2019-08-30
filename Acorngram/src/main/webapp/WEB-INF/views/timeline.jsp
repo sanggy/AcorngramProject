@@ -24,7 +24,7 @@
 							<div class="post__header-left">
 								<img src="" alt="" class="post__icon"/>
 								<hgroup>
-									<h5 class="post__header-name"> ${post.nickname } </h5>
+									<h5 class="post__header-name"> ${post.usercode } </h5>
 									<h6 class="post__header-id"> @${post.id } </h6>
 								</hgroup>
 							</div>
@@ -48,7 +48,9 @@
 							</div>
 						</div>
 						<div class="post__img" style="
-							background-image: url('${pageContext.request.contextPath}/upload/${post.image }')">
+
+							background-image: url('${pageContext.request.contextPath}/upload/${post.saveFileName }')">
+
 						</div>
 						<div class="post__info">
 							<div class="post__like">
@@ -69,7 +71,7 @@
 							</div>
 						</div>
 						<div class="post__body">
-							<h3>${post.name } </h3>
+							<h3>${post.nickname } </h3>
 							<p>${post.content }</p>
 						</div>
 					</article>
@@ -132,7 +134,7 @@
 					</div>
 				</div>
 				<div class="post__body">
-					<h3>${post.name } </h3>
+					<h3>${post.nickname } </h3>
 					<p>${post.content }</p>
 				</div>
 			</div>
