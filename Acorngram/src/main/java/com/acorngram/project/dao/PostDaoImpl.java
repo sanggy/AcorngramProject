@@ -38,9 +38,9 @@ public class PostDaoImpl implements PostDao{
 	}
 
 	@Override
-	public void delete(int num) {
+	public int delete(int num) {
 		//post를 삭제 하는 메소드
-		session.delete("post.delete", num);
+		return session.delete("post.delete", num);
 	}
 
 	@Override

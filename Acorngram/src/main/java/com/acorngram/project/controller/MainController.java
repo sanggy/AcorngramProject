@@ -149,10 +149,16 @@ public class MainController {
 		}
 		// POST 삭제
 		@RequestMapping("/post/delete.do")
-		public ModelAndView authDelete(HttpServletRequest request, HttpServletResponse response,
+		@ResponseBody
+		public Map<String, Object> authDelete(HttpServletRequest request, HttpServletResponse response,
 				@RequestParam int num) {
-			postService.removePostInfo(num, request, response);
-			return new ModelAndView("redirect:/timeline.do");
+			Map<String, Object> map = new HashMap<>();
+			if(postService.removePostInfo(num, request, response)) {
+				map.put("result", true);
+			}else {
+				map.put("result", false);
+			}
+			return map;
 		}
 	
 }//UsersController END
