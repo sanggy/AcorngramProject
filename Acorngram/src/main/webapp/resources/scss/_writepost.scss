@@ -1,5 +1,5 @@
 .writepost{
-	position: absolute;
+	position: fixed;
 	top: $header-height;
 	left: calc(50% - #{$lg/2});
 
