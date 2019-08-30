@@ -57,7 +57,7 @@ public class MainController {
 			mView.setViewName("redirect:/home.do");
 		}
 		else {
-			mView.setViewName("users/tryagainasshole.do");
+			mView.setViewName("/users/tryagainasshole.do");
 		}
 
 		return mView;	
@@ -83,14 +83,14 @@ public class MainController {
 		return map;
 	}
 	
-	@RequestMapping("users/checkid.do")
+	@RequestMapping("/users/checkid.do")
 	@ResponseBody
 	public Map<String, Object> checkid(@RequestParam String inputId){
 		Map<String, Object> map = usersService.isExistId(inputId);
 		return map;
 	}
 	
-	@RequestMapping("users/delete.do")
+	@RequestMapping("/users/delete.do")
 	public ModelAndView authdelete(HttpServletRequest request) {
 		
 		usersService.deleteUser(request.getSession());
@@ -103,15 +103,11 @@ public class MainController {
 		return "redirect:/home.do";
 	}
 	
-	@RequestMapping("timeline.do")
-	public String timeline(HttpServletRequest request) {
-		return "timeline";
-	}
 	
 	
 	//==============follow/unfollow 작업 요청 부분 ===============
 	
-	@RequestMapping(value = "follower/follow.do", method = RequestMethod.POST)
+	@RequestMapping(value = "/follower/follow.do", method = RequestMethod.POST)
 	public ModelAndView authFollow(HttpServletRequest request,@RequestParam int target_userCode) {
 		ModelAndView mView = new ModelAndView();
 		followerService.follow(target_userCode, request, mView);
@@ -119,7 +115,7 @@ public class MainController {
 		return mView;
 	}
 	
-	@RequestMapping(value = "follower/unfollow.do", method = RequestMethod.POST)
+	@RequestMapping(value = "/follower/unfollow.do", method = RequestMethod.POST)
 	public ModelAndView authUnfollow(HttpServletRequest request, @RequestParam int target_userCode) {
 		ModelAndView mView = new ModelAndView();
 		followerService.unfollow(target_userCode, request, mView);
@@ -127,7 +123,7 @@ public class MainController {
 		return mView;
 	}
 	
-	@RequestMapping("follower/followerList.do")
+	@RequestMapping("/follower/followerList.do")
 	public ModelAndView authFollowerList(HttpServletRequest request, @RequestParam int self_userCode) {
 		ModelAndView mView = new ModelAndView();
 		List<FollowerDto> list = followerService.followerList(self_userCode);
@@ -138,16 +134,17 @@ public class MainController {
 	// ============= POST SECTION START =============
 	
 		// Upload content, img method
-		@RequestMapping("/post/list.do")
+		@RequestMapping("/timeline.do")
 		public ModelAndView postList(HttpServletRequest request) {
 			postService.getList(request);
 			return new ModelAndView("timeline");
 		}
 		
+		//timeline.do 요청 했을때
 		@RequestMapping("/post/write.do")
 		public ModelAndView authPostUload(@ModelAttribute PostDto dto, HttpServletRequest request) {
 			postService.savePost(dto, request);
-			return new ModelAndView("redirect:/post/list.do");
+			return new ModelAndView("redirect:/timeline.do");
 		}
 
 }//UsersController END
