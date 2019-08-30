@@ -12,11 +12,13 @@ public class PostDto {
 	private String saveFileName;
 	private long fileSize;
 	
-	private String name, id;
+	//users_db와 post_db INNER JOIN한 SQL문에 추가된 정보
+	private String id, nickname, profile_img;
 	
 	//페이징 처리를 위한 필드
 	private int startRowNum;
 	private int endRowNum;
+	
 
 	// <input type="file" name="file"/> 에서 name 속성의 value 와 동일한 필드명으로 
 	// MultipartFile type 필드를 선언해야 한다.
@@ -27,7 +29,7 @@ public class PostDto {
 
 
 	public PostDto(int num, int usercode, String content, String image, String video, String regdate, int like_count,
-			String saveFileName, long fileSize, String name, String id, int startRowNum, int endRowNum,
+			String saveFileName, long fileSize, String id, String nickname, String profile_img, int startRowNum, int endRowNum,
 			MultipartFile file) {
 		super();
 		this.num = num;
@@ -39,8 +41,9 @@ public class PostDto {
 		this.like_count = like_count;
 		this.saveFileName = saveFileName;
 		this.fileSize = fileSize;
-		this.name = name;
 		this.id = id;
+		this.nickname = nickname;
+		this.profile_img = profile_img;
 		this.startRowNum = startRowNum;
 		this.endRowNum = endRowNum;
 		this.file = file;
@@ -136,17 +139,6 @@ public class PostDto {
 		this.fileSize = fileSize;
 	}
 
-
-	public String getName() {
-		return name;
-	}
-
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
-
 	public String getId() {
 		return id;
 	}
@@ -154,6 +146,26 @@ public class PostDto {
 
 	public void setId(String id) {
 		this.id = id;
+	}
+	
+
+	public String getNickname() {
+		return nickname;
+	}
+
+
+	public void setNickname(String nickname) {
+		this.nickname = nickname;
+	}
+
+
+	public String getProfile_img() {
+		return profile_img;
+	}
+
+
+	public void setProfile_img(String profile_img) {
+		this.profile_img = profile_img;
 	}
 
 

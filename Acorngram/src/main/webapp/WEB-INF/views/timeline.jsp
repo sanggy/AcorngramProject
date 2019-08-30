@@ -13,7 +13,7 @@
 	<main>
 		<div class="container">
 			<c:if test="${not empty list }">
-				<c:forEach var="post" items="${list}">
+				<c:forEach var="post" items="${list }">
 					<article class="post post-${post.num }">
 						<div class="post__header">
 							<div class="post__header-left">
@@ -43,7 +43,9 @@
 							</div>
 						</div>
 						<div class="post__img" style="
-							background-image: url('${pageContext.request.contextPath}/upload/${post.image}')">
+
+							background-image: url('${pageContext.request.contextPath}/upload/${post.saveFileName }')">
+
 						</div>
 						<div class="post__info">
 							<div class="post__like">
@@ -64,7 +66,7 @@
 							</div>
 						</div>
 						<div class="post__body">
-							<h3>${post.name } </h3>
+							<h3>${post.nickname } </h3>
 							<p>${post.content }</p>
 						</div>
 					</article>
@@ -104,7 +106,7 @@
 					</div>
 				</div>
 				<div class="post__img" style="
-					background-image: url('${pageContext.request.contextPath}/upload/${post.image }')">
+					background-image: url('${pageContext.request.contextPath}/upload/${post.saveFileNam }')">
 				</div>
 				<div class="post__info">
 					<div class="post__like ">
@@ -125,7 +127,7 @@
 					</div>
 				</div>
 				<div class="post__body">
-					<h3>${post.name } </h3>
+					<h3>${post.nickname } </h3>
 					<p>${post.content }</p>
 				</div>
 			</article>
