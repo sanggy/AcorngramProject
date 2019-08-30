@@ -21,5 +21,14 @@
 		SELECT NVL(MAX(ROWNUM), 0) AS num
 		FROM post_db
 	</select>
+		<delete id="delete" parameterType="int">
+		DELETE FROM post_db
+		WHERE num = #{num}
+	</delete>
 	
+	<select id="getData" parameterType="int" resultType="postDto">
+		SELECT num, usercode, content, image, video, regdate, like_count, savefilename, filesize
+		FROM post_db
+		WHERE num = #{num}
+	</select>
 </mapper>

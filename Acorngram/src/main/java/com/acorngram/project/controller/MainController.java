@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -146,6 +147,13 @@ public class MainController {
 			postService.savePost(dto, request);
 			return new ModelAndView("redirect:/timeline.do");
 		}
-
+		// POST 삭제
+		@RequestMapping("/post/delete.do")
+		public ModelAndView authDelete(HttpServletRequest request, HttpServletResponse response,
+				@RequestParam int num) {
+			postService.removePostInfo(num, request, response);
+			return new ModelAndView("redirect:/timeline.do");
+		}
+	
 }//UsersController END
 
