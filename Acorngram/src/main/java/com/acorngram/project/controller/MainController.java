@@ -22,6 +22,7 @@ import com.acorngram.project.dto.CommentDto;
 import com.acorngram.project.dto.FollowerDto;
 import com.acorngram.project.dto.PostDto;
 import com.acorngram.project.dto.UsersDto;
+import com.acorngram.project.service.CommentsService;
 import com.acorngram.project.service.FollowerService;
 import com.acorngram.project.service.PostService;
 import com.acorngram.project.service.UsersService;
@@ -32,9 +33,11 @@ public class MainController {
 	@Autowired
 	private UsersService usersService;
 	
-	@Autowired PostService postService;
+	@Autowired private PostService postService;
 	
 	@Autowired private FollowerService followerService;
+	
+	@Autowired CommentsService commentsService;
 	
 	@RequestMapping(value="/users/signup.do", method = RequestMethod.POST)
 	public ModelAndView signup(@ModelAttribute UsersDto dto, ModelAndView mView) {
@@ -191,10 +194,11 @@ public class MainController {
 		
 //================================COMMENTS 요청 처리 부분 ===================================================
 		
-//		@RequestMapping("/comments/write.do")
-//		public ModelAndView authWrite(HttpServletRequest request, @ModelAttribute CommentDto commentDto) {
-//			
-//		}
+		@RequestMapping("/comment/write.do")
+		public ModelAndView authWrite(HttpServletRequest request, @ModelAttribute CommentDto commentDto) {
+			commentsService.writeComment(request, commentDto);
+			return new ModelAndView("redirect:/timeline.do");
+		}
 	
 }//UsersController END
 

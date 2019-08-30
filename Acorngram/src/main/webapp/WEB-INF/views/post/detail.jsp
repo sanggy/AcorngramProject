@@ -72,7 +72,10 @@
 					</div>
 					<div class="post__comment">
 						<div class="comment__form">
-							<form action="comment/write.do" method="post">
+							<form action="${pageContext.request.contextPath}/comment/write.do" method="post">
+								<input type="hidden" name="num" value="${post.num }" />
+								<input type="hidden" name="ref_group" value="${post.num }" />
+								<input type="hidden" name="target_code" value="${post.usercode }" />
 								<textarea name="content" id="comment-content"></textarea>
 								<button>전송</button>
 							</form>
@@ -90,8 +93,8 @@
 											<p>
 												<time datetime="${cmt.regdate }"></time>
 												<span>
-													<a href="comment/edit.do">수정</a>
-													<a href="comment/delete.do">삭제</a>
+													<a href="comment/edit.do?num=${cmt.num }">수정</a>
+													<a href="comment/delete.do?num=${cmt.num }">삭제</a>
 												</span>
 											</p>
 										</li>
