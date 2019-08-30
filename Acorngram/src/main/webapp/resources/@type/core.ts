@@ -17,7 +17,7 @@
 //	글쓰기 창 토글
 
 function toggleWritePopup(){
-	var block:HTMLElement = document.querySelector('.write-post');
+	var block:HTMLElement = document.querySelector('.writepost');
 	block.classList.toggle('is-visible');
 }
 
@@ -71,7 +71,7 @@ toggle.run(
 	true
 ).run(
 	document.querySelector('[class*="writepost"] button'),
-	document.querySelector('.writepost form'),
+	document.querySelector('.writepost'),
 	false
 );
 
