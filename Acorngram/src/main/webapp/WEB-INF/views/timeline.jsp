@@ -17,7 +17,7 @@
 					<article class="post" id="post-${post.num }">
 						<div class="post__header">
 							<div class="post__header-left">
-								<a href="users/profile.do?num=${post.usercode }">
+								<a href="${pageContext.request.contextPath}/users/profile.do?num=${post.usercode }">
 									<img src="" alt="" class="post__icon"/>
 									<hgroup>
 										<h5 class="post__header-name"> ${post.usercode } </h5>
@@ -75,9 +75,9 @@
 		</div>
 	</main>
 	
+	<template>
 	<div class="container timeline">
 		<article class="post post-${i }">
-
 			<div class="post__img" style="
 				background-image: url('${pageContext.request.contextPath}/upload/${post.image }')">
 			</div>
@@ -167,9 +167,9 @@
 					</div>
 				</div>
 			</div>
-			
 		</article>
 	</div>
+	</template>
 	<jsp:include page="inc/footer.jsp" />
 </body>
 </html>

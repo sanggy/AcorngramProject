@@ -23,11 +23,13 @@
 				<div class="post__content">
 					<div class="post__header">
 						<div class="post__header-left">
-							<img src="${post.profile_img }" alt="" class="post__icon"/>
-							<hgroup>
-								<h5 class="post__name"> ${post.nickname } </h5>
-								<h6 class="post__id"> @${post.id } </h6>
-							</hgroup>
+							<a href="${pageContext.request.contextPath}/users/profile.do?num=${post.usercode }">
+								<img src="${post.profile_img }" alt="" class="post__icon"/>
+								<hgroup>
+									<h5 class="post__name"> ${post.nickname } </h5>
+									<h6 class="post__id"> @${post.id } </h6>
+								</hgroup>
+							</a>
 						</div>
 						<div class="post__header-right">
 						<c:choose>
@@ -72,7 +74,7 @@
 					</div>
 					<div class="post__comment">
 						<div class="comment__form">
-							<form action="comment/write.do" method="post">
+							<form action="${pageContext.request.contextPath}/comment/write.do" method="post">
 								<textarea name="content" id="comment-content"></textarea>
 								<button>전송</button>
 							</form>
