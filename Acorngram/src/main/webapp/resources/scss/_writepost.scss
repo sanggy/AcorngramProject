@@ -84,16 +84,18 @@
 	}
 
 	img#preview{
+		position: absolute;
+		top: 0;
+		left: 0;
 		width: 100%;
-		transform: translateY(50%);
 	}
 
-	&__image{
+	&__image-info{
 		position: absolute;
 		top: calc(50% - 50px/2);
 		left: calc(50% - 150px/2);
 		text-align: center;
-		color: #333;
+		color: lighten($color: $black, $amount: 15%);
 		p{
 			font-size: 0.9rem;
 			line-height: 1.75rem;

@@ -77,9 +77,9 @@
 					</button>
 				</legend>
 				<div class="writepost__body">
-					<label for="writepost__img">
+					<label for="writepost-img">
 						<input type="file" name="file" id="writepost-img" accept="image/*" required/>
-						<div class="writepost__image">
+						<div class="writepost__image-info">
 							<i class="glyphicon glyphicon-picture"></i>
 							<p>클릭해서 사진 파일 업로드</p>
 						</div>
