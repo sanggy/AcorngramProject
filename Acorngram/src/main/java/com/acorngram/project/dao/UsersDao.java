@@ -1,5 +1,7 @@
 package com.acorngram.project.dao;
 
+import java.util.List;
+
 import com.acorngram.project.dto.UsersDto;
 
 public interface UsersDao {
@@ -11,6 +13,9 @@ public interface UsersDao {
 	
 	//인자로 전달된 아이디에 해당한는 개인정보 리턴
 	public UsersDto getData(String id);
+	
+	//Search 할때 회원 정보 불러오기 
+	public List<UsersDto> getList(UsersDto dto);
 	
 	//회원 정보를 삭제
 	public void delete(String id);
@@ -29,6 +34,9 @@ public interface UsersDao {
 	
 	//회원 비번 수정 메소드
 	public void updatePwd(UsersDto dto);
+	
+	//get simple data
+	public int simpleData(String id);
 	
 	
 }

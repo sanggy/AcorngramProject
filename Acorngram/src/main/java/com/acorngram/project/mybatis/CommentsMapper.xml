@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="comments">
+	
+	<select id="getList" parameterType="int" resultType="commentDto">
+		SELECT num, usercode, content, target_code, ref_group, comment_group, deleted, regdate
+		FROM comment_db
+		WHERE ref_group = #{ref_group}
+	</select>
+	
+	<insert id="insert" parameterType="commentDto">
+		INSERT INTO comment_db
+		(num, usercode, content, target_code, ref_group, comment_group, regdate)
+		VALUES (#{num}, #{usercode}, #{content}, #{target_code}, #{ref_group}, #{comment_group}, SYSDATE)
+	</insert>
+
+	<select id="getSequence" resultType="int">
+		SELECT comment_seq.NEXTVAL
+		FROM dual
+	</select>
+	
+	<delete id="delete" parameterType="int">
+		UPDATE comment_db
+		SET deleted='yes'
+		WHERE num=#{num}
+	</delete>
+</mapper>

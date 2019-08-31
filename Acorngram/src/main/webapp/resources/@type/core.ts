@@ -1,5 +1,73 @@
 // import * as $ from 'jquery';
 
+//	getCpath
+function getCpath(){
+	return sessionStorage.getItem('cpath')+'/';
+}
+const cpath = getCpath();
+
+//	Timeline load시 실행
+(function loadPost(){
+	moment.locale('ko');
+
+	//	시간 설정
+	document.querySelectorAll('time').forEach(e=>{
+		var regdate = moment().utc(e.dateTime);
+		e.innerText = 
+			regdate
+		//	new moment(regdate).fromNow()
+	})
+
+	//	좋아요 버튼 hover 효과
+	$('.post__btn-like').on('hover',function(){
+		console.dir($(this).children('.glyphicon'));
+		$(this).children('.glyphicon')
+			.toggleClass('glyphicon-heart')
+			.toggleClass('glyphicon-heart-empty');
+	});
+
+	//	to post/detail?num=?
+
+	$('.post').on('click',function(e){
+		const num:number = $(this).attr('id').replace(/\D/g, "");
+		if(e.target.className.match(/img/)){
+			location.href=cpath+'post/detail.do?num='+num;
+		}
+	});
+
+	//	댓글 작성 textarea 자동 크기조절
+	var $textarea = $('#comment-content');
+	var lineHeight = parseInt($textarea.css('lineHeight'));
+	$textarea.on('input', function(e) {
+		var lines = ($(this).val() + '\n').match(/\n/g).length;
+		$(this).height(lineHeight * lines);
+	});
+	
+
+})();
+
+//	글쓰기 창 토글
+
+function toggleWritePopup(){
+	var block:HTMLElement = document.querySelector('.writepost');
+	block.classList.toggle('is-visible');
+}
+
+//	업로드전 이미지 표시
+
+$('#writepost-img').on('change', function (e) {
+	var reader = new FileReader();
+	reader.onload = function (e) {
+		$('.writepost__image-info')[0].style.display = 'none';
+		$("#preview").attr('src', e.target.result);
+	}
+	reader.readAsDataURL(e.target.files[0]);
+});
+
+
+
+//	유저메뉴 토글
+
 var makeCover = ()=>{
 	var item = document.createElement('div');
 	item.className = 'cover';
@@ -29,25 +97,27 @@ const toggle = {
 	}
 }
 
+
 toggle.run(
 	document.querySelector('.header__user-info'),
 	document.querySelector('nav.user-menu'),
 	true
 ).run(
 	document.querySelector('[class*="writepost"] button'),
-	document.querySelector('.writepost form'),
+	document.querySelector('.writepost'),
 	false
 );
 
-function toggleWritePopup(){
-	var block:HTMLElement = document.querySelector('.write-post');
-	block.classList.toggle('is-visible');
-}
+//	유저메뉴 토글 끝
+
+
+
+//	특정조작시 리다이렉트
 
 function confirmAccess(url){
 	var result:boolean = window.confirm('정말로 하시겠습니까?');
 	if(result){
-		location.href = url;
+		location.href = cpath+url;
 	}
 }
 
@@ -58,7 +128,8 @@ function likeControl(num){
 	const flag = document.querySelector('.post-'+num+' .post__like a');
 	const mode = flag.classList.contains('liked')?
 		'unlike':'like';
-	fetch('post/'+mode+'.do?num='+num)
+		console.log(flag);
+	fetch(cpath+'post/'+mode+'.do?num='+num)
 	.then(res=>res.json())
 	.then(res=>{
 		if(res.result) {
@@ -76,17 +147,7 @@ function likeControl(num){
 	})
 	.catch(error=>{
 //	테스트용 실제로는 x
-
-		switch (mode){
-			case 'unlike':
-				flag.querySelector('i').classList.replace('glyphicon-heart', 'glyphicon-heart-empty');
-				flag.classList.remove('liked');
-				break;
-			case 'like':
-				flag.querySelector('i').classList.replace('glyphicon-heart-empty', 'glyphicon-heart');
-				flag.classList.add('liked');
-				break;
-			}
+		window.alert('서버와 통신 도중 에러가 발생했습니다.');
 	})
 
 	// $.ajax({
@@ -112,21 +173,18 @@ function likeControl(num){
 function deletePost(num){
 	var result:boolean = window.confirm('정말로 삭제하시겠습니까?');
 	if(result){
-		fetch('post/delete.do?num='+num)
+		fetch(cpath+'post/delete.do?num='+num)
 		.then(res=>res.json())
-		.then(
-			res=>{
+		.then(res=>{
 				if(res.result){
 					window.alert('성공적으로 삭제되었습니다.');
 					$('.post-'+num).fadeOut(300, function() { $(this).remove(); });
 				}else{
 					window.alert('오류가 발생했습니다.');
 				}
-			}
-		).catch(
+		}).catch(
 			error=>{
-				//	테스트용 실제로는 x
-				$('.post-'+num).fadeOut(300, function() { $(this).remove(); });
+				window.alert('서버와 통신 도중 에러가 발생했습니다.')
 			}
 		)
 
@@ -155,7 +213,7 @@ function deletePost(num){
 //	팔로우/언팔 버튼
 
 function followToggle(usercode){
-	let url = "follwer/follow.do";
+	let url = cpath+"follwer/follow.do";
 	const result = followAjax(url, usercode);
 	if(result){
 		window.alert('성공적으로 팔로우되었습니다.');
@@ -183,29 +241,14 @@ function unfollowToggle(usercode){
 }
 
 function followAjax(url, usercode){
-	return fetch(url+'usercode='+usercode)
+	return fetch(cpath+url+'?usercode='+usercode)
 	.then(res=>res.json())
 	.then(res=>{return res.result;})
-	.catch(err=>{return true;}) // 테스트용 실제로는 반대로 
+	.catch(err=>{return false;}) // 테스트용 실제로는 반대로 
 }
 
+//	팔로우 언팔 끝
 
-(function loadPost(){
-	$('time').val(
-		new moment($(this).datetime).format('YYYY/MM/DD hh:mm:ss')
-	);
-	$('.post__btn-like').on('hover',function(){
-		console.dir($(this).children('.glyphicon'));
-		$(this).children('.glyphicon')
-			.toggleClass('glyphicon-heart')
-			.toggleClass('glyphicon-heart-empty');
-	});
-})();
 
-$('#form__writepost-img').on('change', function (e) {
-	var reader = new FileReader();
-	reader.onload = function (e) {
-		$("#preview").attr('src', e.target.result);
-	}
-	reader.readAsDataURL(e.target.files[0]);
-});
+
+

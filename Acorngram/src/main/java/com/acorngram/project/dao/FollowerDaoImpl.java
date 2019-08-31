@@ -13,9 +13,13 @@ public class FollowerDaoImpl implements FollowerDao{
 	@Autowired SqlSession session;
 
 	@Override
-	public void insert(FollowerDto dto) {
+	public boolean insert(FollowerDto dto) {
 		//초기 follower가 생기면 초기 리스트를 생성하는 메소드
-		session.insert("follower.insert", dto);
+		int isAdded = session.insert("follower.insert", dto);
+		if(isAdded > 0) {
+			return true;
+		}
+		return false;
 	}
 
 	@Override
@@ -25,14 +29,12 @@ public class FollowerDaoImpl implements FollowerDao{
 	}
 
 	@Override
-	public void update(FollowerDto dto) {
-		//초기follower가 추가된 이후 추가되는 follower들을 위한 메소드-> additional followers being added to the list
-		session.update("follower.update", dto);
-	}
-
-	@Override
-	public void delete(FollowerDto dto) {
+	public boolean delete(FollowerDto dto) {
 		//상대 유저가 unfollowe 하면 사용될 메소드
-		session.delete("follower.delete", dto);
+		int isRemoved = session.delete("follower.delete", dto);
+		if(isRemoved > 0) {
+			return true;
+		}
+		return false;
 	}
 }

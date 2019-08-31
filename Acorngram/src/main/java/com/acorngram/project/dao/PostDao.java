@@ -18,7 +18,7 @@ public interface PostDao {
 	public void update(PostDto dto);
 	
 	//삭제 메소드
-	public void delete(int num);
+	public int delete(int num);
 	
 	//전체 post의 갯수 (나중에 페이지 처리할 때 사용할 메소드)
 	public int getCount(PostDto dto);

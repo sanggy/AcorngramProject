@@ -1,5 +1,7 @@
 package com.acorngram.project.dao;
 
+import java.util.List;
+
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -70,6 +72,18 @@ public class UsersDaoImpl implements UsersDao{
 	public void updatePwd(UsersDto dto) {
 		session.update("users.updatePwd", dto);
 	}
+
+	@Override
+	public List<UsersDto> getList(UsersDto dto) {
+		List<UsersDto> list = session.selectList("users.getSimpleData",dto);
+		return list;
+	}
+
+	@Override
+	public int simpleData(String id) {
+		return session.selectOne("users.getSimpleData", id);
+	}
+	
 	
 	
 }

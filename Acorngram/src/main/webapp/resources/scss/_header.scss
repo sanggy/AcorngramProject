@@ -117,38 +117,4 @@ header{
 	}
 }
 
-.user-menu{
-	position:fixed;
-	top:$header-height;
-	right:0;
-	padding: 16px;
-	width: 360px;
-	height: calc(100% - #{$header-height});
-	@include menu();
-	transform: translateX(360px);
-	transition: all .2s ease;
-	z-index: 3;
-	@media screen and (max-width:$sm){
-		top: $header-mobile-height;
-		height: calc(100% - #{$header-mobile-height});
-		width: 70vw;
-		transform: translateX(70vw);
-	}
-	&.is-active{
-		transform: translateX(0);
-	}
-	li{
-		padding: 5% 1%;
-		> [class*="glyphicon"]{
-			margin-right: 16px;
-		}
-	}
-	&__mini-profile{
-		color: $main-color;
-	}
-	&__line{
-		border-bottom: 1px solid $main-color;
-		padding: 0 !important;
-	}
-}
-
+@import 'user_menu';

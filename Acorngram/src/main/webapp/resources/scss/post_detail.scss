@@ -5,64 +5,85 @@
 
 @import 'writepost';
 
-.timeline{
-	@include flexbox($wrap:wrap, $horizen: space-between)
+.detail{
+	&__header{
+		@include bordered-box();
+		margin-top: 2%;
+	}
 }
 
 .post{
 	// position: absolute;
 	margin: 5% 0;
 	padding: 20px;
-	width: 45%;
+	width: 100%;
 	min-height: 250px;
 	box-sizing: border-box;
-
-	@include material-box;
-
 	transition: all .2s ease;
 
-	@media screen and (max-width:$md){
-		width: 100%;
+	@include material-box;
+	@include flexbox($horizen: space-between);
+
+	@media screen and(max-width:$md){
+		flex-wrap: wrap;
 	}
 
 	&__img{
-		width: 100%;
-		height: 345px;
+		width: 450px;
+		height: 450px;
 		background-size: cover;
 		background-position: center center;
 		border-radius: 8px;
-	}
-	
-	& > div{
-		margin-bottom: 20px;
-		&:last-child{
-			margin: 0;
+		@media screen and (max-width:$lg){
+			width: 350px;
+			height: 350px;
+		}
+		@media screen and(max-width:$xm){
+			width: 280px;
+			height: 280px;
+		}
+		@media screen and(max-width:$md){
+			width: 100%;
 		}
 	}
 
+	&__content{
+		flex:0.9;
+		height: auto;
+		@media screen and(max-width:$md){
+			flex:1;
+		}
+		& > div{
+			margin-bottom: 20px;
+			&:last-child{
+				margin: 0;
+			}
+		}
+	}
+	
 	&__header{
 		@include flexbox();
-		img{
-			width: $icon-size;
-			height: $icon-size;
-		}
 		hgroup{
 			float: right;
 			margin-left: 8px;
 		}
-		a[role="button"]{
+		a{
 			display: inline-block;
 			height: $icon-size;
 			padding: 0 16px;
 			line-height: $icon-size;
 		}
-		&-name{
-			font-size: 1.2rem;
-			line-height: 1.8rem;
-		}
-		&-id{
-			font-size: 0.8rem;
-		}
+	}
+	&__icon{
+		width: $icon-size;
+		height: $icon-size;
+	}
+	&__name{
+		font-size: 1.2rem;
+		line-height: 1.8rem;
+	}
+	&__id{
+		font-size: 0.8rem;
 	}
 
 	&__btn{
@@ -83,7 +104,6 @@
 		}	
 	}
 
-	
 	&__info{
 		@include flexbox($horizen: space-between);
 	}
@@ -101,6 +121,5 @@
 	}
 }
 
-$page-type : 'timeline';
+$page-type : 'detail';
 @import 'post_comment';
-

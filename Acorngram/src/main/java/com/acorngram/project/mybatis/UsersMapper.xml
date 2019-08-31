@@ -2,13 +2,19 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="users">
 	
-	<select id="getData" parameterType="String" resultType="UsersDto">
-		SELECT usercode, id, nickname, banned, email, pw, regdate, reported, dob, dm_range, acc_private, theme, profile_img
+	<select id="getData" parameterType="String" resultType="usersDto">
+		SELECT usercode, nickname, banned, email, pw, regdate, reported, dob, dm_range, acc_private, theme, profile_img
 		FROM users_db
 		WHERE id = #{id}
 	</select>
 	
-	<insert id="insert" parameterType="UsersDto" >
+	<select id="getSimpleData" parameterType="usersDto" resultType="int">
+		SELECT usercode
+		FROM users_db
+		WHERE id = #{id}
+	</select>
+	
+	<insert id="insert" parameterType="usersDto" >
 		INSERT INTO users_db
 		(usercode, id, nickname, pw, email, regdate)
 		VALUES(usercode_seq.NEXTVAL, #{id}, #{nickname},#{pw}, #{email}, SYSDATE)
@@ -22,7 +28,7 @@
 	
 	<select id="updateProfileImg" parameterType="UsersDto">
 		UPDATE users_db
-		SET profile_img = #{profileImg}
+		SET profile_img = #{profile_img}
 		WHERE id = #{id}
 	</select>
 
@@ -48,5 +54,5 @@
 		SET pw = #{pw}
 		WHERE id = #{id}
 	</update>
-	
+
 </mapper>

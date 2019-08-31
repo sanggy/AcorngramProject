@@ -39,7 +39,7 @@ public class UsersServiceImpl implements UsersService{
 
 	// 로그인 시 아이디 유무 체크 
 	@Override
-	public boolean validUser(UsersDto dto, ModelAndView mView, HttpSession session) {
+	public boolean validUser(UsersDto dto, ModelAndView mView, HttpSession session, HttpServletRequest request) {
 		//아이디 비밀번호가 유효한지 여부
 		boolean isValid = false;
 		
@@ -55,7 +55,9 @@ public class UsersServiceImpl implements UsersService{
 		if(isValid) {
 			//로그인 처리를 한다
 			session.setAttribute("id", dto.getId());
-			session.setAttribute("usercode", dto.getUsercode());
+			int userscode = dao.simpleData(dto.getId());
+//			System.out.println("usercode : " + userscode);
+			session.setAttribute("usercode", userscode);
 			return true;
 		}else {
 			return false;
@@ -126,7 +128,7 @@ public class UsersServiceImpl implements UsersService{
 		UsersDto dto = new UsersDto();
 		//아이디와 프로파일 이미지 경로 dto에 담고 보내기
 		dto.setId(id);
-		dto.setProfileImg(path);
+		dto.setProfile_img(path);
 		//UsersDao를 통해 DB에 src패스 반영하기
 		dao.updateProfileImg(dto);
 		

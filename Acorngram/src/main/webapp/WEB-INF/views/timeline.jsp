@@ -1,9 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%
-	session.setMaxInactiveInterval(600);
-	session.setAttribute("id", "test");
-%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -15,17 +11,19 @@
 <body>
 	<jsp:include page="inc/header.jsp" />
 	<main>
-		<div class="container">
+		<div class="timeline container">
 			<c:if test="${not empty list }">
-				<c:forEach var="post" items="list">
-					<article class="post post-${post.num }">
+				<c:forEach var="post" items="${list }">
+					<article class="post" id="post-${post.num }">
 						<div class="post__header">
 							<div class="post__header-left">
-								<img src="" alt="" class="post__icon"/>
-								<hgroup>
-									<h5 class="post__header-name"> ${post.name } </h5>
-									<h6 class="post__header-id"> @${post.id } </h6>
-								</hgroup>
+								<a href="${pageContext.request.contextPath}/users/profile.do?num=${post.usercode }">
+									<img src="" alt="" class="post__icon"/>
+									<hgroup>
+										<h5 class="post__header-name"> ${post.usercode } </h5>
+										<h6 class="post__header-id"> @${post.id } </h6>
+									</hgroup>
+								</a>
 							</div>
 							<div class="post__header-right">
 							<c:choose>
@@ -47,7 +45,7 @@
 							</div>
 						</div>
 						<div class="post__img" style="
-							background-image: url('${pageContext.request.contextPath}/upload/${post.image }')">
+							background-image: url('${pageContext.request.contextPath}/upload/${post.saveFileName }')">
 						</div>
 						<div class="post__info">
 							<div class="post__like">
@@ -68,24 +66,28 @@
 							</div>
 						</div>
 						<div class="post__body">
-							<h3>${post.name } </h3>
+							<h3>${post.nickname } </h3>
 							<p>${post.content }</p>
 						</div>
 					</article>
 				</c:forEach>
 			</c:if>
-			
 		</div>
 	</main>
-	<div class="container" style="display:flex;flex-wrap:wrap; justify-content:space-between;">
-		<!-- template-->
-			<article class="post post-${i }">
+	<template>
+	<div class="container timeline">
+		<article class="post post-${i }">
+			<div class="post__img" style="
+				background-image: url('${pageContext.request.contextPath}/upload/${post.image }')">
+			</div>
+
+			<div class="post__content">
 				<div class="post__header">
 					<div class="post__header-left">
-						<img src="" alt="" class="post__icon"/>
+						<img src="${post.profile_img }" alt="" class="post__icon"/>
 						<hgroup>
-							<h5 class="post__header-name"> ${post.name } </h5>
-							<h6 class="post__header-id"> @${post.id } </h6>
+							<h5 class="post__name"> ${post.nickname } </h5>
+							<h6 class="post__id"> @${post.id } </h6>
 						</hgroup>
 					</div>
 					<div class="post__header-right">
@@ -107,9 +109,6 @@
 					</c:choose>
 					</div>
 				</div>
-				<div class="post__img" style="
-					background-image: url('${pageContext.request.contextPath}/upload/${post.image }')">
-				</div>
 				<div class="post__info">
 					<div class="post__like ">
 						<c:choose>
@@ -129,12 +128,47 @@
 					</div>
 				</div>
 				<div class="post__body">
-					<h3>${post.name } </h3>
+					<h3>${post.nickname } </h3>
 					<p>${post.content }</p>
 				</div>
-			</article>
-		<!--  /template-->
+				<div class="post__comment">
+					<div class="comment__form">
+						<form action="comment/write.do" method="post">
+							<textarea name="content" id="comment-content"></textarea>
+							<button>전송</button>
+						</form>
+					</div>
+					<div class="comment__area">
+						<ul class="comment__list">
+						<c:forEach var="cmt" items="">
+							<c:choose>
+								<c:when test="${cmt.deleted eq no }">
+									<li>
+										<p>
+											<strong>${cmt.writer } </strong>
+											<span>${cmt.content } </span>
+										</p>
+										<p>
+											<time datetime="${cmt.regdate }"></time>
+											<span>
+												<a href="comment/edit.do">수정</a>
+												<a href="comment/delete.do">삭제</a>
+											</span>
+										</p>
+									</li>
+								</c:when>
+								<c:otherwise>
+									<li class="comment-deleted">삭제된 댓글 입니다.</li>
+								</c:otherwise>
+							</c:choose>
+						</c:forEach>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</article>
 	</div>
+	</template>
 	<jsp:include page="inc/footer.jsp" />
 </body>
 </html>

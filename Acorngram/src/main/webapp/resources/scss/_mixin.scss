@@ -31,6 +31,13 @@
 	box-sizing: border-box;
 }
 
+@mixin bordered-box ($padding: 1.2rem){
+	padding: $padding;
+	border: 1px solid #aaa;
+	background: $white;
+	border-radius: 8px;
+}
+
 @mixin material-box ($bg: #fff) {
 	border-radius: 8px;
 	background: $bg;

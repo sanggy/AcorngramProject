@@ -15,6 +15,9 @@
   	<!-- mapper 설정 -->
   	<mappers>
 		<mapper resource="com/acorngram/project/mybatis/UsersMapper.xml"/>
+		<mapper resource="com/acorngram/project/mybatis/PostMapper.xml"/>
+		<mapper resource="com/acorngram/project/mybatis/CommentsMapper.xml"/>
+		<mapper resource="com/acorngram/project/mybatis/FollowMapper.xml"/>
   	</mappers>
   	
   </configuration>

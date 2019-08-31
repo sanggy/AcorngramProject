@@ -1,45 +1,58 @@
-.form__writepost{
-	box-sizing: border-box;
-	width: 100%;
-	padding: 20px;
-	@include material-box;
+.writepost{
+	position: fixed;
+	top: $header-height;
+	left: calc(50% - #{$lg/2});
+
 	transition: all .2s ease;
 	transform: translateY(-1500px);
+	z-index:10;
+
+	@media screen and(max-width:$lg){
+		left: 5%;
+	}
 
 	&.is-active{
 		transform: translateY(2vh);
 	}
 
-	fieldset{
-		padding: 24px;
-		border: 0;	
-		@include border-radius;
-		.flexbox{
-			@include flexbox($horizen:space-between, $wrap:nowrap);
-		}
-	}
-
-	legend{
+	&__form{
+		box-sizing: border-box;
 		width: 100%;
-		@include flexbox($horizen:space-between, $wrap:nowrap);
-		&>span{
-			font-size: 1.75rem;
-			font-weight: bold;
+		padding: 20px;
+		@include material-box;
+
+		fieldset{
+			padding: 24px;
+			border: 0;	
+			@include border-radius;
+			.flexbox{
+				@include flexbox($horizen:space-between, $wrap:nowrap);
+			}
 		}
-		button{
-			height: 100%;
-			padding: 8px 16px;
-			font-size: 1rem;
-			font-weight: bold;
-			box-sizing: border-box;
-			@media screen and(max-width:$sm){
-				span{
-					display: none;
+
+		legend{
+			width: 100%;
+			line-height: 1.75rem;
+			&>span{
+				float: left;
+				font-size: 1.75rem;
+				font-weight: bold;
+			}
+			&>button{
+				float:right;
+				height: 100%;
+				padding: 8px 16px;
+				font-size: 1rem;
+				font-weight: bold;
+				box-sizing: border-box;
+				@media screen and(max-width:$sm){
+					span{
+						display: none;
+					}
 				}
 			}
 		}
 	}
-
 	&__body{
 		height: 25vh;
 		min-height: 150px;
@@ -55,7 +68,7 @@
 		height: 0;
 		visibility: hidden;
 	}
-	label[for="form__writepost-img"]{
+	label{
 		position: relative;
 		width: 30%;
 		height: 25vh;
@@ -71,16 +84,18 @@
 	}
 
 	img#preview{
+		position: absolute;
+		top: 0;
+		left: 0;
 		width: 100%;
-		transform: translateY(50%);
 	}
 
-	&__image{
+	&__image-info{
 		position: absolute;
 		top: calc(50% - 50px/2);
 		left: calc(50% - 150px/2);
 		text-align: center;
-		color: #333;
+		color: lighten($color: $black, $amount: 15%);
 		p{
 			font-size: 0.9rem;
 			line-height: 1.75rem;
@@ -103,3 +118,4 @@
 		}
 	}
 }
+
