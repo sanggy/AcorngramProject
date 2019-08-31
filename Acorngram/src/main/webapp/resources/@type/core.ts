@@ -123,10 +123,11 @@ toggle.run(
 
 //	특정조작시 리다이렉트
 
-function confirmAccess(url){
-	var result:boolean = window.confirm('정말로 하시겠습니까?');
-	if(result){
-		location.href = cpath+url;
+function confirmAccess(act){
+	var prompt_msg = '정말로 '+act+'하시겠습니까? \n 하시려 한다면'+act+'를 입력해주세요.';
+	var result = prompt(prompt_msg);
+	if(act === result){
+		location.href = act+'.do';
 	}
 }
 

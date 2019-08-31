@@ -1,1 +1,36 @@
 @import 'common';
+
+@import 'header';
+@import 'footer';
+
+@import 'writepost';
+
+.user{
+    &-settings{
+        &__header{
+
+        }
+        &__body{
+            @include flexbox($align:column);
+            padding: 16px;
+	        border: 1px solid #f0f0f0;
+        }
+        &__button{
+            width: 100%;
+            padding: 16px;
+            box-sizing: border-box;
+            font-size: 1.2rem;
+        }
+    }
+    &__profile-img{
+
+    }
+    &__name{
+
+    }
+    &__id{
+
+    }
+}
+
+@import '_material-switcher';

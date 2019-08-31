@@ -17,7 +17,11 @@
 				<img src="${user.profile_img }" alt="${id }의 프로필 사진" class="profile__icon"/>
 			</div>
 			<div class="profile__info">
-				<ul>
+				<hgroup>
+					<h5 class="post__name"> ${post.nickname } </h5>
+					<h6 class="post__id"> @${post.id } </h6>
+				</hgroup>
+				<ul class="profile__user-count">
 					<li class="profile__post-count"></li>
 					<li class="profile__user-follow-count"></li>
 					<li class="profile__user-follower-count"></li>
