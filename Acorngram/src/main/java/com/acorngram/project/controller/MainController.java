@@ -33,9 +33,11 @@ public class MainController {
 	@Autowired
 	private UsersService usersService;
 	
-	@Autowired PostService postService;
+	@Autowired
+	private PostService postService;
 	
-	@Autowired private FollowerService followerService;
+	@Autowired
+	private FollowerService followerService;
 	
 	@RequestMapping(value="/users/signup.do", method = RequestMethod.POST)
 	public ModelAndView signup(@ModelAttribute UsersDto dto, ModelAndView mView) {
