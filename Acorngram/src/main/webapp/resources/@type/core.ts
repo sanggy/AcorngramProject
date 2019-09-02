@@ -208,7 +208,7 @@ function deletePost(num){
 		.then(res=>{
 				if(res.result){
 					window.alert('성공적으로 삭제되었습니다.');
-					$('.post-'+num).fadeOut(300, function() { $(this).remove(); });
+					$('#post-'+num).fadeOut(300, function() { $(this).remove(); });
 				}else{
 					window.alert('오류가 발생했습니다.');
 				}
@@ -302,7 +302,7 @@ $('#signUp').on('submit',()=>{
 	var pw:HTMLInputElement = document.querySelector('#signup-pw');
 	var pw_c:HTMLInputElement = document.querySelector('#signup-pw-c');
 	var email:HTMLInputElement = document.querySelector('#signup-email');
-	var msg;
+	var msg:string;
 	if(pw.value !== pw_c.value){
 		msg = '패스워드 확인에 패스워드와 동일하게 작성하세요';
 		alert(msg);
@@ -317,6 +317,32 @@ $('#signUp').on('submit',()=>{
 		return false;
 	}
 })
+
+$('.user-settings__form').on('submit',()=>{
+	var pw:HTMLInputElement = document.querySelector('input[name="pw"]');
+	var pw_c:HTMLInputElement  = document.querySelector('input[name="pw-c"]');
+	var email:HTMLInputElement  = document.querySelector('input[name="email"]');
+	var msg:string;
+	//	패스워드 변경 요청이라면?
+	if(pw){
+		if(pw.value !== pw_c.value){
+			msg = '패스워드 확인에 패스워드와 동일하게 작성하세요';
+			alert(msg);
+			return false;
+		}
+	}else if(email){
+		if( email.value.match(/[^\s]@[^\s]/) ){
+			msg = '이메일 형식이 올바르지 않습니다.';
+			alert(msg);
+			return false;
+		}
+	}else{
+		msg="실패"
+		alert(msg);
+		return false;
+	}
+});
+
 
 //	댓글 폼
 $('.comment__info a').on('click',function(){
