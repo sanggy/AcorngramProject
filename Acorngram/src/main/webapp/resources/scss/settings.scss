@@ -7,30 +7,76 @@
 
 .user{
     &-settings{
+		margin: 5% auto;
+		padding: 1rem;
+		background: $white;
         &__header{
-
+			margin-bottom: 1.5rem;
+			padding: 1rem;
+			@include flexbox();
+			img{
+				width: 80px;
+				height: 80px;
+			}
+			hgroup{
+				flex:0.9;
+			}
         }
         &__body{
             @include flexbox($align:column);
             padding: 16px;
-	        border: 1px solid #f0f0f0;
+			border: 1px solid #f0f0f0;
+			
+			.form-group:last-child{
+				>button,a[role="button"]{
+					display: block;
+					width: 100%;
+					margin: 0.8rem 0;
+					padding: 16px;
+					box-sizing: border-box;
+					font-size: 1rem;
+					text-align: center;
+				}
+			}
+
+			.toggler-wrap{
+				@include flexbox($horizen: space-around, $wrap: wrap);
+			}
+
         }
         &__button{
             width: 100%;
             padding: 16px;
             box-sizing: border-box;
             font-size: 1.2rem;
-        }
-    }
-    &__profile-img{
+		}
+		
+	}
+	
+	&__btn-change-pwd{
+		display: block;
+		width: 100%;
+		padding: 1rem;
+		text-align: center;
+		box-sizing: border-box;
+	}
 
+    &__profile-img{
+		width: 80px;
+		height: 80px;
     }
     &__name{
-
+		font-size: 1.5rem;
+		font-weight: normal;
     }
     &__id{
-
+		font-size: 1.2rem;
+		font-weight: normal;
     }
+}
+
+#profile-img{
+	display: none;
 }
 
 @import '_material-switcher';

@@ -7,5 +7,6 @@
 	<!-- meta property="og:image" content="http://ia.media-imdb.com/images/rock.jpg" /-->
 
 	<title>${param.title }</title>
-
+	
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/croppie/2.6.4/croppie.min.css" />
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/${param.css}.css">

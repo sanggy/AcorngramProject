@@ -6,7 +6,6 @@ function getCpath(){
 }
 const cpath = getCpath();
 
-
 //	json
 function getResultFromAjax(url, param:Map, type){
 	return fetch(url,{
@@ -78,15 +77,24 @@ function toggleWritePopup(){
 }
 
 //	업로드전 이미지 표시
-
-$('#writepost-img').on('change', function (e) {
-	var reader = new FileReader();
-	reader.onload = function (e) {
-		$('.writepost__image-info')[0].style.display = 'none';
-		$("#preview").attr('src', e.target.result);
-	}
-	reader.readAsDataURL(e.target.files[0]);
-});
+	//	post 작성
+	$('#writepost-img').on('change', function (e) {
+		var reader = new FileReader();
+		reader.onload = function (e) {
+			$('.writepost__image-info')[0].style.display = 'none';
+			$("#preview").attr('src', e.target.result);
+		}
+		reader.readAsDataURL(e.target.files[0]);
+	});
+	//	프로필 업로드시
+	$('#profile-img').on('change', function (e) {
+		var reader = new FileReader();
+		reader.onload = function (e) {
+			$("#user__profile-img").attr('src', e.target.result);
+		}
+		reader.readAsDataURL(e.target.files[0]);
+	});
+//	업로드전 이미지 표시 끝
 
 
 
@@ -138,11 +146,11 @@ toggle.run(
 
 //	특정조작시 리다이렉트
 
-function confirmAccess(act){
+function confirmAccess(act, url){
 	var prompt_msg = '정말로 '+act+'하시겠습니까? \n 하시려 한다면'+act+'를 입력해주세요.';
 	var result = prompt(prompt_msg);
 	if(act === result){
-		location.href = act+'.do';
+		location.href = url+'.do';
 	}
 }
 
@@ -311,3 +319,10 @@ $('#signUp').on('submit',()=>{
 		return false;
 	}
 })
+
+//	댓글 폼
+$('.comment__info a').on('click',function(){
+	$(this).parent().next().fadeToggle(250);
+});
+
+
