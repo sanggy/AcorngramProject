@@ -20,7 +20,6 @@
 					<label for="profile-img">
 						<input type="file" name="profile_file" id="profile-img" accept="image/*" />
 						<img id="user__profile-img" class="user__profile-img"
-						<%-- src="${pageContext.request.contextPath}/${user.profile_img}"--%>
 						src="${pageContext.request.contextPath}/${user.profile_img}"
 						alt="${user.id }의 프로필 이미지" />
 					</label>

@@ -15,7 +15,7 @@
 			<nav class="detail__header">
 				<a href="${pageContext.request.contextPath}/timeline.do"><i class="glyphicon glyphicon-chevron-left"></i> 돌아가기</a>
 			</nav>
-			<article class="post post-${post.num }">
+			<article class="post" id="post-${post.num }">
 				<div class="post__img" style="
 					background-image: url('${pageContext.request.contextPath}/upload/${post.saveFileName }')">
 				</div>
@@ -55,10 +55,10 @@
 							<c:choose>
 								<c:when test="post.like">
 								<%-- 이 게시글에 like 했다면 --%>
-									<a href="javascript:likeControl(${i})" class="post__btn-like liked"><i class="glyphicon glyphicon-heart "></i></a>
+									<a href="javascript:likeControl(${post.num})" class="post__btn-like liked"><i class="glyphicon glyphicon-heart "></i></a>
 								</c:when>
 								<c:otherwise>
-									<a href="javascript:likeControl(${i})" class="post__btn-like"><i class="glyphicon glyphicon-heart-empty "></i></a>
+									<a href="javascript:likeControl(${post.num})" class="post__btn-like"><i class="glyphicon glyphicon-heart-empty "></i></a>
 								</c:otherwise>
 							</c:choose>
 							<span class="count-like">${post.like_count }</span>
