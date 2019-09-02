@@ -78,22 +78,10 @@
 						<a class="btn-danger" href="javascript:corfirmAccess('delete_account')" role="button">회원 탈퇴</a>
 					</div>
 
-
-
-
-					<div class="panel-footer">
-
-						<button type="submit" class="btn btn-primary">Confirm</button>
-						<a class="btn btn-danger" href="#" role="button">회원 탈퇴</a>
-					</div>
-
-				</form>
 				</fieldset>
 			</form>
 
 			</div>
-		</div>
-	</div>
 <form id="profileForm" action="profile_upload.do" 
 	method="post" enctype="multipart/form-data">
 	<input type="file" name="profileImage" id="profileImage" 
