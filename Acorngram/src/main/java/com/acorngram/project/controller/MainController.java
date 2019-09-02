@@ -125,7 +125,8 @@ public class MainController {
 		if(dto.getProfile_file().getSize()!=0) {
 			String path = usersService.saveProfileImage(request, dto.getProfile_file());
 			dto.setProfile_img(path);
-			usersService.updateUser(dto, request);			
+			usersService.updateUser(dto, request);
+			request.getSession().setAttribute("profile_img", dto.getProfile_img());
 		}else{
 			usersService.updateUser(dto, request);		
 		}
