@@ -58,10 +58,10 @@
 									</c:otherwise>
 								</c:choose> --%>
 								<span class="count-like">${post.like_count }</span>
+								<span class="glyphicon glyphicon-comment">{post.comment_count}</span>
 							</div>
 							
 							<div class="post__info-data">
-								<span class="glyphicon glyphicon-comment">{post.comment_count}</span>
 								<time datetime="${post.regdate }"></time>
 							</div>
 						</div>
