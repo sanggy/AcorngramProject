@@ -29,9 +29,6 @@ public interface UsersDao {
 	//회원정보 수정 -> 개인 정보만... nickname, email, pw, dob...
 	public void update(UsersDto dto);
 	
-	//회원 settings 수정 메소드 -> dm_range, acc_private, and theme will be changed here
-	public void updateSettings(UsersDto dto);
-	
 	//회원 비번 수정 메소드
 	public void updatePwd(UsersDto dto);
 	

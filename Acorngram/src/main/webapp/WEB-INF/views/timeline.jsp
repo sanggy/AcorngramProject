@@ -49,9 +49,7 @@
 						</div>
 						<div class="post__info">
 							<div class="post__like">
-								<c:out value="${post.liked }" default="null입니다"/>
 								<c:choose>
-									
 									<c:when test="${post.liked}">
 									<%-- 이 게시글에 like 했다면 --%>
 										<a href="javascript:likeControl(${post.num})" class="post__btn-like liked"><i class="glyphicon glyphicon-heart "></i></a>
