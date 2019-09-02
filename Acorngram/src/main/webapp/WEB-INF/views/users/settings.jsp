@@ -19,6 +19,7 @@
 				<div class="user-settings__header">
 					<label for="profile-img">
 						<input type="file" name="profile_img" id="profile-img" accept="image/*" required/>
+						
 						<img id="user__profile-img" class="user__profile-img"
 						<%-- src="${pageContext.request.contextPath}/${user.profile_img}"--%>
 						src="${pageContext.request.contextPath}/resources/images/0.png"
