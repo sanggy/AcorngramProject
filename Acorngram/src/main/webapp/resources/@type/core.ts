@@ -6,17 +6,32 @@ function getCpath(){
 }
 const cpath = getCpath();
 
+//	json
+function getResultFromAjax(url, param:Map, type){
+	return fetch(url,{
+		method: type?type:'get',
+		cache: 'no-cache',
+		headers: {
+			"Content-Type": "application/json; charset=utf-8"
+		},
+		body: JSON.stringify(param)
+	}).then(res=>{
+		if(res.status<400)return res.json()
+		else throw new Error()
+	})
+	.catch(err=>{return false;})
+}
+
+
 //	Timeline load시 실행
 (function loadPost(){
 	moment.locale('ko');
 
 	//	시간 설정
 	document.querySelectorAll('time').forEach(e=>{
-		var regdate = moment().utc(e.dateTime);
-		e.innerText = 
-			regdate
-		//	new moment(regdate).fromNow()
-	})
+        var regdate = moment.utc(e.dateTime).local().fromNow();
+        e.innerText = regdate
+    })
 
 	//	좋아요 버튼 hover 효과
 	$('.post__btn-like').on('hover',function(){
@@ -35,6 +50,24 @@ const cpath = getCpath();
 		}
 	});
 
+	//	댓글 작성 textarea 자동 크기조절
+	var $textarea = $('#comment-content');
+	var lineHeight = parseInt($textarea.css('lineHeight'));
+	$textarea.on('input', function(e) {
+		var lines = ($(this).val() + '\n').match(/\n/g).length;
+		$(this).height(lineHeight * lines);
+	});
+	
+	//	더보기 버튼 클릭시 정보 보여주기
+	$('.more-btn').on('click',()=>{
+		let more_btn:HTMLElement = $(event.currentTarget);
+		more_btn.closest('ul').find('li.is-hidden').each((index,elem)=>{
+			if(index<4)elem.classList.remove('.is-hidden');
+			else return false;
+		}).length<1?more_btn.remove():''
+	})
+
+
 })();
 
 //	글쓰기 창 토글
@@ -45,15 +78,24 @@ function toggleWritePopup(){
 }
 
 //	업로드전 이미지 표시
-
-$('#writepost-img').on('change', function (e) {
-	var reader = new FileReader();
-	reader.onload = function (e) {
-		$('.writepost__image-info')[0].style.display = 'none';
-		$("#preview").attr('src', e.target.result);
-	}
-	reader.readAsDataURL(e.target.files[0]);
-});
+	//	post 작성
+	$('#writepost-img').on('change', function (e) {
+		var reader = new FileReader();
+		reader.onload = function (e) {
+			$('.writepost__image-info')[0].style.display = 'none';
+			$("#preview").attr('src', e.target.result);
+		}
+		reader.readAsDataURL(e.target.files[0]);
+	});
+	//	프로필 업로드시
+	$('#profile-img').on('change', function (e) {
+		var reader = new FileReader();
+		reader.onload = function (e) {
+			$("#user__profile-img").attr('src', e.target.result);
+		}
+		reader.readAsDataURL(e.target.files[0]);
+	});
+//	업로드전 이미지 표시 끝
 
 
 
@@ -105,10 +147,11 @@ toggle.run(
 
 //	특정조작시 리다이렉트
 
-function confirmAccess(url){
-	var result:boolean = window.confirm('정말로 하시겠습니까?');
-	if(result){
-		location.href = cpath+url;
+function confirmAccess(act, url){
+	var prompt_msg = '정말로 '+act+'하시겠습니까? \n 하시려 한다면'+act+'를 입력해주세요.';
+	var result = prompt(prompt_msg);
+	if(act === result){
+		location.href = url+'.do';
 	}
 }
 
@@ -116,12 +159,15 @@ function confirmAccess(url){
 //  좋아요 버튼
 
 function likeControl(num){
-	const flag = document.querySelector('.post-'+num+' .post__like a');
+	const flag = document.querySelector('#post-'+num+' .post__like a');
 	const mode = flag.classList.contains('liked')?
 		'unlike':'like';
-		console.log(flag);
+		
 	fetch(cpath+'post/'+mode+'.do?num='+num)
-	.then(res=>res.json())
+	.then(res=>{
+		if(res.status<400) res.json()
+		else throw new Error()
+	})
 	.then(res=>{
 		if(res.result) {
 			switch (mode){
@@ -165,11 +211,14 @@ function deletePost(num){
 	var result:boolean = window.confirm('정말로 삭제하시겠습니까?');
 	if(result){
 		fetch(cpath+'post/delete.do?num='+num)
-		.then(res=>res.json())
+		.then(res=>{
+			if(res.status<400) res.json()
+			else throw new Error()
+		})
 		.then(res=>{
 				if(res.result){
 					window.alert('성공적으로 삭제되었습니다.');
-					$('.post-'+num).fadeOut(300, function() { $(this).remove(); });
+					$('#post-'+num).fadeOut(300, function() { $(this).remove(); });
 				}else{
 					window.alert('오류가 발생했습니다.');
 				}
@@ -205,41 +254,140 @@ function deletePost(num){
 
 function followToggle(usercode){
 	let url = cpath+"follwer/follow.do";
-	const result = followAjax(url, usercode);
-	if(result){
-		window.alert('성공적으로 팔로우되었습니다.');
-		const target = document.querySelector('post-'+usercode+' a[class*="follow]');
-			target.classList.replace('post__btn-follow', 'post__btn-unfollow');
-			target.querySelector('i.glyphicon').classList.replace('glyphicon-plus-sign', 'glyphicon-remove-sign')
-			target.querySelector('span').innerText = 'Unfollow';
-	}else{
-		window.alert('오류가 발생했습니다.');
-	}
+	const result = fetch(cpath+url+'?usercode='+usercode)
+	.then(res=>{
+		if(res.status<400) res.json()
+		else throw new Error('error')
+	})
+	.then(res=>{
+		if(res.result){
+			window.alert('성공적으로 팔로우되었습니다.');
+			const postList = document.querySelectorAll('.post');
+			postList.forEach(i=>{
+				if(i.classList.contains('post-user-'+usercode)){
+					const target = i.querySelector('a[class*="follow"]');
+					target.classList.replace('post__btn-follow', 'post__btn-unfollow');
+					target.href = 'javascript:unfollowToggle('+usercode+')';
+					target.querySelector('i.glyphicon').classList.replace('glyphicon-plus-sign', 'glyphicon-remove-sign');
+					target.querySelector('span').innerText = 'Unfollow';			
+				}
+			});
+		}else{
+			window.alert('오류가 발생했습니다.');
+		}
+	})
+	.catch(err=>{window.alert('오류가 발생했습니다.');})
 }
 
 function unfollowToggle(usercode){
 	let url = 'follwer/unfollow.do';
-	const result = followAjax(url, usercode);
-	if(result){
-		window.alert('성공적으로 언팔로우되었습니다.');
-		const target = document.querySelector('post-'+usercode+' a[class*="follow]');
-			target.classList.replace('post__btn-unfollow', 'post__btn-follow');
-			target.querySelector('i.glyphicon').classList.replace('glyphicon-remove-sign', 'glyphicon-plus-sign')
-			target.querySelector('span').innerText = 'Follow';
-	}else{
-		window.alert('오류가 발생했습니다.');
-	}
+	const result = fetch(cpath+url+'?usercode='+usercode)
+	.then(res=>{
+		if(res.status<400) res.json()
+		else throw new Error('error')
+	})
+	.then(res=>{
+		if(res.result){
+			window.alert('성공적으로 언팔로우되었습니다.');
+			const postList = document.querySelectorAll('.post');
+			postList.forEach(i=>{
+				if(i.classList.contains('post-user-'+usercode)){
+					const target = i.querySelector('a[class*="follow"]');
+					target.classList.replace('post__btn-unfollow', 'post__btn-follow');
+					target.href = 'javascript:followToggle('+usercode+')';
+					target.querySelector('i.glyphicon').classList.replace('glyphicon-remove-sign', 'glyphicon-plus-sign');
+					target.querySelector('span').innerText = 'Follow';
+				}
+			});
+		}else{
+			window.alert('오류가 발생했습니다.');
+		}
+	})
+	.catch(err=>{window.alert('오류가 발생했습니다.');});
 }
-
+/*
 function followAjax(url, usercode){
 	return fetch(cpath+url+'?usercode='+usercode)
-	.then(res=>res.json())
+	.then(res=>{
+		alert(res.status);
+		if(res.status<400) res.json()
+		else throw new Error('error')
+	})
 	.then(res=>{return res.result;})
-	.catch(err=>{return false;}) // 테스트용 실제로는 반대로 
+	.catch(err=>{return false;})
 }
+*/
 
 //	팔로우 언팔 끝
 
+//	회원가입 폼
 
+//	아이디 중복체크
+$('#signup-id').on('keypress',()=>{
+	var id = $('#signup-id').val();
+	var result:JSON = getResultFromAjax(
+		cpath+'users/checkid.do',
+		{'id':id}
+		,'get'
+	);
+	var target = $('#signup-id-check-result');
+	if(result.result){
+		target.removeClass('false').fadeOut();
+	}else{
+		target.val('중복된 ID이거나 서버 통신이 원활하지 않습니다.')
+			.addClass('false').fadeIn();
+	}
+})
+
+$('#signUp').on('submit',()=>{
+	var pw:HTMLInputElement = document.querySelector('#signup-pw');
+	var pw_c:HTMLInputElement = document.querySelector('#signup-pw-c');
+	var email:HTMLInputElement = document.querySelector('#signup-email');
+	var msg:string;
+	if(pw.value !== pw_c.value){
+		msg = '패스워드 확인에 패스워드와 동일하게 작성하세요';
+		alert(msg);
+		return false;
+	}else if( email.value.match(/[^\s]@[^\s]/) ){
+		msg = '이메일 형식이 올바르지 않습니다.';
+		alert(msg);
+		return false;
+	}else if($('#signup-agree').prop("checked")){
+		msg = '규약에 동의해주세요';
+		alert(msg);
+		return false;
+	}
+})
+
+$('.user-settings__form').on('submit',()=>{
+	var pw:HTMLInputElement = document.querySelector('input[name="pw"]');
+	var pw_c:HTMLInputElement  = document.querySelector('input[name="pw-c"]');
+	var email:HTMLInputElement  = document.querySelector('input[name="email"]');
+	var msg:string;
+	//	패스워드 변경 요청이라면?
+	if(pw){
+		if(pw.value !== pw_c.value){
+			msg = '패스워드 확인에 패스워드와 동일하게 작성하세요';
+			alert(msg);
+			return false;
+		}
+	}else if(email){
+		if( email.value.match(/[^\s]@[^\s]/) ){
+			msg = '이메일 형식이 올바르지 않습니다.';
+			alert(msg);
+			return false;
+		}
+	}else{
+		msg="실패"
+		alert(msg);
+		return false;
+	}
+});
+
+
+//	댓글 폼
+$('.comment__info a').on('click',function(){
+	$(this).parent().next().fadeToggle(250);
+});
 
 

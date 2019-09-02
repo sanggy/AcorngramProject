@@ -5,6 +5,13 @@
 
 @import 'writepost';
 
+.detail{
+	&__header{
+		@include bordered-box();
+		margin-top: 2%;
+	}
+}
+
 .post{
 	// position: absolute;
 	margin: 5% 0;
@@ -60,12 +67,12 @@
 			float: right;
 			margin-left: 8px;
 		}
-		a{
-			display: inline-block;
-			height: $icon-size;
-			padding: 0 16px;
-			line-height: $icon-size;
-		}
+	}
+	&__btn-follow{
+		display: inline-block;
+		height: $icon-size;
+		padding: 0 16px;
+		line-height: $icon-size;
 	}
 	&__icon{
 		width: $icon-size;
@@ -114,3 +121,5 @@
 	}
 }
 
+$page-type : 'detail';
+@import 'post_comment';

@@ -4,133 +4,78 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="utf-8" />
-<title>dd</title>
-<%-- <jsp:include page="../inc/head.jsp">
+	<jsp:include page="../inc/head.jsp">
 		<jsp:param value="Settings" name="title"/>
-	</jsp:include>  --%>
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath }/resources/css/bootstrap.min.css" />
+		<jsp:param value="settings" name="css"/>
+	</jsp:include>
 </head>
 <body>
 	<jsp:include page="../inc/header.jsp" />
-	<div class="container">
-		<div class="panel panel-default">
-			<div class="panel-heading">
-				<div class="row">
-					<div class="col-xs-10">
-						<div class="media">
-							<div class="media-left media-middle">
-								<a href="javascript:" id="profileLink"> <img class="profile"
-									src="${pageContext.request.contextPath}${dto.profile}"
-									alt="" width="80" height="80" />
-								</a>
-							</div>
-							<div class="media-body">
-								<h1 class="media-heading">
-									<strong class="user-menu__user-name"><c:out
-											value="${name }" default="test" />dasfsd</strong>
-								</h1>
-								<h3>
-									<span class="user-menu__user-id">@${id }</span>
-								</h3>
-							</div>
-						</div>
-					</div>
-
-					<div class="col-xs-2">
 
 
-						<a class="btn btn-default" href="#" role="button">Change
-							Password Link</a>
+	<main>
+		<div class="user-settings container">
 
-					</div>
-
+			<form class="user-settings__form" enctype="multipart/form-data" method="post" action="updateSettings.do">
+				<div class="user-settings__header">
+					<label for="profile-img">
+						<input type="file" name="profile_file" id="profile-img" accept="image/*" />
+						<img id="user__profile-img" class="user__profile-img"
+						src="${pageContext.request.contextPath}/${user.profile_img}"
+						alt="${user.id }의 프로필 이미지" />
+					</label>
+					<hgroup>
+						<h5 class="user__name"> ${user.nickname } </h5>
+						<h6 class="user__id"> @${user.id } </h6>
+					</hgroup>
 				</div>
 
-
-			</div>
-
-
-			<div class="panel-body">
-
-				<form class="form-horizontal">
+				<fieldset class="user-settings__body">
+					<legend>유저 설정</legend>
 					<div class="form-group">
 						<label for="inputEmail3" class="col-sm-2 control-label">Nickname</label>
-						<div class="col-sm-10">
-							<input type="email" class="form-control" id="Nickname"
-								placeholder="Nickname">
-						</div>
+						<input type="text" class="form-control" name="nickname" value=${user.nickname }>
 					</div>
 					<div class="form-group">
 						<label for="inputEmail3" class="col-sm-2 control-label">Email</label>
-						<div class="col-sm-10">
-							<input type="email" class="form-control" id="inputEmail3"
-								placeholder="Email">
+						<input type="email" class="form-control" name="email" value="${user.email }">
+					</div>
+
+					<div class="form-group">
+						<a href="settings_pwd.do" role="button" class="user__btn-change-pwd">패스워드 변경</a>
+					</div>
+
+					<div class="form-group">  
+						<label for="inputEmail3" class="col-sm-2 control-label">Date of birth</label>
+						<input type="date" name="dob" class="form-control" id="DOB" value="${user.dob}">
+					</div>
+					<div class="form-group toggler-wrap">
+						<div class="user-settings__toggler">
+							<input type="checkbox" id="dm_range" name="dm_range" class="switch-input" value="1">
+							<label for="dm_range" class="switch-label">
+								DM RANGE: 
+								<span class="toggle--on">private</span>
+								<span class="toggle--off">public</span>
+							</label>
+						</div>
+						<div class="user-settings__toggler">
+							<input type="checkbox" id="account_private" name="acc_private" class="switch-input" value="yes">
+							<label for="account_private" class="switch-label">
+								ACCOUNT is : 
+								<span class="toggle--on">private</span>
+								<span class="toggle--off">public</span>
+							</label>
+						</div>
+						<div class="user-settings__toggler">
+							<span>THEME</span>
+							<select name="theme" id="user-setting__theme" class="switch-label">
+								<option value="defl">기본값</option>
+							</select>
 						</div>
 					</div>
 					<div class="form-group">
-						<label for="inputEmail3" class="col-sm-2 control-label">Day
-							of birth</label>
-						<div class="col-sm-10">
-							<input type="email" class="form-control" id="DOB"
-								placeholder="Day of birth">
-						</div>
-
-
-					</div>
-					<div class="row">
-						<div class="col-xs-4">
-
-							<form class="form-group" action="#">
-								<div class="btn-group dm_range" data-toggle="radio">
-									<h3>
-										<span class="label label-default">DM RANGE</span>
-									</h3>
-									<label class="btn btn-primary active"> <input
-										type="radio" name="options" id="range_option1" checked>
-										Public
-									</label> <label class="btn btn-primary"> <input type="radio"
-										name="options" id="range_option2"> Private
-									</label>
-								</div>
-							</form>
-
-
-						</div>
-						<div class="col-xs-4">
-							<form class="form-group" action="#">
-								<div class="btn-group account" data-toggle="radio">
-									<h3>
-										<span class="label label-default">ACCOUNT</span>
-									</h3>
-									<label class="btn btn-primary active"> <input
-										type="radio" name="options" id="account_option1" checked>
-										Public
-									</label> <label class="btn btn-primary"> <input type="radio"
-										name="options" id="account_option2"> Private
-									</label>
-								</div>
-							</form>
-						</div>
-						<div class="col-xs-4">
-
-							<form class="form-group" action="#">
-								<div class="btn-group theme" data-toggle=""radio"">
-									<h3>
-										<span class="label label-default">Theme</span>
-									</h3>
-									<label class="btn btn-primary active"> <input
-										type="radio" name="options" id="theme_option1" checked>
-										dark theme
-									</label> <label class="btn btn-primary"> <input type="radio"
-										name="options" id="theme_option2"> rose
-									</label> <label class="btn btn-primary"> <input type="radio"
-										name="options" id="theme_option3"> sea foam
-									</label>
-								</div>
-							</form>
-						</div>
+						<button type="submit" class="btn-primary">Confirm</button>
+						<a class="btn-danger" href="javascript:corfirmAccess('delete_account')" role="button">회원 탈퇴</a>
 					</div>
 
 
@@ -143,6 +88,9 @@
 					</div>
 
 				</form>
+				</fieldset>
+			</form>
+
 			</div>
 		</div>
 	</div>
@@ -158,7 +106,6 @@
 	$("#profileLink").click(function(){
 		$("#profileImage").click();
 	});
-
 	//2. 이미지를 선택했을때 폼을 강제 제출한다.
 	$("#profileImage").on("change", function(){
 		$("#profileForm").submit();
@@ -176,6 +123,7 @@
 		$(".profile").attr("src", src);
 	});
 </script>
+	</main>
 
 	<jsp:include page="../inc/footer.jsp" />
 </body>

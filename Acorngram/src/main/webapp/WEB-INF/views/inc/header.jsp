@@ -21,11 +21,11 @@
 							<form action="${pageContext.request.contextPath}/users/signin.do" method="post" id="signUp" class="signin__form">
 								<div class="form-group">
 									<label class="signin__label">아이디</label>
-									<input type="text" name="id" id="signup-id" class="form-control form-control-sm"/>
+									<input type="text" name="id" id="signin-id" class="form-control form-control-sm"/>
 								</div>
 								<div class="form-group">
 									<label class="signin__label">패스워드</label>
-									<input type="password" name="pw" id="signup-pw"  class="form-control form-control-sm"/>
+									<input type="password" name="pw" id="signin-pw"  class="form-control form-control-sm"/>
 								</div>
 								<button class="signin__button">로그인</button>
 							</form>
@@ -35,9 +35,10 @@
 				
 				<c:otherwise>
 					<div class="header__user-info">
-						<button type="button">
-							<img src="${pageContext.request.contextPath}/${profile_img }" alt="" width="48" height="48"/>
-						</button>
+						<button type="button" 
+							style="background-image:url('${pageContext.request.contextPath}/${profile_img }');
+   								background-size: cover;
+						"> </button>
 					</div>
 					<div class="header__writepost">
 						<button type="button">
@@ -60,8 +61,8 @@
 				<span class="user-menu__user-id">@${id }</span>
 			</li>
 			<li class="user-menu__line"></li>
-			<li><i class="glyphicon--is-themed glyphicon-user"></i><a href="${pageContext.request.contextPath}/users/profile.do?usercode=${usercode }">프로필</a></li>
-			<li><i class="glyphicon--is-themed glyphicon-wrench"></i><a href="${pageContext.request.contextPath}/users/setting.do">설정</a></li>
+			<li><i class="glyphicon--is-themed glyphicon-user"></i><a href="${pageContext.request.contextPath}/users/profile.do?id=${post.id }">프로필</a></li>
+			<li><i class="glyphicon--is-themed glyphicon-wrench"></i><a href="${pageContext.request.contextPath}/users/settings.do">설정</a></li>
 			<li><i class="glyphicon--is-themed glyphicon-log-out"></i><a href="${pageContext.request.contextPath}/users/signout.do">로그아웃</a></li>
 		</ul>
 	</nav>

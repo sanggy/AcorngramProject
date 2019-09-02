@@ -13,9 +13,9 @@
 	<main>
 		<div class="container">
 			<nav class="detail__header">
-				
+				<a href="${pageContext.request.contextPath}/timeline.do"><i class="glyphicon glyphicon-chevron-left"></i> 돌아가기</a>
 			</nav>
-			<article class="post post-${post.num }">
+			<article class="post" id="post-${post.num }">
 				<div class="post__img" style="
 					background-image: url('${pageContext.request.contextPath}/upload/${post.saveFileName }')">
 				</div>
@@ -23,11 +23,13 @@
 				<div class="post__content">
 					<div class="post__header">
 						<div class="post__header-left">
-							<img src="${post.profile_img }" alt="" class="post__icon"/>
-							<hgroup>
-								<h5 class="post__name"> ${post.nickname } </h5>
-								<h6 class="post__id"> @${post.id } </h6>
-							</hgroup>
+							<a href="${pageContext.request.contextPath}/users/profile.do?id=${post.id }">
+								<img src="${pageContext.request.contextPath}/${post.profile_img }" alt="" class="post__icon"/>
+								<hgroup>
+									<h5 class="post__name"> ${post.nickname } </h5>
+									<h6 class="post__id"> @${post.id } </h6>
+								</hgroup>
+							</a>
 						</div>
 						<div class="post__header-right">
 						<c:choose>
@@ -53,10 +55,10 @@
 							<c:choose>
 								<c:when test="post.like">
 								<%-- 이 게시글에 like 했다면 --%>
-									<a href="javascript:likeControl(${i})" class="post__btn-like liked"><i class="glyphicon glyphicon-heart "></i></a>
+									<a href="javascript:likeControl(${post.num})" class="post__btn-like liked"><i class="glyphicon glyphicon-heart "></i></a>
 								</c:when>
 								<c:otherwise>
-									<a href="javascript:likeControl(${i})" class="post__btn-like"><i class="glyphicon glyphicon-heart-empty "></i></a>
+									<a href="javascript:likeControl(${post.num})" class="post__btn-like"><i class="glyphicon glyphicon-heart-empty "></i></a>
 								</c:otherwise>
 							</c:choose>
 							<span class="count-like">${post.like_count }</span>
@@ -72,8 +74,11 @@
 					</div>
 					<div class="post__comment">
 						<div class="comment__form">
-							<form action="comment/write.do" method="post">
-								<textarea name="content" id="comment-content"></textarea>
+							<form action="${pageContext.request.contextPath}/comment/write.do" method="post" class="comment-form">
+								<input type="hidden" name="num" value="${post.num }" />
+								<input type="hidden" name="ref_group" value="${post.num }" />
+								<input type="hidden" name="target_code" value="${post.usercode }" />
+								<textarea name="content" class="comment-content"></textarea>
 								<button>전송</button>
 							</form>
 						</div>
@@ -83,17 +88,26 @@
 								<%-- <c:choose>
 									<c:when test="${cmt.deleted eq no }"> --%>
 										<li>
-											<p>
+											<div class="comment__body">
 												<strong>${cmt.usercode } </strong>
 												<span>${cmt.content } </span>
-											</p>
-											<p>
+											</div>
+											<div class="comment__info">
 												<time datetime="${cmt.regdate }"></time>
+												<a href="javascript:" class="comment__link-reply">답글</a>
 												<span>
-													<a href="comment/edit.do">수정</a>
-													<a href="comment/delete.do">삭제</a>
+													<a href="comment/delete.do?num=${cmt.num }">삭제</a>
 												</span>
-											</p>
+											</div>
+											<div class="comment__form">
+												<form action="${pageContext.request.contextPath}/comment/write.do" method="post" class="comment-form">
+													<input type="hidden" name="num" value="${post.num }" />
+													<input type="hidden" name="ref_group" value="${post.num }" />
+													<input type="hidden" name="target_code" value="${post.usercode }" />
+													<textarea name="content" class="comment-content"></textarea>
+													<button>전송</button>
+												</form>
+											</div>
 										</li>
 									<%-- </c:when>
 									<c:otherwise>

@@ -256,8 +256,6 @@ public class PostServiceImpl implements PostService {
 		mView.addObject("commentList", commentList);
 		mView.setViewName("post/detail");
 		
-		System.out.println("POST SERVICE 입니다 : " + postDto.getNum());
-		System.out.println(commentList.get(0).getContent());
 	}
 
 //	@Override

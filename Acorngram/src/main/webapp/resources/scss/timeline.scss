@@ -24,6 +24,14 @@
 	@media screen and (max-width:$md){
 		width: 100%;
 	}
+
+	&__img{
+		width: 100%;
+		height: 345px;
+		background-size: cover;
+		background-position: center center;
+		border-radius: 8px;
+	}
 	
 	& > div{
 		margin-bottom: 20px;
@@ -31,6 +39,7 @@
 			margin: 0;
 		}
 	}
+
 	&__header{
 		@include flexbox();
 		img{
@@ -41,7 +50,7 @@
 			float: right;
 			margin-left: 8px;
 		}
-		a{
+		a[role="button"]{
 			display: inline-block;
 			height: $icon-size;
 			padding: 0 16px;
@@ -74,13 +83,7 @@
 		}	
 	}
 
-	&__img{
-		width: 100%;
-		height: 345px;
-		background-size: cover;
-		background-position: center center;
-		border-radius: 8px;
-	}
+	
 	&__info{
 		@include flexbox($horizen: space-between);
 	}
@@ -97,4 +100,7 @@
 		}
 	}
 }
+
+$page-type : 'timeline';
+@import 'post_comment';
 

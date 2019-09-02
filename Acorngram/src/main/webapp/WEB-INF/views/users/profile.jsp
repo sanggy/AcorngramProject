@@ -17,7 +17,11 @@
 				<img src="${user.profile_img }" alt="${id }의 프로필 사진" class="profile__icon"/>
 			</div>
 			<div class="profile__info">
-				<ul>
+				<hgroup>
+					<h5 class="post__name"> ${post.nickname } </h5>
+					<h6 class="post__id"> @${post.id } </h6>
+				</hgroup>
+				<ul class="profile__user-count">
 					<li class="profile__post-count"></li>
 					<li class="profile__user-follow-count"></li>
 					<li class="profile__user-follower-count"></li>
@@ -27,7 +31,7 @@
 				<c:choose>
 					<c:when test="${usercode eq user.usercode }">
 						<%-- 자기 자신의 프로필일 경우 --%>
-						<a href="users/edit_profile.do?num=${usercode }" role="button">프로필 수정</a>
+						<a href="settings.do?num=${usercode }" role="button">프로필 수정</a>
 					</c:when>
 					<c:otherwise>
 						<%-- 남의 프로필일 경우 --%>

@@ -11,8 +11,17 @@
 	<insert id="insert" parameterType="commentDto">
 		INSERT INTO comment_db
 		(num, usercode, content, target_code, ref_group, comment_group, regdate)
-		VALUES (comment_seq.NEXTVAL, #{usercode}, #{content}, #{target_code}, #{ref_group}, #{comment_group}, SYSDATE)
+		VALUES (#{num}, #{usercode}, #{content}, #{target_code}, #{ref_group}, #{comment_group}, SYSDATE)
 	</insert>
 
-
+	<select id="getSequence" resultType="int">
+		SELECT comment_seq.NEXTVAL
+		FROM dual
+	</select>
+	
+	<delete id="delete" parameterType="int">
+		UPDATE comment_db
+		SET deleted='yes'
+		WHERE num=#{num}
+	</delete>
 </mapper>

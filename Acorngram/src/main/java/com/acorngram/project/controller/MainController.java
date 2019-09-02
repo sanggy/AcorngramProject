@@ -1,16 +1,15 @@
 
 package com.acorngram.project.controller;
 
-import java.net.URLEncoder;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,9 +19,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.acorngram.project.dto.CommentDto;
 import com.acorngram.project.dto.FollowerDto;
 import com.acorngram.project.dto.PostDto;
 import com.acorngram.project.dto.UsersDto;
+import com.acorngram.project.service.CommentsService;
 import com.acorngram.project.service.FollowerService;
 import com.acorngram.project.service.PostService;
 import com.acorngram.project.service.UsersService;
@@ -35,9 +36,11 @@ public class MainController {
 	
 	@Autowired
 	private PostService postService;
-	
+
 	@Autowired
 	private FollowerService followerService;
+	
+	@Autowired CommentsService commentsService;
 	
 	@RequestMapping(value="/users/signup.do", method = RequestMethod.POST)
 	public ModelAndView signup(@ModelAttribute UsersDto dto, ModelAndView mView) {
@@ -51,6 +54,7 @@ public class MainController {
 	public 	ModelAndView signIn(@ModelAttribute UsersDto dto, ModelAndView mView, HttpServletRequest request) {
 		
 		boolean isSuccessful = usersService.validUser(dto, mView, request.getSession(), request);
+		System.out.println("isSuccessful : " + isSuccessful);
 		//원래 가려던 url 정보를 reqeust 에 담는다.
 //		String encodedUrl = URLEncoder.encode(request.getParameter("url"));
 //		request.setAttribute("encodedUrl", encodedUrl);
@@ -61,17 +65,17 @@ public class MainController {
 			mView.setViewName("redirect:/home.do");
 		}
 		else {
-			mView.setViewName("/users/tryagainasshole.do");
+			mView.setViewName("redirect:/home.do");
 		}
 
 		return mView;	
 	}
-	
-	@RequestMapping(value = "/users/updateUserInfo.do", method = RequestMethod.POST)
+	// /users/settings.do 와 같은 내용 
+	@RequestMapping(value = "/users/profile.do", method = RequestMethod.POST)
 	public ModelAndView authUpdateUserInfo(@ModelAttribute UsersDto dto, ModelAndView mView, HttpServletRequest request) {
 		//유저 정보 수정 하는 메소드 호출
 		usersService.updateUser(dto, request);
-		mView.setViewName("users/setting.do");
+		mView.setViewName("users/profile");
 		return mView;
 	}
 	
@@ -107,9 +111,25 @@ public class MainController {
 		return "redirect:/home.do";
 	}
 	
-	@RequestMapping("/users/setting.do")
+	@RequestMapping("/users/settings.do")
 	public ModelAndView authUsersSetting(HttpServletRequest request, ModelAndView mView) {
-		return new ModelAndView("users/settings");
+		usersService.showInfo(request.getSession(), mView);
+		mView.setViewName("users/settings");
+		return mView;
+	}
+	
+	@RequestMapping("/users/updateSettings.do")
+	public ModelAndView authUpdateSettings(@ModelAttribute UsersDto dto, HttpServletRequest request) {
+		
+		//서비스를 이용해서 프로파일 이미지를 저장하고 저장된 이미지 경로를 리턴 받는다		
+		if(dto.getProfile_file().getSize()!=0) {
+			String path = usersService.saveProfileImage(request, dto.getProfile_file());
+			dto.setProfile_img(path);
+			usersService.updateUser(dto, request);			
+		}else{
+			usersService.updateUser(dto, request);		
+		}
+		return new ModelAndView("redirect:/users/settings.do");
 	}
 	
 	
@@ -179,6 +199,8 @@ public class MainController {
 //			return map;
 //		}
 		
+//================================ POST DETAIL 영역 요청 처리 부분 ===========================================
+		
 		@RequestMapping("/post/detail.do")
 		public ModelAndView authDetail(HttpServletRequest request, @RequestParam int num, ModelAndView mView) {
 			postService.getPostData(num, request, mView);
@@ -187,6 +209,14 @@ public class MainController {
 			System.out.println("controller에서의 commentList : " + request.getAttribute("commentList"));
 			
 			return mView;
+		}
+		
+//================================COMMENTS 요청 처리 부분 ===================================================
+		
+		@RequestMapping("/comment/write.do")
+		public ModelAndView authWrite(HttpServletRequest request, @ModelAttribute CommentDto commentDto) {
+			commentsService.writeComment(request, commentDto);
+			return new ModelAndView("redirect:/timeline.do");
 		}
 	
 }//UsersController END
