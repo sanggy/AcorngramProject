@@ -25,4 +25,9 @@
 		WHERE user_code = #{user_code} AND post_num = #{post_num}
 	</delete>
 	
+	<delete id="deleteAll" parameterType="int">
+		DELETE likes
+		WHERE post_num = #{post_num}
+	</delete>
+	
 </mapper>

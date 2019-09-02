@@ -33,7 +33,7 @@ public class CommentDaoImpl implements CommentDao{
 	}
 
 	@Override
-	public void update(CommentDto dto) {
-		session.update("comments.update", dto);
+	public void deleteAll(int post_num) {
+		session.delete("comments.deleteAll", post_num);
 	}
 }

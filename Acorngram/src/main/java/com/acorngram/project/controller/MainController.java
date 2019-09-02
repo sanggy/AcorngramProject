@@ -225,9 +225,10 @@ public class MainController {
 		}
 		
 		@RequestMapping("/comment/delete.do")
-		public ModelAndView authDelete(HttpServletRequest request, @RequestParam int num, @RequestParam int post_num) {
+		public String authDelete(HttpServletRequest request, @RequestParam int num, @RequestParam int post_num) {
+			System.out.println(num +"&"+ post_num + "여기 maincontrol영역이야");
 			commentsService.deleteComment(num);
-			return new ModelAndView("post/detail.do?num="+num+"&post_num ="+post_num);
+			return "redirect:/post/detail.do?num="+post_num;
 			
 		}
 		

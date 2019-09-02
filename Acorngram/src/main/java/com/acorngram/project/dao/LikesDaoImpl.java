@@ -26,4 +26,9 @@ public class LikesDaoImpl implements LikesDao{
 		return session.selectOne("likes.likedPost", dto);
 	}
 
+	@Override
+	public int deleteAll(int post_num) {
+		return session.delete("likes.deleteAll", post_num);
+	}
+
 }
