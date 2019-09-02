@@ -39,6 +39,10 @@
 				}
 			}
 
+			.toggler-wrap{
+				@include flexbox($horizen: space-around, $wrap: wrap);
+			}
+
         }
         &__button{
             width: 100%;
@@ -47,10 +51,6 @@
             font-size: 1.2rem;
 		}
 		
-		.toggler-wrap{
-			@include flexbox();
-		}
-
 	}
 	
 	&__btn-change-pwd{

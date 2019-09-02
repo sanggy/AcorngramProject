@@ -8,8 +8,8 @@
 		WHERE id = #{id}
 	</select>
 	
-	<select id="getSimpleData" parameterType="usersDto" resultType="int">
-		SELECT usercode
+	<select id="getSimpleData" parameterType="usersDto" resultType="usersDto">
+		SELECT usercode, nickname, profile_img
 		FROM users_db
 		WHERE id = #{id}
 	</select>

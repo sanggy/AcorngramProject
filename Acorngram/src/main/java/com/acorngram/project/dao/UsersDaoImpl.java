@@ -80,7 +80,7 @@ public class UsersDaoImpl implements UsersDao{
 	}
 
 	@Override
-	public int simpleData(String id) {
+	public UsersDto simpleData(String id) {
 		return session.selectOne("users.getSimpleData", id);
 	}
 	

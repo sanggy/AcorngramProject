@@ -35,9 +35,10 @@
 				
 				<c:otherwise>
 					<div class="header__user-info">
-						<button type="button">
-							<img src="${pageContext.request.contextPath}/${profile_img }" alt="" width="48" height="48"/>
-						</button>
+						<button type="button" 
+							style="background-image:url('${pageContext.request.contextPath}/${profile_img }');
+   								background-size: cover;
+						"> </button>
 					</div>
 					<div class="header__writepost">
 						<button type="button">
