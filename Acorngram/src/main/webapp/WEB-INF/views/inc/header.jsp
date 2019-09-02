@@ -60,7 +60,7 @@
 				<span class="user-menu__user-id">@${id }</span>
 			</li>
 			<li class="user-menu__line"></li>
-			<li><i class="glyphicon--is-themed glyphicon-user"></i><a href="${pageContext.request.contextPath}/users/profile.do?usercode=${usercode }">프로필</a></li>
+			<li><i class="glyphicon--is-themed glyphicon-user"></i><a href="${pageContext.request.contextPath}/users/profile.do?id=${post.id }">프로필</a></li>
 			<li><i class="glyphicon--is-themed glyphicon-wrench"></i><a href="${pageContext.request.contextPath}/users/settings.do">설정</a></li>
 			<li><i class="glyphicon--is-themed glyphicon-log-out"></i><a href="${pageContext.request.contextPath}/users/signout.do">로그아웃</a></li>
 		</ul>

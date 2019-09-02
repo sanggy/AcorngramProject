@@ -51,7 +51,7 @@
 					<article class="post" id="post-${post.num }">
 						<div class="post__header">
 							<div class="post__header-left">
-								<a href="users/profile.do?num=${post.usercode }">
+								<a href="users/profile.do?id=${post.id }">
 									<img src="" alt="" class="post__icon"/>
 									<hgroup>
 										<h5 class="post__header-name"> ${post.usercode } </h5>

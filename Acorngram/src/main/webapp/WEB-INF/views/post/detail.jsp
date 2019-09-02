@@ -23,7 +23,7 @@
 				<div class="post__content">
 					<div class="post__header">
 						<div class="post__header-left">
-							<a href="${pageContext.request.contextPath}/users/profile.do?num=${post.usercode }">
+							<a href="${pageContext.request.contextPath}/users/profile.do?id=${post.id }">
 								<img src="${post.profile_img }" alt="" class="post__icon"/>
 								<hgroup>
 									<h5 class="post__name"> ${post.nickname } </h5>
