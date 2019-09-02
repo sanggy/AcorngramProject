@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="likes">
+	
+	<insert id="likePost" parameterType="LikedDto">
+		INSERT INTO likes
+		(post_num, user_code, liked)
+		VALUES (#{post_num},#{user_code},#{liked})
+	</insert>
+	
+	<!-- <select id="getLikedList" parameterType="likedDto" resultType="likedDto">
+		SELECT NVL(post_num, user_code, 0)
+		FROM likes
+		WHERE post_num = #{post_num}
+	</select> -->
+	
+	<select id="likedPost" parameterType="likedDto" resultType="int">
+		SELECT NVL(MAX(ROWNUM), 0)
+		FROM likes
+		WHERE post_num = #{post_num} AND user_code = #{user_code}
+	</select>
+	
+	<delete id="postUnlike" parameterType="likedDto">
+		DELETE likes
+		WHERE user_code = #{user_code} AND post_num = #{post_num}
+	</delete>
+	
+</mapper>

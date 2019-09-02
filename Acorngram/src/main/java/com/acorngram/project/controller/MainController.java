@@ -107,7 +107,7 @@ public class MainController {
 		return "redirect:/home.do";
 	}
 	
-	@RequestMapping("/users/setting.do")
+	@RequestMapping("/users/settings.do")
 	public ModelAndView authUsersSetting(HttpServletRequest request, ModelAndView mView) {
 		
 		return new ModelAndView("users/settings");
@@ -199,6 +199,10 @@ public class MainController {
 			commentsService.writeComment(request, commentDto);
 			return new ModelAndView("redirect:/timeline.do");
 		}
+		
+//===============================LIKING POSTS section ===================================================
+		
+//		@RequestMapping("/")
 	
 }//UsersController END
 

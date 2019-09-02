@@ -19,6 +19,9 @@ public class PostDto {
 	private int startRowNum;
 	private int endRowNum;
 	
+	//likes db에서 가지고 온 정보
+	private String liked;
+	
 
 	// <input type="file" name="file"/> 에서 name 속성의 value 와 동일한 필드명으로 
 	// MultipartFile type 필드를 선언해야 한다.
@@ -30,7 +33,7 @@ public class PostDto {
 
 	public PostDto(int num, int usercode, String content, String image, String video, String regdate, int like_count,
 			String saveFileName, long fileSize, String id, String nickname, String profile_img, int startRowNum, int endRowNum,
-			MultipartFile file) {
+			String liked, MultipartFile file) {
 		super();
 		this.num = num;
 		this.usercode = usercode;
@@ -46,6 +49,7 @@ public class PostDto {
 		this.profile_img = profile_img;
 		this.startRowNum = startRowNum;
 		this.endRowNum = endRowNum;
+		this.liked = liked;
 		this.file = file;
 	}
 
@@ -187,6 +191,17 @@ public class PostDto {
 	public void setEndRowNum(int endRowNum) {
 		this.endRowNum = endRowNum;
 	}
+	
+	
+	
+	public String getLiked() {
+		return liked;
+	}
+
+
+	public void setLiked(String liked) {
+		this.liked = liked;
+	}
 
 
 	public MultipartFile getFile() {
@@ -196,7 +211,6 @@ public class PostDto {
 
 	public void setFile(MultipartFile file) {
 		this.file = file;
-	}
-
+	}	
 	
 }
