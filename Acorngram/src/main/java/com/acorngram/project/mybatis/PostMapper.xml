@@ -29,8 +29,8 @@
 	</delete>
 	
 	<select id="getData" parameterType="int" resultType="postDto">
-		SELECT num, usercode, content, image, video, regdate, like_count, savefilename, filesize
-		FROM post_db
+		SELECT num, post_db.usercode, content, image, video, post_db.regdate, like_count, savefilename, users_db.id, users_db.profile_img, users_db.nickname
+		FROM post_db inner join users_db on post_db.usercode = users_db.usercode 
 		WHERE num = #{num}
 	</select>
 	

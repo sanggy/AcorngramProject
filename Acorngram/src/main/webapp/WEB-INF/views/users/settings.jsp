@@ -19,7 +19,7 @@
 			<form class="user-settings__form" enctype="multipart/form-data" method="post" action="updateSettings.do">
 				<div class="user-settings__header">
 					<label for="profile-img">
-						<input type="file" name="profile_img" id="profile-img" accept="image/*" required/>
+						<input type="file" name="profile_file" id="profile-img" accept="image/*" required/>
 						
 						<img id="user__profile-img" class="user__profile-img"
 						src="${pageContext.request.contextPath}/${user.profile_img}" alt="${user.id }의 프로필 이미지" />
