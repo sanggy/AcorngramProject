@@ -21,11 +21,11 @@
 							<form action="${pageContext.request.contextPath}/users/signin.do" method="post" id="signUp" class="signin__form">
 								<div class="form-group">
 									<label class="signin__label">아이디</label>
-									<input type="text" name="id" id="signup-id" class="form-control form-control-sm"/>
+									<input type="text" name="id" id="signin-id" class="form-control form-control-sm"/>
 								</div>
 								<div class="form-group">
 									<label class="signin__label">패스워드</label>
-									<input type="password" name="pw" id="signup-pw"  class="form-control form-control-sm"/>
+									<input type="password" name="pw" id="signin-pw"  class="form-control form-control-sm"/>
 								</div>
 								<button class="signin__button">로그인</button>
 							</form>
