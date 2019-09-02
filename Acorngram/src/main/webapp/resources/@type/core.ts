@@ -78,15 +78,24 @@ function toggleWritePopup(){
 }
 
 //	업로드전 이미지 표시
-
-$('#writepost-img').on('change', function (e) {
-	var reader = new FileReader();
-	reader.onload = function (e) {
-		$('.writepost__image-info')[0].style.display = 'none';
-		$("#preview").attr('src', e.target.result);
-	}
-	reader.readAsDataURL(e.target.files[0]);
-});
+	//	post 작성
+	$('#writepost-img').on('change', function (e) {
+		var reader = new FileReader();
+		reader.onload = function (e) {
+			$('.writepost__image-info')[0].style.display = 'none';
+			$("#preview").attr('src', e.target.result);
+		}
+		reader.readAsDataURL(e.target.files[0]);
+	});
+	//	프로필 업로드시
+	$('#profile-img').on('change', function (e) {
+		var reader = new FileReader();
+		reader.onload = function (e) {
+			$("#user__profile-img").attr('src', e.target.result);
+		}
+		reader.readAsDataURL(e.target.files[0]);
+	});
+//	업로드전 이미지 표시 끝
 
 
 
