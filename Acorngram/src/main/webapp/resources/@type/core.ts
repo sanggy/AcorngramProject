@@ -171,10 +171,12 @@ function likeControl(num){
 			case 'unlike':
 				flag.querySelector('i').classList.replace('glyphicon-heart', 'glyphicon-heart-empty');
 				flag.classList.remove('liked');
+				flag.parentElement.querySelector('.count-like').innerText = --flag.parentElement.querySelector('.count-like').innerText;
 				break;
 			case 'like':
 				flag.querySelector('i').classList.replace('glyphicon-heart-empty', 'glyphicon-heart');
 				flag.classList.add('liked');
+				flag.parentElement.querySelector('.count-like').innerText = ++flag.parentElement.querySelector('.count-like').innerText;
 				break;
 			}
 		}

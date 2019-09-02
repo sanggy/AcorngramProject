@@ -84,6 +84,11 @@
 						</div>
 						<div class="comment__area">
 							<ul class="comment__list">
+						 	
+						 	<c:if test="${commentList.size() eq 0 }">
+								<li class="comment-deleted">댓글이 하나도 없습니다.</li>
+						 	</c:if>
+						 	
 							<c:forEach var="cmt" items="${commentList }">
 								 <c:choose>
 									<c:when test='${cmt.deleted eq yes }'>
