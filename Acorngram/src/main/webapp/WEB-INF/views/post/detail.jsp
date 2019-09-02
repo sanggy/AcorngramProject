@@ -34,7 +34,7 @@
 						<div class="post__header-right">
 						<c:choose>
 							<c:when test="${post.usercode eq usercode }">
-								<a href="javascript:deletePost(${i})" role="button" class="post__btn-delete"> <i class="glyphicon glyphicon-trash"></i></a>
+								<a href="javascript:deletePost(${post.num})" role="button" class="post__btn-delete"> <i class="glyphicon glyphicon-trash"></i></a>
 							</c:when>
 							<c:otherwise>
 								<c:choose>

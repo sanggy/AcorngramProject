@@ -183,7 +183,6 @@ function likeControl(num){
 		}
 	})
 	.catch(error=>{
-//	테스트용 실제로는 x
 		window.alert('서버와 통신 도중 에러가 발생했습니다.');
 	})
 
