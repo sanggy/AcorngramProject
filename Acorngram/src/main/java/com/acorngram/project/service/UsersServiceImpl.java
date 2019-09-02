@@ -7,6 +7,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.omg.CORBA.Request;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.bcrypt.BCrypt;
@@ -68,7 +69,12 @@ public class UsersServiceImpl implements UsersService{
 	// 회원 정보 
 	@Override
 	public void showInfo(HttpSession session, ModelAndView mView) {
-		// TODO Auto-generated method stub
+		String id = (String)session.getAttribute("id");
+		UsersDto usersDto = dao.getData(id);
+		mView.addObject("email", usersDto.getEmail());
+		mView.addObject("dob",usersDto.getDob());
+		mView.addObject("nickname",usersDto.getNickname());
+		
 		
 	}
 
@@ -140,14 +146,20 @@ public class UsersServiceImpl implements UsersService{
 	@Override
 	public void updateUser(UsersDto dto, HttpServletRequest request) {
 		
+		// 비밀번호 변경인지, 다른 개인정보 수정인지 판별 
+		
 		//dto속에 pw 값이 없으면 비번 수정 작업이 요청이 아님
 		if(dto.getPw() == null) {
-			//이 update은 비번 외에 나머지 유저정보를 수정하는 메소드
+		//이 update은 비번 외에 나머지 유저정보를 수정하는 메소드
 			dao.update(dto);
 		}else {
-			//dto.getPw()의 값이 존재 한다면 우선 비번 수정임을 말함..
+		//dto.getPw()의 값이 존재 한다면 우선 비번 수정임을 말함..
 			dao.updatePwd(dto);
 		}
+		
+		
+		
+		
 		
 	}
 	

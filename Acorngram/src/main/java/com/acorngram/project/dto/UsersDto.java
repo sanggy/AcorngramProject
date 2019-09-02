@@ -4,12 +4,12 @@ public class UsersDto {
 	private String id, dob, theme, profile_img;
 	private String nickname, email, pw, regdate;
 	private int usercode, reported, dm_range;
-	private boolean banned, acc_private;
+	private String banned, acc_private;
 	
 	public UsersDto(){}
 
 	public UsersDto(String id, String dob, String theme, String profile_img, String nickname, String email, String pw,
-			String regdate, int usercode, int reported, int dm_range, boolean banned, boolean acc_private) {
+			String regdate, int usercode, int reported, int dm_range, String banned, String acc_private) {
 		super();
 		this.id = id;
 		this.dob = dob;
@@ -114,20 +114,22 @@ public class UsersDto {
 		this.dm_range = dm_range;
 	}
 
-	public boolean isBanned() {
+	public String getBanned() {
 		return banned;
 	}
 
-	public void setBanned(boolean banned) {
+	public void setBanned(String banned) {
 		this.banned = banned;
 	}
 
-	public boolean isAcc_private() {
+	public String getAcc_private() {
 		return acc_private;
 	}
 
-	public void setAcc_private(boolean acc_private) {
+	public void setAcc_private(String acc_private) {
 		this.acc_private = acc_private;
 	}
-
+	
+	
+	
 }

@@ -51,6 +51,7 @@ public class MainController {
 	public 	ModelAndView signIn(@ModelAttribute UsersDto dto, ModelAndView mView, HttpServletRequest request) {
 		
 		boolean isSuccessful = usersService.validUser(dto, mView, request.getSession(), request);
+		System.out.println("isSuccessful : " + isSuccessful);
 		//원래 가려던 url 정보를 reqeust 에 담는다.
 //		String encodedUrl = URLEncoder.encode(request.getParameter("url"));
 //		request.setAttribute("encodedUrl", encodedUrl);
@@ -67,11 +68,11 @@ public class MainController {
 		return mView;	
 	}
 	
-	@RequestMapping(value = "/users/updateUserInfo.do", method = RequestMethod.POST)
+	@RequestMapping(value = "/users/profile.do", method = RequestMethod.POST)
 	public ModelAndView authUpdateUserInfo(@ModelAttribute UsersDto dto, ModelAndView mView, HttpServletRequest request) {
 		//유저 정보 수정 하는 메소드 호출
 		usersService.updateUser(dto, request);
-		mView.setViewName("users/setting.do");
+		mView.setViewName("users/profile");
 		return mView;
 	}
 	
@@ -107,10 +108,16 @@ public class MainController {
 		return "redirect:/home.do";
 	}
 	
-	@RequestMapping("/users/setting.do")
+	@RequestMapping("/users/settings.do")
 	public ModelAndView authUsersSetting(HttpServletRequest request, ModelAndView mView) {
-		
-		return new ModelAndView("users/settings");
+		usersService.showInfo(request.getSession(), mView);
+		mView.setViewName("users/settings");
+		return mView;
+	}
+	@RequestMapping("/users/updateSettings.do")
+	public ModelAndView authUpdateSettings(@ModelAttribute UsersDto dto, HttpServletRequest request ) {
+		usersService.updateUser(dto, request);		
+		return new ModelAndView("redirect:/settings.do");
 	}
 	
 	

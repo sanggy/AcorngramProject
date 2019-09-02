@@ -15,10 +15,10 @@
 	<main>
 		<div class="user-settings container">
 
-			<form class="user-settings__form" enctype="multipart/form-data" method="post">
+			<form class="user-settings__form" enctype="multipart/form-data" method="post" action="updateSettings.do">
 				<div class="user-settings__header">
 					<label for="profile-img">
-						<input type="file" name="profile_img" id="profile-img" accept="image/*" required/>
+						<input type="file" name="profile_img" id="profile-img" accept="image/*" />
 						
 						<img id="user__profile-img" class="user__profile-img"
 						<%-- src="${pageContext.request.contextPath}/${user.profile_img}"--%>
@@ -26,19 +26,19 @@
 						alt="${user.id }의 프로필 이미지" />
 					</label>
 					<hgroup>
-						<h5 class="user__name"> ${user.nickname } </h5>
-						<h6 class="user__id"> @${user.id } </h6>
+						<h5 class="user__name"> ${nickname } </h5>
+						<h6 class="user__id"> @${id } </h6>
 					</hgroup>
 				</div>
 
 				<div class="user-settings__body">
 					<div class="form-group">
 						<label for="inputEmail3" class="col-sm-2 control-label">Nickname</label>
-						<input type="email" class="form-control" id="Nickname" placeholder="Nickname">
+						<input type="email" class="form-control" id="Nickname" placeholder="${nickname}">
 					</div>
 					<div class="form-group">
 						<label for="inputEmail3" class="col-sm-2 control-label">Email</label>
-						<input type="email" class="form-control" id="inputEmail3" placeholder="Email">
+						<input type="email" class="form-control" id="inputEmail3" placeholder="${email }">
 					</div>
 
 					<div class="form-group">

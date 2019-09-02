@@ -50,7 +50,8 @@
 						<div class="post__info">
 							<div class="post__like">
 								<c:choose>
-									<c:when test="${post.liked}">
+								  
+									<c:when test="post.liked">
 									<%-- 이 게시글에 like 했다면 --%>
 										<a href="javascript:likeControl(${i})" class="post__btn-like liked"><i class="glyphicon glyphicon-heart "></i></a>
 									</c:when>
