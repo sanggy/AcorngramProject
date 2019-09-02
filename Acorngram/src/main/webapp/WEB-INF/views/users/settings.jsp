@@ -31,14 +31,15 @@
 					</hgroup>
 				</div>
 
-				<div class="user-settings__body">
+				<fieldset class="user-settings__body">
+					<legend>유저 설정</legend>
 					<div class="form-group">
 						<label for="inputEmail3" class="col-sm-2 control-label">Nickname</label>
-						<input type="email" class="form-control" id="Nickname" placeholder="Nickname">
+						<input type="text" class="form-control" name="nickname" placeholder="Nickname">
 					</div>
 					<div class="form-group">
 						<label for="inputEmail3" class="col-sm-2 control-label">Email</label>
-						<input type="email" class="form-control" id="inputEmail3" placeholder="Email">
+						<input type="email" class="form-control" name="email" placeholder="Email">
 					</div>
 
 					<div class="form-group">
@@ -46,8 +47,8 @@
 					</div>
 
 					<div class="form-group">
-						<label for="inputEmail3" class="col-sm-2 control-label">Day of birth</label>
-						<input type="email" class="form-control" id="DOB" placeholder="Day of birth">
+						<label for="inputEmail3" class="col-sm-2 control-label">Date of birth</label>
+						<input type="date" class="form-control" id="DOB" placeholder="Date of birth">
 					</div>
 					<div class="form-group toggler-wrap">
 						<div class="user-settings__toggler">
@@ -78,7 +79,7 @@
 						<a class="btn-danger" href="javascript:corfirmAccess('delete_account')" role="button">회원 탈퇴</a>
 					</div>
 
-				</div>
+				</fieldset>
 			</form>
 
 			</div>

@@ -18,7 +18,7 @@
 						<div class="post__header">
 							<div class="post__header-left">
 								<a href="${pageContext.request.contextPath}/users/profile.do?id=${post.id }">
-									<img src="" alt="" class="post__icon"/>
+									<img src="${pageContext.request.contextPath}/${post.profile_img }" alt="" class="post__icon"/>
 									<hgroup>
 										<h5 class="post__header-name"> ${post.usercode } </h5>
 										<h6 class="post__header-id"> @${post.id } </h6>
@@ -49,15 +49,16 @@
 						</div>
 						<div class="post__info">
 							<div class="post__like">
+								<%-- 
 								<c:choose>
 									<c:when test="${post.liked}">
-									<%-- 이 게시글에 like 했다면 --%>
 										<a href="javascript:likeControl(${i})" class="post__btn-like liked"><i class="glyphicon glyphicon-heart "></i></a>
 									</c:when>
 									<c:otherwise>
 										<a href="javascript:likeControl(${i})" class="post__btn-like"><i class="glyphicon glyphicon-heart-empty "></i></a>
 									</c:otherwise>
 								</c:choose>
+								--%>
 								<span class="count-like">${post.like_count }</span>
 							</div>
 							
@@ -74,11 +75,12 @@
 			</c:if>
 		</div>
 	</main>
+	
 	<template>
 	<div class="container timeline">
 		<article class="post post-${i }">
 			<div class="post__img" style="
-				background-image: url('${pageContext.request.contextPath}/upload/${post.image }')">
+				background-image: url('${pageContext.request.contextPath}/${post.profile_img }')">
 			</div>
 
 			<div class="post__content">
@@ -111,15 +113,17 @@
 				</div>
 				<div class="post__info">
 					<div class="post__like ">
+						<%--
 						<c:choose>
 							<c:when test="${post.liked}">
-							<%-- 이 게시글에 like 했다면 --%>
+							<!-- 이 게시글에 like 했다면  -->
 								<a href="javascript:likeControl(${i})" class="post__btn-like liked"><i class="glyphicon glyphicon-heart "></i></a>
 							</c:when>
 							<c:otherwise>
 								<a href="javascript:likeControl(${i})" class="post__btn-like"><i class="glyphicon glyphicon-heart-empty "></i></a>
 							</c:otherwise>
 						</c:choose>
+						 --%>
 						<span class="count-like">${post.like_count }</span>
 					</div>
 					
