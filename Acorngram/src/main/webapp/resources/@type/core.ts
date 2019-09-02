@@ -162,7 +162,7 @@ function likeControl(num){
 		
 	fetch(cpath+'post/'+mode+'.do?num='+num)
 	.then(res=>{
-		if(res.status<400) res.json()
+		if(res.status<400) return res.json()
 		else throw new Error()
 	})
 	.then(res=>{
@@ -206,42 +206,42 @@ function likeControl(num){
 function deletePost(num){
 	var result:boolean = window.confirm('정말로 삭제하시겠습니까?');
 	if(result){
-		// fetch(cpath+'post/delete.do?num='+num)
-		// .then(res=> res.json() )
-		// .then(res=>{
-		// 	if(res.result){
-		// 		window.alert('성공적으로 삭제되었습니다.');
-		// 		$('#post-'+num).fadeOut(300, function() { $(this).remove(); });
-		// 	}else{
-		// 		window.alert('오류가 발생했습니다.');
-		// 	}
-		// }).catch(
-		// 	error=>{
-		// 		console.dir(error);
-		// 		window.alert('서버와 통신 도중 에러가 발생했습니다.')
-		// 	}
-		// )
-
-		$.ajax({
-			url : "post/delete.do",
-			type : "get",
-			data : {'num' : num},
-			dataType: "json",
-		}).done(
-			res => {
-				if(res.result){
-					window.alert('성공적으로 삭제되었습니다.');
-					$('#post-'+num).fadeOut(300, function() { $(this).remove(); });
-				}else{
-					window.alert('오류가 발생했습니다.');
-				}
+		fetch(cpath+'post/delete.do?num='+num)
+		.then(res=> {return res.json()})
+		.then(res=>{
+			if(res.result){
+				window.alert('성공적으로 삭제되었습니다.');
+				$('#post-'+num).fadeOut(300, function() { $(this).remove(); });
+			}else{
+				window.alert('오류가 발생했습니다.');
 			}
-		).fail(
+		}).catch(
 			error=>{
 				console.dir(error);
 				window.alert('서버와 통신 도중 에러가 발생했습니다.')
 			}
 		)
+
+		// $.ajax({
+		// 	url : "post/delete.do",
+		// 	type : "get",
+		// 	data : {'num' : num},
+		// 	dataType: "json",
+		// }).done(
+		// 	res => {
+		// 		if(res.result){
+		// 			window.alert('성공적으로 삭제되었습니다.');
+		// 			$('#post-'+num).fadeOut(300, function() { $(this).remove(); });
+		// 		}else{
+		// 			window.alert('오류가 발생했습니다.');
+		// 		}
+		// 	}
+		// ).fail(
+		// 	error=>{
+		// 		console.dir(error);
+		// 		window.alert('서버와 통신 도중 에러가 발생했습니다.')
+		// 	}
+		// )
 	}
 }
 
