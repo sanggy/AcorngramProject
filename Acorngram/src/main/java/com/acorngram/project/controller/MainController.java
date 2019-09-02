@@ -236,6 +236,17 @@ public class MainController {
 			map.put("result", true);
 			return map;
 		}
+		
+		@RequestMapping("/post/unlike.do")
+		@ResponseBody
+		public Map<String, Object> authUnlike(HttpServletRequest request, @RequestParam int num) {
+			Map<String , Object> map = new HashMap<>();
+			LikedDto likedDto = new LikedDto();
+			likedDto.setPost_num(num);
+			likesService.unlikePost(likedDto, request);
+			map.put("result", true);
+			return map;
+		}
 	
 }//UsersController END
 
