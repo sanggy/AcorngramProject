@@ -24,7 +24,7 @@
 					<div class="post__header">
 						<div class="post__header-left">
 							<a href="${pageContext.request.contextPath}/users/profile.do?num=${post.usercode }">
-								<img src="${post.profile_img }" alt="" class="post__icon"/>
+								<img src="${pageContext.request.contextPath}/${post.profile_img }" alt="" class="post__icon"/>
 								<hgroup>
 									<h5 class="post__name"> ${post.nickname } </h5>
 									<h6 class="post__id"> @${post.id } </h6>
@@ -74,11 +74,11 @@
 					</div>
 					<div class="post__comment">
 						<div class="comment__form">
-							<form action="${pageContext.request.contextPath}/comment/write.do" method="post">
+							<form action="${pageContext.request.contextPath}/comment/write.do" method="post" class="comment-form">
 								<input type="hidden" name="num" value="${post.num }" />
 								<input type="hidden" name="ref_group" value="${post.num }" />
 								<input type="hidden" name="target_code" value="${post.usercode }" />
-								<textarea name="content" id="comment-content"></textarea>
+								<textarea name="content" class="comment-content"></textarea>
 								<button>전송</button>
 							</form>
 						</div>
@@ -88,16 +88,26 @@
 								<%-- <c:choose>
 									<c:when test="${cmt.deleted eq no }"> --%>
 										<li>
-											<p>
+											<div class="comment__body">
 												<strong>${cmt.usercode } </strong>
 												<span>${cmt.content } </span>
-											</p>
-											<p>
+											</div>
+											<div class="comment__info">
 												<time datetime="${cmt.regdate }"></time>
+												<a href="javascript:" class="comment__link-reply">답글</a>
 												<span>
 													<a href="comment/delete.do?num=${cmt.num }">삭제</a>
 												</span>
-											</p>
+											</div>
+											<div class="comment__form">
+												<form action="${pageContext.request.contextPath}/comment/write.do" method="post" class="comment-form">
+													<input type="hidden" name="num" value="${post.num }" />
+													<input type="hidden" name="ref_group" value="${post.num }" />
+													<input type="hidden" name="target_code" value="${post.usercode }" />
+													<textarea name="content" class="comment-content"></textarea>
+													<button>전송</button>
+												</form>
+											</div>
 										</li>
 									<%-- </c:when>
 									<c:otherwise>
