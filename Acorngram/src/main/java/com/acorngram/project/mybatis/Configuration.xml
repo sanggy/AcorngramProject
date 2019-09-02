@@ -10,6 +10,7 @@
   		<typeAlias type="com.acorngram.project.dto.PostDto" alias="postDto"/>
   		<typeAlias type="com.acorngram.project.dto.FollowerDto" alias="follwerDto"/>
   		<typeAlias type="com.acorngram.project.dto.CommentDto" alias="commentDto"/>
+  		<typeAlias type="com.acorngram.project.dto.LikedDto" alias="likedDto"/>
   	</typeAliases>
   	
   	<!-- mapper 설정 -->
@@ -18,6 +19,7 @@
 		<mapper resource="com/acorngram/project/mybatis/PostMapper.xml"/>
 		<mapper resource="com/acorngram/project/mybatis/CommentsMapper.xml"/>
 		<mapper resource="com/acorngram/project/mybatis/FollowMapper.xml"/>
+		<mapper resource="com/acorngram/project/mybatis/LikesMapper.xml"/>
   	</mappers>
   	
   </configuration>

@@ -15,9 +15,11 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.acorngram.project.dao.CommentDao;
+import com.acorngram.project.dao.LikesDao;
 import com.acorngram.project.dao.PostDao;
 import com.acorngram.project.dao.UsersDao;
 import com.acorngram.project.dto.CommentDto;
+import com.acorngram.project.dto.LikedDto;
 import com.acorngram.project.dto.PostDto;
 import com.acorngram.project.dto.UsersDto;
 
@@ -30,7 +32,9 @@ public class PostServiceImpl implements PostService {
 	@Autowired
 	private PostDao postDao;
 	
-	@Autowired CommentDao commentDao;
+	@Autowired private CommentDao commentDao;
+	
+	@Autowired private LikesDao likesDao;
 	
 	
 	// 리스트 불러오기 
@@ -109,7 +113,7 @@ public class PostServiceImpl implements PostService {
 		int totalRow = postDao.getCount(postDto);
 		
 		//trying to check if postDao.getCount will work ----- checked and it works
-		System.out.println("printing postDao.getCount result : " + totalRow);
+//		System.out.println("printing postDao.getCount result : " + totalRow);
 		
 		//전체 페이지의 갯수 구하기
 		int totalPageCount = (int)Math.ceil(totalRow/(double)PAGE_ROW_COUNT);
@@ -134,7 +138,22 @@ public class PostServiceImpl implements PostService {
 		
 		//check if it received the list and will print list.size();
 		System.out.println("list 사이즈 출력 : " + postList.size());
-		System.out.println("postList에 first index의 num가지고 오기 : " + postList.get(0).getNum());
+//		System.out.println("postList에 first index의 num가지고 오기 : " + postList.get(0).getNum());
+		
+		//likesDto instantiate
+		LikedDto likeDto = new LikedDto();
+		//IF each of the postlist index contains at least 1 like then it will call for info from likes table
+		
+		for(PostDto temp : postList) {
+			likeDto.setPost_num(temp.getNum());
+			likeDto.setUser_code((int)request.getSession().getAttribute("usercode"));
+			int isLiked = likesDao.getLikedPost(likeDto);
+			if(isLiked == 0) {
+				temp.setLiked(false);
+			}else {
+				temp.setLiked(true);
+			}
+		}
 		
 		//파일 목록을 request 에 list라는 키값으로 담는다
 		request.setAttribute("list", postList);
@@ -147,7 +166,7 @@ public class PostServiceImpl implements PostService {
 		request.setAttribute("totalRow", totalRow);
 		
 		//checking if usersDao.getList is gonna work... 
-		System.out.println("usersDao.getList를 실행 하럭야");
+//		System.out.println("usersDao.getList를 실행 하럭야");
 		
 		// Search 할때 유저 목록을 request에 usersList 라는 키값으로 담는다. 
 //		List<UsersDto> usersList = usersDao.getList(usersDto);
@@ -241,6 +260,20 @@ public class PostServiceImpl implements PostService {
 		//num번의 post 정보를 먼저 가지고 와서 담는다
 		PostDto postDto = postDao.getData(num);
 		System.out.println("Post Service부분에서 postDto의 정보가 확인이 된다? : " + postDto.getNum());
+		
+		//likesDto instantiate
+		LikedDto likeDto = new LikedDto();
+		//IF each of the postlist index contains at least 1 like then it will call for info from likes table
+		
+		
+		likeDto.setPost_num(postDto.getNum());
+		likeDto.setUser_code((int)request.getSession().getAttribute("usercode"));
+		int isLiked = likesDao.getLikedPost(likeDto);
+		if(isLiked == 0) {
+			postDto.setLiked(false);
+		}else {
+			postDto.setLiked(true);
+		}
 		
 		//postDto의 num은 comments의 ref_group 번호와 같아야 한다...
 		int ref_group = postDto.getNum();

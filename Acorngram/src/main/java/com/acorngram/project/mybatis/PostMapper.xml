@@ -7,7 +7,7 @@
 		FROM (SELECT result1.*, ROWNUM AS rnum, users_db.nickname, users_db.id, users_db.profile_img
 		FROM (SELECT num, usercode, content, image, video, regdate, like_count, savefilename, filesize
 		FROM post_db
-		ORDER BY num DESC) 
+		ORDER BY post_db.num DESC) 
 		result1 INNER JOIN users_db
 		ON result1.usercode = users_db.usercode)
 		WHERE rnum BETWEEN #{startRowNum} AND #{endRowNum}
@@ -33,4 +33,12 @@
 		FROM post_db
 		WHERE num = #{num}
 	</select>
+	
+	<update id="updateLikes" parameterType="postDto">
+		UPDATE post_db
+		SET like_count = +1
+		WHERE num = #{num}
+		
+	</update>
+	
 </mapper>

@@ -53,7 +53,7 @@
 					<div class="post__info">
 						<div class="post__like ">
 							<c:choose>
-								<c:when test="post.like">
+								<c:when test="${post.liked }">
 								<%-- 이 게시글에 like 했다면 --%>
 									<a href="javascript:likeControl(${post.num})" class="post__btn-like liked"><i class="glyphicon glyphicon-heart "></i></a>
 								</c:when>
@@ -85,8 +85,8 @@
 						<div class="comment__area">
 							<ul class="comment__list">
 							<c:forEach var="cmt" items="${commentList }">
-								<%-- <c:choose>
-									<c:when test="${cmt.deleted eq no }"> --%>
+								 <c:choose>
+									<c:when test="${cmt.deleted eq no }">
 										<li>
 											<div class="comment__body">
 												<strong>${cmt.usercode } </strong>
@@ -109,11 +109,11 @@
 												</form>
 											</div>
 										</li>
-									<%-- </c:when>
+										</c:when>
 									<c:otherwise>
 										<li class="comment-deleted">삭제된 댓글 입니다.</li>
 									</c:otherwise>
-								</c:choose> --%>
+								</c:choose>
 							</c:forEach>
 							</ul>
 						</div>

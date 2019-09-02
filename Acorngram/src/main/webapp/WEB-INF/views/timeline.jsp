@@ -49,14 +49,15 @@
 						</div>
 						<div class="post__info">
 							<div class="post__like">
-								<%-- <c:choose>								  
+								<c:choose>
 									<c:when test="${post.liked}">
-										<a href="javascript:likeControl(${i})" class="post__btn-like liked"><i class="glyphicon glyphicon-heart "></i></a>
+									<%-- 이 게시글에 like 했다면 --%>
+										<a href="javascript:likeControl(${post.num})" class="post__btn-like liked"><i class="glyphicon glyphicon-heart "></i></a>
 									</c:when>
 									<c:otherwise>
-										<a href="javascript:likeControl(${i})" class="post__btn-like"><i class="glyphicon glyphicon-heart-empty "></i></a>
+										<a href="javascript:likeControl(${post.num})" class="post__btn-like"><i class="glyphicon glyphicon-heart-empty "></i></a>
 									</c:otherwise>
-								</c:choose> --%>
+								</c:choose>
 								<span class="count-like">${post.like_count }</span>
 								<span class="glyphicon glyphicon-comment">{post.comment_count}</span>
 							</div>
@@ -74,7 +75,6 @@
 			</c:if>
 		</div>
 	</main>
-	
 	<jsp:include page="inc/footer.jsp" />
 </body>
 </html>
