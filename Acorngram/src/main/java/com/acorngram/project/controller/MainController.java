@@ -227,11 +227,25 @@ public class MainController {
 //===============================LIKING POSTS section ===================================================
 		
 		@RequestMapping("/post/like.do")
-		public ModelAndView authLike(HttpServletRequest request, @RequestParam int num) {
+		@ResponseBody
+		public Map<String, Object> authLike(HttpServletRequest request, @RequestParam int num) {
+			Map<String , Object> map = new HashMap<>();
 			LikedDto likedDto = new LikedDto();
 			likedDto.setPost_num(num);
 			likesService.likePost(likedDto, request);
-			return new ModelAndView("timeline");
+			map.put("result", true);
+			return map;
+		}
+		
+		@RequestMapping("/post/unlike.do")
+		@ResponseBody
+		public Map<String, Object> authUnlike(HttpServletRequest request, @RequestParam int num) {
+			Map<String , Object> map = new HashMap<>();
+			LikedDto likedDto = new LikedDto();
+			likedDto.setPost_num(num);
+			likesService.unlikePost(likedDto, request);
+			map.put("result", true);
+			return map;
 		}
 	
 }//UsersController END
