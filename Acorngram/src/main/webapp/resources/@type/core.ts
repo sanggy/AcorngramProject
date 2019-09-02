@@ -26,11 +26,9 @@ function getResultFromAjax(url, param:Map, type){
 
 	//	시간 설정
 	document.querySelectorAll('time').forEach(e=>{
-		var regdate = moment().utc(e.dateTime);
-		e.innerText = 
-			regdate
-		//	new moment(regdate).fromNow()
-	})
+        var regdate = moment.utc(e.dateTime).local().fromNow();
+        e.innerText = regdate
+    })
 
 	//	좋아요 버튼 hover 효과
 	$('.post__btn-like').on('hover',function(){
