@@ -14,7 +14,7 @@
 		<div class="timeline container">
 			<c:if test="${not empty list }">
 				<c:forEach var="post" items="${list }">
-					<article class="post" id="post-${post.num }">
+					<article class="post post-user-${post.usercode }" id="post-${post.num }">
 						<div class="post__header">
 							<div class="post__header-left">
 								<a href="${pageContext.request.contextPath}/users/profile.do?id=${post.id }">

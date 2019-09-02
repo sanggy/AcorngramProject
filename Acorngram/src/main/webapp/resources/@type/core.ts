@@ -15,7 +15,10 @@ function getResultFromAjax(url, param:Map, type){
 			"Content-Type": "application/json; charset=utf-8"
 		},
 		body: JSON.stringify(param)
-	}).then(res=>{return res.json()})
+	}).then(res=>{
+		if(res.status<400)return res.json()
+		else throw new Error()
+	})
 	.catch(err=>{return false;})
 }
 
@@ -156,11 +159,15 @@ function confirmAccess(act, url){
 //  좋아요 버튼
 
 function likeControl(num){
-	const flag = document.querySelector('.post-'+num+' .post__like a');
+	const flag = document.querySelector('#post-'+num+' .post__like a');
 	const mode = flag.classList.contains('liked')?
 		'unlike':'like';
+		
 	fetch(cpath+'post/'+mode+'.do?num='+num)
-	.then(res=>res.json())
+	.then(res=>{
+		if(res.status<400) res.json()
+		else throw new Error()
+	})
 	.then(res=>{
 		if(res.result) {
 			switch (mode){
@@ -204,7 +211,10 @@ function deletePost(num){
 	var result:boolean = window.confirm('정말로 삭제하시겠습니까?');
 	if(result){
 		fetch(cpath+'post/delete.do?num='+num)
-		.then(res=>res.json())
+		.then(res=>{
+			if(res.status<400) res.json()
+			else throw new Error()
+		})
 		.then(res=>{
 				if(res.result){
 					window.alert('성공적으로 삭제되었습니다.');
@@ -244,38 +254,69 @@ function deletePost(num){
 
 function followToggle(usercode){
 	let url = cpath+"follwer/follow.do";
-	const result = followAjax(url, usercode);
-	if(result){
-		window.alert('성공적으로 팔로우되었습니다.');
-		const target = document.querySelector('post-'+usercode+' a[class*="follow]');
-			target.classList.replace('post__btn-follow', 'post__btn-unfollow');
-			target.querySelector('i.glyphicon').classList.replace('glyphicon-plus-sign', 'glyphicon-remove-sign')
-			target.querySelector('span').innerText = 'Unfollow';
-	}else{
-		window.alert('오류가 발생했습니다.');
-	}
+	const result = fetch(cpath+url+'?usercode='+usercode)
+	.then(res=>{
+		if(res.status<400) res.json()
+		else throw new Error('error')
+	})
+	.then(res=>{
+		if(res.result){
+			window.alert('성공적으로 팔로우되었습니다.');
+			const postList = document.querySelectorAll('.post');
+			postList.forEach(i=>{
+				if(i.classList.contains('post-user-'+usercode)){
+					const target = i.querySelector('a[class*="follow"]');
+					target.classList.replace('post__btn-follow', 'post__btn-unfollow');
+					target.href = 'javascript:unfollowToggle('+usercode+')';
+					target.querySelector('i.glyphicon').classList.replace('glyphicon-plus-sign', 'glyphicon-remove-sign');
+					target.querySelector('span').innerText = 'Unfollow';			
+				}
+			});
+		}else{
+			window.alert('오류가 발생했습니다.');
+		}
+	})
+	.catch(err=>{window.alert('오류가 발생했습니다.');})
 }
 
 function unfollowToggle(usercode){
 	let url = 'follwer/unfollow.do';
-	const result = followAjax(url, usercode);
-	if(result){
-		window.alert('성공적으로 언팔로우되었습니다.');
-		const target = document.querySelector('post-'+usercode+' a[class*="follow]');
-			target.classList.replace('post__btn-unfollow', 'post__btn-follow');
-			target.querySelector('i.glyphicon').classList.replace('glyphicon-remove-sign', 'glyphicon-plus-sign')
-			target.querySelector('span').innerText = 'Follow';
-	}else{
-		window.alert('오류가 발생했습니다.');
-	}
+	const result = fetch(cpath+url+'?usercode='+usercode)
+	.then(res=>{
+		if(res.status<400) res.json()
+		else throw new Error('error')
+	})
+	.then(res=>{
+		if(res.result){
+			window.alert('성공적으로 언팔로우되었습니다.');
+			const postList = document.querySelectorAll('.post');
+			postList.forEach(i=>{
+				if(i.classList.contains('post-user-'+usercode)){
+					const target = i.querySelector('a[class*="follow"]');
+					target.classList.replace('post__btn-unfollow', 'post__btn-follow');
+					target.href = 'javascript:followToggle('+usercode+')';
+					target.querySelector('i.glyphicon').classList.replace('glyphicon-remove-sign', 'glyphicon-plus-sign');
+					target.querySelector('span').innerText = 'Follow';
+				}
+			});
+		}else{
+			window.alert('오류가 발생했습니다.');
+		}
+	})
+	.catch(err=>{window.alert('오류가 발생했습니다.');});
 }
-
+/*
 function followAjax(url, usercode){
 	return fetch(cpath+url+'?usercode='+usercode)
-	.then(res=>res.json())
+	.then(res=>{
+		alert(res.status);
+		if(res.status<400) res.json()
+		else throw new Error('error')
+	})
 	.then(res=>{return res.result;})
-	.catch(err=>{return false;}) // 테스트용 실제로는 반대로 
+	.catch(err=>{return false;})
 }
+*/
 
 //	팔로우 언팔 끝
 
