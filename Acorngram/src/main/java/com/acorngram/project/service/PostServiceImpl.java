@@ -146,14 +146,13 @@ public class PostServiceImpl implements PostService {
 		
 		for(PostDto temp : postList) {
 			likeDto.setPost_num(temp.getNum());
-			likeDto.setUser_code(temp.getUsercode());
+			likeDto.setUser_code((int)request.getSession().getAttribute("usercode"));
 			int isLiked = likesDao.getLikedPost(likeDto);
 			if(isLiked == 0) {
-				request.setAttribute("liked", false);
+				temp.setLiked(false);
 			}else {
-				request.setAttribute("liked", true);
+				temp.setLiked(true);
 			}
-			
 		}
 		
 		//파일 목록을 request 에 list라는 키값으로 담는다
@@ -261,6 +260,20 @@ public class PostServiceImpl implements PostService {
 		//num번의 post 정보를 먼저 가지고 와서 담는다
 		PostDto postDto = postDao.getData(num);
 		System.out.println("Post Service부분에서 postDto의 정보가 확인이 된다? : " + postDto.getNum());
+		
+		//likesDto instantiate
+		LikedDto likeDto = new LikedDto();
+		//IF each of the postlist index contains at least 1 like then it will call for info from likes table
+		
+		
+		likeDto.setPost_num(postDto.getNum());
+		likeDto.setUser_code((int)request.getSession().getAttribute("usercode"));
+		int isLiked = likesDao.getLikedPost(likeDto);
+		if(isLiked == 0) {
+			postDto.setLiked(false);
+		}else {
+			postDto.setLiked(true);
+		}
 		
 		//postDto의 num은 comments의 ref_group 번호와 같아야 한다...
 		int ref_group = postDto.getNum();

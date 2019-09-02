@@ -20,10 +20,12 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.acorngram.project.dto.CommentDto;
 import com.acorngram.project.dto.FollowerDto;
+import com.acorngram.project.dto.LikedDto;
 import com.acorngram.project.dto.PostDto;
 import com.acorngram.project.dto.UsersDto;
 import com.acorngram.project.service.CommentsService;
 import com.acorngram.project.service.FollowerService;
+import com.acorngram.project.service.LikesService;
 import com.acorngram.project.service.PostService;
 import com.acorngram.project.service.UsersService;
 
@@ -37,7 +39,9 @@ public class MainController {
 	
 	@Autowired private FollowerService followerService;
 	
-	@Autowired CommentsService commentsService;
+	@Autowired private CommentsService commentsService;
+	
+	@Autowired private LikesService likesService;
 	
 	@RequestMapping(value="/users/signup.do", method = RequestMethod.POST)
 	public ModelAndView signup(@ModelAttribute UsersDto dto, ModelAndView mView) {
@@ -202,7 +206,13 @@ public class MainController {
 		
 //===============================LIKING POSTS section ===================================================
 		
-//		@RequestMapping("/")
+		@RequestMapping("/post/like.do")
+		public ModelAndView authLike(HttpServletRequest request, @RequestParam int num) {
+			LikedDto likedDto = new LikedDto();
+			likedDto.setPost_num(num);
+			likesService.likePost(likedDto, request);
+			return new ModelAndView("timeline");
+		}
 	
 }//UsersController END
 

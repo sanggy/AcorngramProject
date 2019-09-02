@@ -4,8 +4,8 @@
 	
 	<insert id="likePost" parameterType="LikedDto">
 		INSERT INTO likes
-		(post_num, user_code, liked)
-		VALUES (#{post_num},#{user_code},#{liked})
+		(post_num, user_code)
+		VALUES (#{post_num},#{user_code})
 	</insert>
 	
 	<!-- <select id="getLikedList" parameterType="likedDto" resultType="likedDto">

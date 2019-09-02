@@ -34,7 +34,7 @@
 						<div class="post__header-right">
 						<c:choose>
 							<c:when test="${post.usercode eq usercode }">
-								<a href="javascript:deletePost(${i})" role="button" class="post__btn-delete"> <i class="glyphicon glyphicon-trash"></i></a>
+								<a href="javascript:deletePost(${post.num})" role="button" class="post__btn-delete"> <i class="glyphicon glyphicon-trash"></i></a>
 							</c:when>
 							<c:otherwise>
 								<c:choose>
@@ -53,12 +53,12 @@
 					<div class="post__info">
 						<div class="post__like ">
 							<c:choose>
-								<c:when test="post.like">
+								<c:when test="${post.liked }">
 								<%-- 이 게시글에 like 했다면 --%>
-									<a href="javascript:likeControl(${i})" class="post__btn-like liked"><i class="glyphicon glyphicon-heart "></i></a>
+									<a href="javascript:likeControl(${post.num})" class="post__btn-like liked"><i class="glyphicon glyphicon-heart "></i></a>
 								</c:when>
 								<c:otherwise>
-									<a href="javascript:likeControl(${i})" class="post__btn-like"><i class="glyphicon glyphicon-heart-empty "></i></a>
+									<a href="javascript:likeControl(${post.num})" class="post__btn-like"><i class="glyphicon glyphicon-heart-empty "></i></a>
 								</c:otherwise>
 							</c:choose>
 							<span class="count-like">${post.like_count }</span>

@@ -15,17 +15,20 @@ public class LikesServiceImpl implements LikesService{
 	
 	@Override
 	public void likePost(LikedDto dto, HttpServletRequest request) {
+//		dto.setPost_num(Integer.parseInt(request.getParameter("num")));
+		dto.setUser_code((int)request.getSession().getAttribute("usercode"));
 		likesDao.likePost(dto);
 	}
 
 	@Override
 	public void unlikePost(LikedDto dto, HttpServletRequest request) {
+		dto.setPost_num(Integer.parseInt(request.getParameter("num")));
+		dto.setUser_code((int)request.getSession().getAttribute("usercode"));
 		likesDao.unlikePost(dto);
 	}
 
 	@Override
 	public void getLikeList(LikedDto dto, HttpServletRequest request) {
-		
 		likesDao.getLikedPost(dto);
 		
 	}

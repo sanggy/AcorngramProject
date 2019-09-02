@@ -49,21 +49,17 @@
 						</div>
 						<div class="post__info">
 							<div class="post__like">
-								<%-- 
+								<c:out value="${post.liked }" default="null입니다"/>
 								<c:choose>
-<<<<<<< HEAD
-									<c:when test="${liked}">
-									<%-- 이 게시글에 like 했다면 --%>
-=======
+									
 									<c:when test="${post.liked}">
->>>>>>> 4ad2bedd4b5f23f4bf5ed411efff63e1f66f334a
-										<a href="javascript:likeControl(${i})" class="post__btn-like liked"><i class="glyphicon glyphicon-heart "></i></a>
+									<%-- 이 게시글에 like 했다면 --%>
+										<a href="javascript:likeControl(${post.num})" class="post__btn-like liked"><i class="glyphicon glyphicon-heart "></i></a>
 									</c:when>
 									<c:otherwise>
-										<a href="javascript:likeControl(${i})" class="post__btn-like"><i class="glyphicon glyphicon-heart-empty "></i></a>
+										<a href="javascript:likeControl(${post.num})" class="post__btn-like"><i class="glyphicon glyphicon-heart-empty "></i></a>
 									</c:otherwise>
 								</c:choose>
-								--%>
 								<span class="count-like">${post.like_count }</span>
 							</div>
 							
@@ -80,109 +76,6 @@
 			</c:if>
 		</div>
 	</main>
-	
-	<template>
-	<div class="container timeline">
-		<article class="post post-${i }">
-			<div class="post__img" style="
-				background-image: url('${pageContext.request.contextPath}/${post.profile_img }')">
-			</div>
-
-			<div class="post__content">
-				<div class="post__header">
-					<div class="post__header-left">
-						<img src="${post.profile_img }" alt="" class="post__icon"/>
-						<hgroup>
-							<h5 class="post__name"> ${post.nickname } </h5>
-							<h6 class="post__id"> @${post.id } </h6>
-						</hgroup>
-					</div>
-					<div class="post__header-right">
-					<c:choose>
-						<c:when test="${post.usercode eq usercode }">
-							<a href="javascript:deletePost(${i})" role="button" class="post__btn-delete"> <i class="glyphicon glyphicon-trash"></i></a>
-						</c:when>
-						<c:otherwise>
-							<c:choose>
-								<c:when test="">
-								<%-- 이 유저와 팔로우 상태라면 --%>
-								<a href="javascript:unfollowToggle(${post.usercode })" role="button" class="post__btn-unfollow" ><i class="glyphicon glyphicon-remove-sign"></i> <span>Unfollow</span> </a>
-								</c:when>
-								<c:otherwise>
-								<a href="javascript:followToggle(${post.usercode })" role="button" class="post__btn-follow"><i class="glyphicon glyphicon-plus-sign"></i> <span>Follow</span> </a>
-								</c:otherwise>
-							</c:choose>
-						</c:otherwise>
-					</c:choose>
-					</div>
-				</div>
-				<div class="post__info">
-					<div class="post__like ">
-						<%--
-						<c:choose>
-<<<<<<< HEAD
-							<c:when test="${liked}">
-							<%-- 이 게시글에 like 했다면 --%>
-=======
-							<c:when test="${post.liked}">
-							<!-- 이 게시글에 like 했다면  -->
->>>>>>> 4ad2bedd4b5f23f4bf5ed411efff63e1f66f334a
-								<a href="javascript:likeControl(${i})" class="post__btn-like liked"><i class="glyphicon glyphicon-heart "></i></a>
-							</c:when>
-							<c:otherwise>
-								<a href="javascript:likeControl(${i})" class="post__btn-like"><i class="glyphicon glyphicon-heart-empty "></i></a>
-							</c:otherwise>
-						</c:choose>
-						 --%>
-						<span class="count-like">${post.like_count }</span>
-					</div>
-					
-					<div class="post__regdate">
-						<time datetime="${post.regdate }"></time>
-					</div>
-				</div>
-				<div class="post__body">
-					<h3>${post.nickname } </h3>
-					<p>${post.content }</p>
-				</div>
-				<div class="post__comment">
-					<div class="comment__form">
-						<form action="comment/write.do" method="post">
-							<textarea name="content" id="comment-content"></textarea>
-							<button>전송</button>
-						</form>
-					</div>
-					<div class="comment__area">
-						<ul class="comment__list">
-						<c:forEach var="cmt" items="">
-							<c:choose>
-								<c:when test="${cmt.deleted eq no }">
-									<li>
-										<p>
-											<strong>${cmt.writer } </strong>
-											<span>${cmt.content } </span>
-										</p>
-										<p>
-											<time datetime="${cmt.regdate }"></time>
-											<span>
-												<a href="comment/edit.do">수정</a>
-												<a href="comment/delete.do">삭제</a>
-											</span>
-										</p>
-									</li>
-								</c:when>
-								<c:otherwise>
-									<li class="comment-deleted">삭제된 댓글 입니다.</li>
-								</c:otherwise>
-							</c:choose>
-						</c:forEach>
-						</ul>
-					</div>
-				</div>
-			</div>
-		</article>
-	</div>
-	</template>
 	<jsp:include page="inc/footer.jsp" />
 </body>
 </html>
