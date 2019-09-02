@@ -1,15 +1,19 @@
 package com.acorngram.project.dto;
 
+import org.springframework.web.multipart.MultipartFile;
+
 public class UsersDto {
 	private String id, dob, theme, profile_img;
 	private String nickname, email, pw, regdate;
 	private int usercode, reported, dm_range;
 	private String banned, acc_private;
+	private MultipartFile profile_file;
 	
 	public UsersDto(){}
 
 	public UsersDto(String id, String dob, String theme, String profile_img, String nickname, String email, String pw,
-			String regdate, int usercode, int reported, int dm_range, String banned, String acc_private) {
+			String regdate, int usercode, int reported, int dm_range, String banned, String acc_private,
+			MultipartFile profile_file) {
 		super();
 		this.id = id;
 		this.dob = dob;
@@ -24,6 +28,7 @@ public class UsersDto {
 		this.dm_range = dm_range;
 		this.banned = banned;
 		this.acc_private = acc_private;
+		this.profile_file = profile_file;
 	}
 
 	public String getId() {
@@ -129,7 +134,15 @@ public class UsersDto {
 	public void setAcc_private(String acc_private) {
 		this.acc_private = acc_private;
 	}
-	
+
+	public MultipartFile getProfile_file() {
+		return profile_file;
+	}
+
+	public void setProfile_file(MultipartFile profile_file) {
+		this.profile_file = profile_file;
+	}
+
 	
 	
 }

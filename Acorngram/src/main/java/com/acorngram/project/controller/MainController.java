@@ -4,6 +4,7 @@ package com.acorngram.project.controller;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -67,7 +68,7 @@ public class MainController {
 
 		return mView;	
 	}
-	
+	// /users/settings.do 와 같은 내용 
 	@RequestMapping(value = "/users/profile.do", method = RequestMethod.POST)
 	public ModelAndView authUpdateUserInfo(@ModelAttribute UsersDto dto, ModelAndView mView, HttpServletRequest request) {
 		//유저 정보 수정 하는 메소드 호출
@@ -114,10 +115,19 @@ public class MainController {
 		mView.setViewName("users/settings");
 		return mView;
 	}
+	
 	@RequestMapping("/users/updateSettings.do")
-	public ModelAndView authUpdateSettings(@ModelAttribute UsersDto dto, HttpServletRequest request ) {
-		usersService.updateUser(dto, request);		
-		return new ModelAndView("redirect:/settings.do");
+	public ModelAndView authUpdateSettings(@ModelAttribute UsersDto dto, HttpServletRequest request) {
+		
+		//서비스를 이용해서 프로파일 이미지를 저장하고 저장된 이미지 경로를 리턴 받는다		
+		if(dto.getProfile_file().getSize()!=0) {
+			String path = usersService.saveProfileImage(request, dto.getProfile_file());
+			dto.setProfile_img(path);
+			usersService.updateUser(dto, request);			
+		}else{
+			usersService.updateUser(dto, request);		
+		}
+		return new ModelAndView("redirect:/users/settings.do");
 	}
 	
 	

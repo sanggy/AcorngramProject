@@ -3,13 +3,13 @@
 <mapper namespace="users">
 	
 	<select id="getData" parameterType="String" resultType="usersDto">
-		SELECT usercode, nickname, banned, email, pw, regdate, reported, dob, dm_range, acc_private, theme, profile_img
+		SELECT usercode, id,  nickname, banned, email, pw, regdate, reported, dob, dm_range, acc_private, theme, profile_img
 		FROM users_db
 		WHERE id = #{id}
 	</select>
 	
-	<select id="getSimpleData" parameterType="usersDto" resultType="int">
-		SELECT usercode
+	<select id="getSimpleData" parameterType="usersDto" resultType="usersDto">
+		SELECT usercode, nickname, profile_img
 		FROM users_db
 		WHERE id = #{id}
 	</select>
@@ -52,6 +52,9 @@
 	<update id="update" parameterType="usersDto">
 		UPDATE users_db
 		SET nickname = #{nickname}, email = #{email}, dob = #{dob}, dm_range = #{dm_range}, acc_private=#{acc_private}
+		<if test="profile_img != null">
+			 ,profile_img = #{profile_img}
+		</if>
 		WHERE id = #{id}
 	</update>
 

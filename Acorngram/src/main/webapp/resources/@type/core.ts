@@ -6,7 +6,6 @@ function getCpath(){
 }
 const cpath = getCpath();
 
-
 //	json
 function getResultFromAjax(url, param:Map, type){
 	return fetch(url,{
@@ -147,11 +146,11 @@ toggle.run(
 
 //	특정조작시 리다이렉트
 
-function confirmAccess(act){
+function confirmAccess(act, url){
 	var prompt_msg = '정말로 '+act+'하시겠습니까? \n 하시려 한다면'+act+'를 입력해주세요.';
 	var result = prompt(prompt_msg);
 	if(act === result){
-		location.href = act+'.do';
+		location.href = url+'.do';
 	}
 }
 
@@ -320,3 +319,10 @@ $('#signUp').on('submit',()=>{
 		return false;
 	}
 })
+
+//	댓글 폼
+$('.comment__info a').on('click',function(){
+	$(this).parent().next().fadeToggle(250);
+});
+
+

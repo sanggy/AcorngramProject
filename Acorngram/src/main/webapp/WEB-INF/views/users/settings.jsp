@@ -18,40 +18,40 @@
 			<form class="user-settings__form" enctype="multipart/form-data" method="post" action="updateSettings.do">
 				<div class="user-settings__header">
 					<label for="profile-img">
-						<input type="file" name="profile_img" id="profile-img" accept="image/*" />
-						
+						<input type="file" name="profile_file" id="profile-img" accept="image/*" />
 						<img id="user__profile-img" class="user__profile-img"
 						<%-- src="${pageContext.request.contextPath}/${user.profile_img}"--%>
-						src="${pageContext.request.contextPath}/resources/images/0.png"
+						src="${pageContext.request.contextPath}/${user.profile_img}"
 						alt="${user.id }의 프로필 이미지" />
 					</label>
 					<hgroup>
-						<h5 class="user__name"> ${nickname } </h5>
-						<h6 class="user__id"> @${id } </h6>
+						<h5 class="user__name"> ${user.nickname } </h5>
+						<h6 class="user__id"> @${user.id } </h6>
 					</hgroup>
 				</div>
 
-				<div class="user-settings__body">
+				<fieldset class="user-settings__body">
+					<legend>유저 설정</legend>
 					<div class="form-group">
 						<label for="inputEmail3" class="col-sm-2 control-label">Nickname</label>
-						<input type="email" class="form-control" id="Nickname" placeholder="${nickname}">
+						<input type="text" class="form-control" name="nickname" value=${user.nickname }>
 					</div>
 					<div class="form-group">
 						<label for="inputEmail3" class="col-sm-2 control-label">Email</label>
-						<input type="email" class="form-control" id="inputEmail3" placeholder="${email }">
+						<input type="email" class="form-control" name="email" value="${user.email }">
 					</div>
 
 					<div class="form-group">
 						<a href="settings_pwd.do" role="button" class="user__btn-change-pwd">패스워드 변경</a>
 					</div>
 
-					<div class="form-group">
-						<label for="inputEmail3" class="col-sm-2 control-label">Day of birth</label>
-						<input type="email" class="form-control" id="DOB" placeholder="Day of birth">
+					<div class="form-group">  
+						<label for="inputEmail3" class="col-sm-2 control-label">Date of birth</label>
+						<input type="date" name="dob" class="form-control" id="DOB" value="${user.dob}">
 					</div>
 					<div class="form-group toggler-wrap">
 						<div class="user-settings__toggler">
-							<input type="checkbox" id="dm_range" name="dm_range" class="switch-input">
+							<input type="checkbox" id="dm_range" name="dm_range" class="switch-input" value="1">
 							<label for="dm_range" class="switch-label">
 								DM RANGE: 
 								<span class="toggle--on">private</span>
@@ -59,7 +59,7 @@
 							</label>
 						</div>
 						<div class="user-settings__toggler">
-							<input type="checkbox" id="account_private" name="account_private" class="switch-input">
+							<input type="checkbox" id="account_private" name="acc_private" class="switch-input" value="yes">
 							<label for="account_private" class="switch-label">
 								ACCOUNT is : 
 								<span class="toggle--on">private</span>
@@ -78,7 +78,7 @@
 						<a class="btn-danger" href="javascript:corfirmAccess('delete_account')" role="button">회원 탈퇴</a>
 					</div>
 
-				</div>
+				</fieldset>
 			</form>
 
 			</div>

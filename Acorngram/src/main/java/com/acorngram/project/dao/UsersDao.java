@@ -33,7 +33,7 @@ public interface UsersDao {
 	public void updatePwd(UsersDto dto);
 	
 	//get simple data
-	public int simpleData(String id);
+	public UsersDto simpleData(String id);
 	
 	
 }
