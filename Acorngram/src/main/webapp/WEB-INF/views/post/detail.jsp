@@ -86,7 +86,10 @@
 							<ul class="comment__list">
 							<c:forEach var="cmt" items="${commentList }">
 								 <c:choose>
-									<c:when test="${cmt.deleted eq no }">
+									<c:when test='${cmt.deleted eq yes }'>
+										<li class="comment-deleted">삭제된 댓글 입니다.</li>
+									</c:when>
+									<c:otherwise>
 										<li>
 											<div class="comment__body">
 												<strong>${cmt.usercode } </strong>
@@ -95,9 +98,11 @@
 											<div class="comment__info">
 												<time datetime="${cmt.regdate }"></time>
 												<a href="javascript:" class="comment__link-reply">답글</a>
-												<span>
-													<a href="comment/delete.do?num=${cmt.num }">삭제</a>
-												</span>
+												<c:if test="${cmt.usercode eq usercode }">
+													<span>
+														<a href="comment/delete.do?num=${cmt.num }&postnum=${post.num}">삭제</a>
+													</span>
+												</c:if>
 											</div>
 											<div class="comment__form">
 												<form action="${pageContext.request.contextPath}/comment/write.do" method="post" class="comment-form">
@@ -109,9 +114,6 @@
 												</form>
 											</div>
 										</li>
-										</c:when>
-									<c:otherwise>
-										<li class="comment-deleted">삭제된 댓글 입니다.</li>
 									</c:otherwise>
 								</c:choose>
 							</c:forEach>

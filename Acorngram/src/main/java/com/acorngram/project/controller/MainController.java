@@ -123,17 +123,17 @@ public class MainController {
 	}
 	
 	@RequestMapping("/users/updateSettings.do")
-	public ModelAndView authUpdateSettings(@ModelAttribute UsersDto dto, HttpServletRequest request) {
+	public ModelAndView authUpdateSettings(@ModelAttribute UsersDto dto, @RequestParam MultipartFile ProfileImage, HttpServletRequest request) {
 		
 		//서비스를 이용해서 프로파일 이미지를 저장하고 저장된 이미지 경로를 리턴 받는다		
-		if(dto.getProfile_file().getSize()!=0) {
-			String path = usersService.saveProfileImage(request, dto.getProfile_file());
+		if(ProfileImage.getSize()!=0) {
+			String path = usersService.saveProfileImage(request, ProfileImage);
 			dto.setProfile_img(path);
-			usersService.updateUser(dto, request);
 			request.getSession().setAttribute("profile_img", dto.getProfile_img());
-		}else{
-			usersService.updateUser(dto, request);		
 		}
+		
+		usersService.updateUser(dto, request);
+		
 		return new ModelAndView("redirect:/users/settings.do");
 	}
 	
@@ -223,6 +223,14 @@ public class MainController {
 			commentsService.writeComment(request, commentDto);
 			return new ModelAndView("redirect:/timeline.do");
 		}
+		
+		@RequestMapping("/comment/delete.do")
+		public ModelAndView authDelete(HttpServletRequest request, @RequestParam int num, @RequestParam int post_num) {
+			commentsService.deleteComment(num);
+			return new ModelAndView("post/detail.do?num="+num+"&post_num ="+post_num);
+			
+		}
+		
 		
 //===============================LIKING POSTS section ===================================================
 		
