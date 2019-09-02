@@ -224,6 +224,14 @@ public class MainController {
 			return new ModelAndView("redirect:/timeline.do");
 		}
 		
+		@RequestMapping("/comment/delete.do")
+		public ModelAndView authDelete(HttpServletRequest request, @RequestParam int num, @RequestParam int post_num) {
+			commentsService.deleteComment(num);
+			return new ModelAndView("post/detail.do?num="+num+"&post_num ="+post_num);
+			
+		}
+		
+		
 //===============================LIKING POSTS section ===================================================
 		
 		@RequestMapping("/post/like.do")
