@@ -15,10 +15,7 @@ function getResultFromAjax(url, param:Map, type){
 			"Content-Type": "application/json; charset=utf-8"
 		},
 		body: JSON.stringify(param)
-	}).then(res=>{
-		if(res.status<400)return res.json()
-		else throw new Error()
-	})
+	}).then(res=> {return res.json() })
 	.catch(err=>{return false;})
 }
 
@@ -209,43 +206,42 @@ function likeControl(num){
 function deletePost(num){
 	var result:boolean = window.confirm('정말로 삭제하시겠습니까?');
 	if(result){
-		fetch(cpath+'post/delete.do?num='+num)
-		.then(res=>{
-			if(res.status<400) res.json()
-			else throw new Error()
-		})
-		.then(res=>{
+		// fetch(cpath+'post/delete.do?num='+num)
+		// .then(res=> res.json() )
+		// .then(res=>{
+		// 	if(res.result){
+		// 		window.alert('성공적으로 삭제되었습니다.');
+		// 		$('#post-'+num).fadeOut(300, function() { $(this).remove(); });
+		// 	}else{
+		// 		window.alert('오류가 발생했습니다.');
+		// 	}
+		// }).catch(
+		// 	error=>{
+		// 		console.dir(error);
+		// 		window.alert('서버와 통신 도중 에러가 발생했습니다.')
+		// 	}
+		// )
+
+		$.ajax({
+			url : "post/delete.do",
+			type : "get",
+			data : {'num' : num},
+			dataType: "json",
+		}).done(
+			res => {
 				if(res.result){
 					window.alert('성공적으로 삭제되었습니다.');
 					$('#post-'+num).fadeOut(300, function() { $(this).remove(); });
 				}else{
 					window.alert('오류가 발생했습니다.');
 				}
-		}).catch(
+			}
+		).fail(
 			error=>{
+				console.dir(error);
 				window.alert('서버와 통신 도중 에러가 발생했습니다.')
 			}
 		)
-
-		// $.ajax({
-		// 	url : "post/delete.do",
-		// 	type : "get",
-		// 	data : {'num' : num},
-		// 	dataType: "json",
-		// }).done(
-		// 	res => {
-		// 		if(res.result){
-		// 			window.alert('성공적으로 삭제되었습니다.');
-		// 			$('.post-'+num).fadeOut(300, function() { $(this).remove(); });
-		// 		}else{
-		// 			window.alert('오류가 발생했습니다.');
-		// 		}
-		// 	}
-		// ).fail(
-		// 	error=>{
-		// 		$('.post-'+num).fadeOut(300, function() { $(this).remove(); });
-		// 	}
-		// )
 	}
 }
 
@@ -254,10 +250,7 @@ function deletePost(num){
 function followToggle(usercode){
 	let url = cpath+"follwer/follow.do";
 	const result = fetch(cpath+url+'?usercode='+usercode)
-	.then(res=>{
-		if(res.status<400) res.json()
-		else throw new Error('error')
-	})
+	.then(res=> res.json() )
 	.then(res=>{
 		if(res.result){
 			window.alert('성공적으로 팔로우되었습니다.');
@@ -371,7 +364,7 @@ $('.user-settings__form').on('submit',()=>{
 			return false;
 		}
 	}else if(email){
-		if( email.value.match(/[^\s]@[^\s]/) ){
+		if( !email.value.match(/[^\s]@[^\s]/) ){
 			msg = '이메일 형식이 올바르지 않습니다.';
 			alert(msg);
 			return false;
