@@ -85,7 +85,7 @@ function toggleWritePopup(){
 		reader.readAsDataURL(e.target.files[0]);
 	});
 	//	프로필 업로드시
-	$('#profile-img').on('change', function (e) {
+	$('#ProfileImage').on('change', function (e) {
 		var reader = new FileReader();
 		reader.onload = function (e) {
 			$("#user__profile-img").attr('src', e.target.result);
@@ -171,10 +171,12 @@ function likeControl(num){
 			case 'unlike':
 				flag.querySelector('i').classList.replace('glyphicon-heart', 'glyphicon-heart-empty');
 				flag.classList.remove('liked');
+				flag.parentElement.querySelector('.count-like').innerText = --flag.parentElement.querySelector('.count-like').innerText;
 				break;
 			case 'like':
 				flag.querySelector('i').classList.replace('glyphicon-heart-empty', 'glyphicon-heart');
 				flag.classList.add('liked');
+				flag.parentElement.querySelector('.count-like').innerText = ++flag.parentElement.querySelector('.count-like').innerText;
 				break;
 			}
 		}
