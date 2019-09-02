@@ -1,1 +1,46 @@
-@import 'common';
+@import 'timeline';
+
+.userlist{
+    @include material-box;
+    padding: 1rem;
+    h3{
+        margin: 1rem 0;
+        padding: 0.5rem;
+        background: #e0e0e0;
+    }
+    &__result{
+        background: #e0e0e0;
+    }
+}
+
+.useritem{
+    li{
+        &.more-btn{
+            text-align: center;
+        }
+    }
+    &__header{
+		@include flexbox();
+		img{
+			width: $icon-size;
+			height: $icon-size;
+		}
+		hgroup{
+			float: right;
+			margin-left: 8px;
+		}
+		a[role="button"]{
+			display: inline-block;
+			height: $icon-size;
+			padding: 0 16px;
+			line-height: $icon-size;
+		}
+		&-name{
+			font-size: 1.2rem;
+			line-height: 1.8rem;
+		}
+		&-id{
+			font-size: 0.8rem;
+		}
+	}
+}

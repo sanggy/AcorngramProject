@@ -29,6 +29,7 @@
 						<div class="form-group">
 							<label class="signup__label"> 아이디 </label>
 							<input type="text" name="id" id="signup-id" class="form-control form-control-sm"/>
+							<span id="signup-nickname-check-result"></span>
 						</div>
 						<div class="form-group">
 							<label class="signup__label"> 닉네임 </label>
@@ -37,10 +38,12 @@
 						<div class="form-group">
 							<label class="signup__label"> 패스워드 </label>
 							<input type="password" name="pw" id="signup-pw"  class="form-control form-control-sm" placeholder="영대문자 1자 이상인 최소 8자이상의 영숫자" />
+							<span class="result-msg"></span>
 						</div>
 						<div class="form-group">
 							<label class="signup__label"> 패스워드 확인 </label>
 							<input type="password" name="pw-c" id="signup-pw-c"  class="form-control form-control-sm"/>
+							<span class="result-msg"></span>
 						</div>
 						<div class="form-group">
 							<label class="signup__label"> 이메일 </label>

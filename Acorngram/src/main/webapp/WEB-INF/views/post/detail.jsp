@@ -95,7 +95,6 @@
 											<p>
 												<time datetime="${cmt.regdate }"></time>
 												<span>
-													<a href="comment/edit.do?num=${cmt.num }">수정</a>
 													<a href="comment/delete.do?num=${cmt.num }">삭제</a>
 												</span>
 											</p>

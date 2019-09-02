@@ -6,6 +6,21 @@ function getCpath(){
 }
 const cpath = getCpath();
 
+
+//	json
+function getResultFromAjax(url, param:Map, type){
+	return fetch(url,{
+		method: type?type:'get',
+		cache: 'no-cache',
+		headers: {
+			"Content-Type": "application/json; charset=utf-8"
+		},
+		body: JSON.stringify(param)
+	}).then(res=>{return res.json()})
+	.catch(err=>{return false;})
+}
+
+
 //	Timeline load시 실행
 (function loadPost(){
 	moment.locale('ko');
@@ -43,6 +58,15 @@ const cpath = getCpath();
 		$(this).height(lineHeight * lines);
 	});
 	
+	//	더보기 버튼 클릭시 정보 보여주기
+	$('.more-btn').on('click',()=>{
+		let more_btn:HTMLElement = $(event.currentTarget);
+		more_btn.closest('ul').find('li.is-hidden').each((index,elem)=>{
+			if(index<4)elem.classList.remove('.is-hidden');
+			else return false;
+		}).length<1?more_btn.remove():''
+	})
+
 
 })();
 
@@ -114,10 +138,11 @@ toggle.run(
 
 //	특정조작시 리다이렉트
 
-function confirmAccess(url){
-	var result:boolean = window.confirm('정말로 하시겠습니까?');
-	if(result){
-		location.href = cpath+url;
+function confirmAccess(act){
+	var prompt_msg = '정말로 '+act+'하시겠습니까? \n 하시려 한다면'+act+'를 입력해주세요.';
+	var result = prompt(prompt_msg);
+	if(act === result){
+		location.href = act+'.do';
 	}
 }
 
@@ -128,7 +153,6 @@ function likeControl(num){
 	const flag = document.querySelector('.post-'+num+' .post__like a');
 	const mode = flag.classList.contains('liked')?
 		'unlike':'like';
-		console.log(flag);
 	fetch(cpath+'post/'+mode+'.do?num='+num)
 	.then(res=>res.json())
 	.then(res=>{
@@ -249,6 +273,41 @@ function followAjax(url, usercode){
 
 //	팔로우 언팔 끝
 
+//	회원가입 폼
 
+//	아이디 중복체크
+$('#signup-id').on('keypress',()=>{
+	var id = $('#signup-id').val();
+	var result:JSON = getResultFromAjax(
+		cpath+'users/checkid.do',
+		{'id':id}
+		,'get'
+	);
+	var target = $('#signup-id-check-result');
+	if(result.result){
+		target.removeClass('false').fadeOut();
+	}else{
+		target.val('중복된 ID이거나 서버 통신이 원활하지 않습니다.')
+			.addClass('false').fadeIn();
+	}
+})
 
-
+$('#signUp').on('submit',()=>{
+	var pw:HTMLInputElement = document.querySelector('#signup-pw');
+	var pw_c:HTMLInputElement = document.querySelector('#signup-pw-c');
+	var email:HTMLInputElement = document.querySelector('#signup-email');
+	var msg;
+	if(pw.value !== pw_c.value){
+		msg = '패스워드 확인에 패스워드와 동일하게 작성하세요';
+		alert(msg);
+		return false;
+	}else if( email.value.match(/[^\s]@[^\s]/) ){
+		msg = '이메일 형식이 올바르지 않습니다.';
+		alert(msg);
+		return false;
+	}else if($('#signup-agree').prop("checked")){
+		msg = '규약에 동의해주세요';
+		alert(msg);
+		return false;
+	}
+})

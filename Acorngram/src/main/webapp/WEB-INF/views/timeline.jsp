@@ -34,7 +34,7 @@
 									<c:choose>
 										<c:when test="">
 										<%-- 이 유저와 팔로우 상태라면 --%>
-										<a href="javascript:followToggle(${post.usercode })" role="button" class="post__btn-unfollow" ><i class="glyphicon glyphicon-remove-sign"></i> <span>Unfollow</span>  </a>
+										<a href="javascript:unfollowToggle(${post.usercode })" role="button" class="post__btn-unfollow" ><i class="glyphicon glyphicon-remove-sign"></i> <span>Unfollow</span> </a>
 										</c:when>
 										<c:otherwise>
 										<a href="javascript:followToggle(${post.usercode })" role="button" class="post__btn-follow"><i class="glyphicon glyphicon-plus-sign"></i> <span>Follow</span> </a>
@@ -50,15 +50,15 @@
 						<div class="post__info">
 							<div class="post__like">
 								<c:choose>
-									<c:when test="">
+									<c:when test="${post.liked}">
 									<%-- 이 게시글에 like 했다면 --%>
-										<a href="javascript:likeControl(${post.num })" class="post__btn-like"><i class="glyphicon glyphicon-heart "></i></a>
+										<a href="javascript:likeControl(${i})" class="post__btn-like liked"><i class="glyphicon glyphicon-heart "></i></a>
 									</c:when>
-								<c:otherwise>
-									<a href="javascript:likeControl(${post.num })" class="post__btn-like "><i class="glyphicon glyphicon-heart-empty "></i></a>
-								</c:otherwise>
-							</c:choose>
-							<span class="count-like">${post.like_count }</span>
+									<c:otherwise>
+										<a href="javascript:likeControl(${i})" class="post__btn-like"><i class="glyphicon glyphicon-heart-empty "></i></a>
+									</c:otherwise>
+								</c:choose>
+								<span class="count-like">${post.like_count }</span>
 							</div>
 							
 							<div class="post__regdate">
@@ -74,7 +74,6 @@
 			</c:if>
 		</div>
 	</main>
-	
 	<template>
 	<div class="container timeline">
 		<article class="post post-${i }">
