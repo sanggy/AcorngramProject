@@ -14,7 +14,7 @@
 		<div class="timeline container">
 			<c:if test="${not empty list }">
 				<c:forEach var="post" items="${list }">
-					<article class="post" id="post-${post.num }">
+					<article class="post post-user-${post.usercode }" id="post-${post.num }">
 						<div class="post__header">
 							<div class="post__header-left">
 								<a href="${pageContext.request.contextPath}/users/profile.do?id=${post.id }">
@@ -61,9 +61,10 @@
 									</c:otherwise>
 								</c:choose>
 								<span class="count-like">${post.like_count }</span>
+								<span class="glyphicon glyphicon-comment">{post.comment_count}</span>
 							</div>
 							
-							<div class="post__regdate">
+							<div class="post__info-data">
 								<time datetime="${post.regdate }"></time>
 							</div>
 						</div>

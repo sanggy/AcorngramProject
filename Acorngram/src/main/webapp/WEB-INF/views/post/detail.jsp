@@ -15,7 +15,7 @@
 			<nav class="detail__header">
 				<a href="${pageContext.request.contextPath}/timeline.do"><i class="glyphicon glyphicon-chevron-left"></i> 돌아가기</a>
 			</nav>
-			<article class="post post-${post.num }">
+			<article class="post" id="post-${post.num }">
 				<div class="post__img" style="
 					background-image: url('${pageContext.request.contextPath}/upload/${post.saveFileName }')">
 				</div>
