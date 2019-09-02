@@ -1,6 +1,8 @@
 package com.acorngram.project.dao;
 
 
+import javax.servlet.http.HttpServletRequest;
+
 import com.acorngram.project.dto.LikedDto;
 
 public interface LikesDao {
@@ -15,4 +17,7 @@ public interface LikesDao {
 	
 	//post가 사라지면 같이 delete하는 메소드
 	public int deleteAll(int post_num);
+	
+	//increase like count in postdto
+	public void increaseLikeCount(HttpServletRequest request);
 }

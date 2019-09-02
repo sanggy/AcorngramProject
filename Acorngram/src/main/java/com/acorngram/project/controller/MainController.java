@@ -141,20 +141,24 @@ public class MainController {
 	
 	//==============follow/unfollow 작업 요청 부분 ===============
 	
-	@RequestMapping(value = "/follower/follow.do", method = RequestMethod.POST)
-	public ModelAndView authFollow(HttpServletRequest request,@RequestParam int target_userCode) {
-		ModelAndView mView = new ModelAndView();
-		followerService.follow(target_userCode, request, mView);
+	@RequestMapping("/follower/follow.do")
+	@ResponseBody
+	public Map<String, Object> authFollow(HttpServletRequest request,@RequestParam int target_userCode) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		boolean isFollowed = followerService.follow(target_userCode, request);
 		//성공적으로 follow가 DB에 반영이 되었는지의 여부를 담아 JSON타입으로 mView에 담고 리턴하기
-		return mView;
+		map.put("result", isFollowed);
+		return map;
 	}
 	
-	@RequestMapping(value = "/follower/unfollow.do", method = RequestMethod.POST)
-	public ModelAndView authUnfollow(HttpServletRequest request, @RequestParam int target_userCode) {
-		ModelAndView mView = new ModelAndView();
-		followerService.unfollow(target_userCode, request, mView);
+	@RequestMapping("/follower/unfollow.do")
+	@ResponseBody
+	public Map<String, Object> authUnfollow(HttpServletRequest request, @RequestParam int target_userCode) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		boolean isUnfollowed = followerService.unfollow(target_userCode, request);
 		//성공적으로 unfollow가 DB에 반영이 되었는지의 여부를 담아 JSON타입으로 mView에 담고 리턴하기
-		return mView;
+		map.put("result", isUnfollowed);
+		return map;
 	}
 	
 	@RequestMapping("/follower/followerList.do")
@@ -237,11 +241,12 @@ public class MainController {
 		
 		@RequestMapping("/post/like.do")
 		@ResponseBody
-		public Map<String, Object> authLike(HttpServletRequest request, @RequestParam int num) {
+		public Map<String, Object> authLike(HttpServletRequest request, @RequestParam int num, ModelAndView mView) {
 			Map<String , Object> map = new HashMap<>();
 			LikedDto likedDto = new LikedDto();
 			likedDto.setPost_num(num);
 			likesService.likePost(likedDto, request);
+			likesService.increaseLikeCount(request);
 			map.put("result", true);
 			return map;
 		}

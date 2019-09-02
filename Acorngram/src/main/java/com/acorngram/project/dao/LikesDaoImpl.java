@@ -1,6 +1,8 @@
 package com.acorngram.project.dao;
 
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -29,6 +31,11 @@ public class LikesDaoImpl implements LikesDao{
 	@Override
 	public int deleteAll(int post_num) {
 		return session.delete("likes.deleteAll", post_num);
+	}
+
+	@Override
+	public void increaseLikeCount(HttpServletRequest request) {
+		session.update("likes.increaseLikeCount");
 	}
 
 }

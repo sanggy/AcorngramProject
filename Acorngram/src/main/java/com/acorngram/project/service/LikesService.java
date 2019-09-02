@@ -10,4 +10,5 @@ public interface LikesService {
 	public void likePost(LikedDto dto, HttpServletRequest request);
 	public void unlikePost(LikedDto dto, HttpServletRequest request);
 	public void getLikeList(LikedDto dto, HttpServletRequest request);
+	public void increaseLikeCount(HttpServletRequest request);
 }
