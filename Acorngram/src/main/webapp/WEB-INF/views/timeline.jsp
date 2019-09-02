@@ -75,6 +75,8 @@
 			</c:if>
 		</div>
 	</main>
-	<jsp:include page="inc/footer.jsp" />
+	<jsp:include page="inc/footer.jsp" >
+		<jsp:param value="true" name="timeline"/>
+	</jsp:include>
 </body>
 </html>

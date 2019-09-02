@@ -20,4 +20,8 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/croppie/2.6.4/croppie.min.js"></script>
 <%-- core.js --%>
 <script src="${pageContext.request.contextPath}/resources/js/core.js"></script>
+<c:if test="${timeline eq true}">
+	<div class="loading"></div>
+	<script src="${pageContext.request.contextPath}/resources/js/tl.js"></script>
+</c:if>
 
