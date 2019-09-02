@@ -18,9 +18,8 @@
 
 			<form class="user-settings__form" enctype="multipart/form-data" method="post" action="updateSettings.do">
 				<div class="user-settings__header">
-					<label for="profile-img">
-						<input type="file" name="profile_file" id="profile-img" accept="image/*" required/>
-						
+					<label for="ProfileImage">
+						<input type="file" name="ProfileImage" id="ProfileImage" accept="image/*"/>
 						<img id="user__profile-img" class="user__profile-img"
 						src="${pageContext.request.contextPath}/${user.profile_img}" alt="${user.id }의 프로필 이미지" />
 					</label>
@@ -81,36 +80,8 @@
 				</fieldset>
 			</form>
 
-			</div>
-<form id="profileForm" action="profile_upload.do" 
-	method="post" enctype="multipart/form-data">
-	<input type="file" name="profileImage" id="profileImage" 
-	accept=".jpg, .jpeg, .png, .JPG, .JPEG"/>
-</form>
-<script src="${pageContext.request.contextPath}/resources/js/jquery-3.4.1.js"></script>
-<script src="${pageContext.request.contextPath}/resources/js/jquery.form.min.js"></script>
-<script>
-	//1. 프로파일 링크를 클릭했을때 사진 선택창을 띄운다.
-	$("#profileLink").click(function(){
-		$("#profileImage").click();
-	});
-	//2. 이미지를 선택했을때 폼을 강제 제출한다.
-	$("#profileImage").on("change", function(){
-		$("#profileForm").submit();
-	});
+		</div>
 
-	//3. 폼이 제출될때 ajax(요청)로 제출되게 하기 
-	// jquery.form.min.js 의 기능 .ajaxForm() ;
-	// ajax의 응답은 responseData 로 들어온다.  why? 요청한 곳으로 응답하기 때문이다. 
-	$("#profileForm").ajaxForm(function(responseData){
-		// responseData => {path:"/upload/xxx.jpg"}
-		console.log(responseData);
-		//업로드된 이미지가 보이도록 
-		var src="${pageContext.request.contextPath}"+
-		responseData.path;
-		$(".profile").attr("src", src);
-	});
-</script>
 	</main>
 
 	<jsp:include page="../inc/footer.jsp" />
