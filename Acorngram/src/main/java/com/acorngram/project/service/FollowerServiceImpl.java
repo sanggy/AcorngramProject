@@ -40,7 +40,6 @@ public class FollowerServiceImpl implements FollowerService{
 		followerDto.setSelf_usercode(self_userCode);
 		followerDto.setTarget_usercode(target_userCode);
 		boolean isRemoved = dao.delete(followerDto);
-		System.out.println("isRemoved VALUE CHECKER : "+isRemoved);
 		return isRemoved;
 	}
 

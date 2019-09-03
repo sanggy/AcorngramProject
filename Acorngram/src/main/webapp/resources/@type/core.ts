@@ -7,7 +7,7 @@ function getCpath(){
 const cpath = getCpath();
 
 //	json
-function getResultFromAjax(url, param:Map, type){
+function getResultFromAjax(url, param:Map<string, any>, type){
 	return fetch(url,{
 		method: type?type:'get',
 		cache: 'no-cache',
@@ -250,9 +250,9 @@ function deletePost(num){
 //	팔로우/언팔 버튼
 
 function followToggle(usercode){
-	let url = cpath+"follower/follow.do";
+	let url = "follower/follow.do";
 	const result = fetch(cpath+url+'?usercode='+usercode)
-	.then(res=> res.json() )
+	.then(res=> {return res.json()} )
 	.then(res=>{
 		if(res.result){
 			window.alert('성공적으로 팔로우되었습니다.');
@@ -277,7 +277,7 @@ function unfollowToggle(usercode){
 	let url = 'follower/unfollow.do';
 	const result = fetch(cpath+url+'?usercode='+usercode)
 	.then(res=>{
-		if(res.status<400) res.json()
+		if(res.status<400) {return res.json()}
 		else throw new Error('error')
 	})
 	.then(res=>{
