@@ -232,7 +232,7 @@ public class MainController {
 			commentsService.writeComment(request, commentDto);
 			return new ModelAndView("redirect:/timeline.do");
 		}
-		s
+		
 		@RequestMapping("/comment/delete.do")
 		public ModelAndView authDelete(HttpServletRequest request, @RequestParam int num, @RequestParam int post_num) {
 			commentsService.deleteComment(num);
