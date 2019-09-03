@@ -10,11 +10,14 @@ import com.acorngram.project.dto.FollowerDto;
 
 public interface FollowerService {
 	//유저가 상대방을 follow 하는 기능
-	public void follow(int target_userCode, HttpServletRequest request,ModelAndView mView);
+	public boolean follow(int target_userCode, HttpServletRequest request);
 	
 	//follower list를 가지고 오는 서비스
 	public List<FollowerDto> followerList(int selfCode);
 	
 	//unfollow 하는 서비스
-	public void unfollow(int target_userCode, HttpServletRequest request, ModelAndView mView);
+	public boolean unfollow(int target_userCode, HttpServletRequest request);
+	
+	//get following count
+	public int getFollowingCount();
 }

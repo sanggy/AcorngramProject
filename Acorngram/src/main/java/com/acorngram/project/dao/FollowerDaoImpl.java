@@ -15,7 +15,8 @@ public class FollowerDaoImpl implements FollowerDao{
 	@Override
 	public boolean insert(FollowerDto dto) {
 		//초기 follower가 생기면 초기 리스트를 생성하는 메소드
-		int isAdded = session.insert("follower.insert", dto);
+		int isAdded = session.insert("follower.follow", dto);
+		System.out.println("isAdded VALUE CHECKER : " + isAdded);
 		if(isAdded > 0) {
 			return true;
 		}
@@ -25,16 +26,23 @@ public class FollowerDaoImpl implements FollowerDao{
 	@Override
 	public List<FollowerDto> getList(int selfCode) {
 		//follower list를 불러와서 리턴하는 메소드
-		return session.selectList("follower.getList", selfCode);
+		return session.selectList("follower.getFollowerList", selfCode);
 	}
 
 	@Override
 	public boolean delete(FollowerDto dto) {
 		//상대 유저가 unfollowe 하면 사용될 메소드
-		int isRemoved = session.delete("follower.delete", dto);
+		int isRemoved = session.delete("follower.unfollow", dto);
 		if(isRemoved > 0) {
 			return true;
 		}
 		return false;
 	}
+
+	@Override
+	public int followingCount() {
+		return session.selectOne("follower.getFollowingCount");
+	}
+	
+	
 }

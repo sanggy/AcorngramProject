@@ -84,9 +84,14 @@
 						</div>
 						<div class="comment__area">
 							<ul class="comment__list">
+						 	
+						 	<c:if test="${commentList.size() eq 0 }">
+								<li class="comment-deleted">댓글이 하나도 없습니다.</li>
+						 	</c:if>
+						 	
 							<c:forEach var="cmt" items="${commentList }">
 								 <c:choose>
-									<c:when test='${cmt.deleted eq yes }'>
+									<c:when test='${cmt.deleted eq "yes" }'>
 										<li class="comment-deleted">삭제된 댓글 입니다.</li>
 									</c:when>
 									<c:otherwise>
@@ -100,7 +105,7 @@
 												<a href="javascript:" class="comment__link-reply">답글</a>
 												<c:if test="${cmt.usercode eq usercode }">
 													<span>
-														<a href="comment/delete.do?num=${cmt.num }&postnum=${post.num}">삭제</a>
+														<a href="${pageContext.request.contextPath}/comment/delete.do?num=${cmt.num }&post_num=${post.num}">삭제</a>
 													</span>
 												</c:if>
 											</div>

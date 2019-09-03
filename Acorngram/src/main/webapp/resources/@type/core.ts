@@ -7,7 +7,7 @@ function getCpath(){
 const cpath = getCpath();
 
 //	json
-function getResultFromAjax(url, param:Map, type){
+function getResultFromAjax(url, param:Map<string, any>, type){
 	return fetch(url,{
 		method: type?type:'get',
 		cache: 'no-cache',
@@ -171,10 +171,12 @@ function likeControl(num){
 			case 'unlike':
 				flag.querySelector('i').classList.replace('glyphicon-heart', 'glyphicon-heart-empty');
 				flag.classList.remove('liked');
+				flag.parentElement.querySelector('.count-like').innerText = --flag.parentElement.querySelector('.count-like').innerText;
 				break;
 			case 'like':
 				flag.querySelector('i').classList.replace('glyphicon-heart-empty', 'glyphicon-heart');
 				flag.classList.add('liked');
+				flag.parentElement.querySelector('.count-like').innerText = ++flag.parentElement.querySelector('.count-like').innerText;
 				break;
 			}
 		}
@@ -248,9 +250,9 @@ function deletePost(num){
 //	팔로우/언팔 버튼
 
 function followToggle(usercode){
-	let url = cpath+"follwer/follow.do";
+	let url = "follower/follow.do";
 	const result = fetch(cpath+url+'?usercode='+usercode)
-	.then(res=> res.json() )
+	.then(res=> {return res.json()} )
 	.then(res=>{
 		if(res.result){
 			window.alert('성공적으로 팔로우되었습니다.');
@@ -272,10 +274,10 @@ function followToggle(usercode){
 }
 
 function unfollowToggle(usercode){
-	let url = 'follwer/unfollow.do';
+	let url = 'follower/unfollow.do';
 	const result = fetch(cpath+url+'?usercode='+usercode)
 	.then(res=>{
-		if(res.status<400) res.json()
+		if(res.status<400) {return res.json()}
 		else throw new Error('error')
 	})
 	.then(res=>{

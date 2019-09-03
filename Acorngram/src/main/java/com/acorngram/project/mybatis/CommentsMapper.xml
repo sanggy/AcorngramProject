@@ -24,4 +24,9 @@
 		SET deleted='yes'
 		WHERE num=#{num}
 	</delete>
+	
+	<delete id="deleteAll" parameterType="int">
+		DELETE comment_db
+		WHERE ref_group= #{ref_group}
+	</delete>
 </mapper>

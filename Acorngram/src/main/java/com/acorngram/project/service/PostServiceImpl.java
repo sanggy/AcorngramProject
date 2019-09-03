@@ -192,6 +192,8 @@ public class PostServiceImpl implements PostService {
 		// DB 삭제 
 		int deletedRows = postDao.delete(num);
 		if(deletedRows > 0) {
+			commentDao.deleteAll(num);
+			likesDao.deleteAll(num);
 			return true;
 		} else {
 			return false;

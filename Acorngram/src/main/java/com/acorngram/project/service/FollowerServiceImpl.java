@@ -17,18 +17,14 @@ public class FollowerServiceImpl implements FollowerService{
 	@Autowired FollowerDao dao;
 	
 	@Override
-	public void follow(int target_userCode, HttpServletRequest request, ModelAndView mView) {
+	public boolean follow(int userCode, HttpServletRequest request) {
 		FollowerDto followerDto = new FollowerDto();
-		int self_userCode = (int)request.getSession().getAttribute("userCode");
+		int self_userCode = (int)request.getSession().getAttribute("usercode");
 		followerDto.setSelf_usercode(self_userCode);
-		followerDto.setTarget_usercode(target_userCode);
+		followerDto.setTarget_usercode(userCode);
 		followerDto.setStatus(1);
 		boolean isAdded = dao.insert(followerDto);
-		if(isAdded) {
-			mView.addObject("isSuccess", true);
-		}else {
-			mView.addObject("isSuccess", false);
-		}
+		return isAdded;
 	}
 
 	@Override
@@ -38,17 +34,18 @@ public class FollowerServiceImpl implements FollowerService{
 
 
 	@Override
-	public void unfollow(int target_userCode, HttpServletRequest request, ModelAndView mView) {
+	public boolean unfollow(int target_userCode, HttpServletRequest request) {
 		FollowerDto followerDto = new FollowerDto();
-		int self_userCode = (int)request.getSession().getAttribute("userCode");
+		int self_userCode = (int)request.getSession().getAttribute("usercode");
 		followerDto.setSelf_usercode(self_userCode);
 		followerDto.setTarget_usercode(target_userCode);
 		boolean isRemoved = dao.delete(followerDto);
-		if(isRemoved) {
-			mView.addObject("isSuccess", true);
-		}else {
-			mView.addObject("isSuccess", false);
-		}
+		return isRemoved;
+	}
+
+	@Override
+	public int getFollowingCount() {
+		return dao.followingCount();
 	}
 
 }

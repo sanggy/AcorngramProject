@@ -25,4 +25,13 @@
 		WHERE user_code = #{user_code} AND post_num = #{post_num}
 	</delete>
 	
+	<delete id="deleteAll" parameterType="int">
+		DELETE likes
+		WHERE post_num = #{post_num}
+	</delete>
+	
+	<update id="increaseLikeCount">
+		UPDATE post_db
+		SET like_count = +1
+	</update>
 </mapper>

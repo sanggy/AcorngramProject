@@ -18,5 +18,5 @@ public interface CommentDao {
 	public int getSequence();
 	
 	//댓글을 수정
-	public void update(CommentDto dto);
+	public void deleteAll(int post_num);
 }

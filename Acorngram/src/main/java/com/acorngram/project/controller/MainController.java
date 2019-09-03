@@ -4,7 +4,6 @@ package com.acorngram.project.controller;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -150,20 +149,24 @@ public class MainController {
 	
 	//==============follow/unfollow 작업 요청 부분 ===============
 	
-	@RequestMapping(value = "/follower/follow.do", method = RequestMethod.POST)
-	public ModelAndView authFollow(HttpServletRequest request,@RequestParam int target_userCode) {
-		ModelAndView mView = new ModelAndView();
-		followerService.follow(target_userCode, request, mView);
+	@RequestMapping("/follower/follow.do")
+	@ResponseBody
+	public Map<String, Object> authFollow(HttpServletRequest request,@RequestParam int usercode) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		boolean isFollowed = followerService.follow(usercode, request);
 		//성공적으로 follow가 DB에 반영이 되었는지의 여부를 담아 JSON타입으로 mView에 담고 리턴하기
-		return mView;
+		map.put("result", isFollowed);
+		return map;
 	}
 	
-	@RequestMapping(value = "/follower/unfollow.do", method = RequestMethod.POST)
-	public ModelAndView authUnfollow(HttpServletRequest request, @RequestParam int target_userCode) {
-		ModelAndView mView = new ModelAndView();
-		followerService.unfollow(target_userCode, request, mView);
+	@RequestMapping("/follower/unfollow.do")
+	@ResponseBody
+	public Map<String, Object> authUnfollow(HttpServletRequest request, @RequestParam int usercode) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		boolean isUnfollowed = followerService.unfollow(usercode, request);
 		//성공적으로 unfollow가 DB에 반영이 되었는지의 여부를 담아 JSON타입으로 mView에 담고 리턴하기
-		return mView;
+		map.put("result", isUnfollowed);
+		return map;
 	}
 	
 	@RequestMapping("/follower/followerList.do")
@@ -234,9 +237,10 @@ public class MainController {
 		}
 		
 		@RequestMapping("/comment/delete.do")
-		public ModelAndView authDelete(HttpServletRequest request, @RequestParam int num, @RequestParam int post_num) {
+		public String authDelete(HttpServletRequest request, @RequestParam int num, @RequestParam int post_num) {
+			System.out.println(num +"&"+ post_num + "여기 maincontrol영역이야");
 			commentsService.deleteComment(num);
-			return new ModelAndView("post/detail.do?num="+num+"&post_num ="+post_num);
+			return "redirect:/post/detail.do?num="+post_num;
 			
 		}
 		
@@ -245,11 +249,12 @@ public class MainController {
 		
 		@RequestMapping("/post/like.do")
 		@ResponseBody
-		public Map<String, Object> authLike(HttpServletRequest request, @RequestParam int num) {
+		public Map<String, Object> authLike(HttpServletRequest request, @RequestParam int num, ModelAndView mView) {
 			Map<String , Object> map = new HashMap<>();
 			LikedDto likedDto = new LikedDto();
 			likedDto.setPost_num(num);
 			likesService.likePost(likedDto, request);
+			likesService.increaseLikeCount(request);
 			map.put("result", true);
 			return map;
 		}
