@@ -7,7 +7,7 @@
 		FROM comment_db INNER JOIN users_db
 		ON comment_db.usercode = users_db.usercode
 		WHERE ref_group = #{ref_group}
-		ORDER BY comment_group DESC, comment_db.regdate DESC
+		ORDER BY comment_group DESC, comment_db.regdate
 	</select>
 	
 	<insert id="insert" parameterType="commentDto">

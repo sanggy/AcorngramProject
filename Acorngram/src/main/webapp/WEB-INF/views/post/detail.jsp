@@ -96,7 +96,8 @@
 									</c:when>
 									<c:otherwise>
 										<li <c:if test="${cmt.num ne cmt.comment_group }">class="comment__reply"</c:if>>
-											<div class="comment__body <c:if test='${cmt.num ne cmt.comment_group }'>glyphicon glyphicon-share-alt</c:if>">
+											<div class="comment__body">
+												<c:if test='${cmt.num ne cmt.comment_group }'><i class="glyphicon glyphicon--is-flip glyphicon-share-alt"></i></c:if>
 												<strong>${cmt.nickname } (@${cmt.id }) </strong>
 												<span>${cmt.content } </span>
 											</div>
