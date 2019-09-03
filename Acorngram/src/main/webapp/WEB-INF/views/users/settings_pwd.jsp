@@ -22,7 +22,7 @@
 					</div>
 					<div class="form-group">
 						<label for="pw-c" class="ontrol-label">PASSWORD CONFIRM</label>
-						<input type="password" class="form-control" name="pw-c" placeholder="변경할 패스워드를 한번 더 적어주세요">
+						<input type="password" class="form-control" name="pw_c" placeholder="변경할 패스워드를 한번 더 적어주세요">
 					</div>
 					<div class="form-group">
 						<button type="submit" class="btn-primary">변경</button>
