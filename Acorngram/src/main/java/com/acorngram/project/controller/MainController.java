@@ -143,9 +143,10 @@ public class MainController {
 	
 	@RequestMapping("/follower/follow.do")
 	@ResponseBody
-	public Map<String, Object> authFollow(HttpServletRequest request,@RequestParam int target_userCode) {
+	public Map<String, Object> authFollow(HttpServletRequest request,@RequestParam int usercode) {
 		Map<String, Object> map = new HashMap<String, Object>();
-		boolean isFollowed = followerService.follow(target_userCode, request);
+		boolean isFollowed = followerService.follow(usercode, request);
+		System.out.println(isFollowed + "isFOllowed value");
 		//성공적으로 follow가 DB에 반영이 되었는지의 여부를 담아 JSON타입으로 mView에 담고 리턴하기
 		map.put("result", isFollowed);
 		return map;
@@ -153,10 +154,11 @@ public class MainController {
 	
 	@RequestMapping("/follower/unfollow.do")
 	@ResponseBody
-	public Map<String, Object> authUnfollow(HttpServletRequest request, @RequestParam int target_userCode) {
+	public Map<String, Object> authUnfollow(HttpServletRequest request, @RequestParam int usercode) {
 		Map<String, Object> map = new HashMap<String, Object>();
-		boolean isUnfollowed = followerService.unfollow(target_userCode, request);
+		boolean isUnfollowed = followerService.unfollow(usercode, request);
 		//성공적으로 unfollow가 DB에 반영이 되었는지의 여부를 담아 JSON타입으로 mView에 담고 리턴하기
+		System.out.println("isUnFollowed VALUE CHECKER AT CONTROLLER: "+isUnfollowed);
 		map.put("result", isUnfollowed);
 		return map;
 	}

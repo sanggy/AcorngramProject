@@ -17,18 +17,14 @@ public class FollowerServiceImpl implements FollowerService{
 	@Autowired FollowerDao dao;
 	
 	@Override
-	public boolean follow(int target_userCode, HttpServletRequest request) {
+	public boolean follow(int userCode, HttpServletRequest request) {
 		FollowerDto followerDto = new FollowerDto();
-		int self_userCode = (int)request.getSession().getAttribute("userCode");
+		int self_userCode = (int)request.getSession().getAttribute("usercode");
 		followerDto.setSelf_usercode(self_userCode);
-		followerDto.setTarget_usercode(target_userCode);
+		followerDto.setTarget_usercode(userCode);
 		followerDto.setStatus(1);
 		boolean isAdded = dao.insert(followerDto);
-		if(isAdded) {
-			return true;
-		}else {
-			return false;
-		}
+		return isAdded;
 	}
 
 	@Override
@@ -40,15 +36,17 @@ public class FollowerServiceImpl implements FollowerService{
 	@Override
 	public boolean unfollow(int target_userCode, HttpServletRequest request) {
 		FollowerDto followerDto = new FollowerDto();
-		int self_userCode = (int)request.getSession().getAttribute("userCode");
+		int self_userCode = (int)request.getSession().getAttribute("usercode");
 		followerDto.setSelf_usercode(self_userCode);
 		followerDto.setTarget_usercode(target_userCode);
 		boolean isRemoved = dao.delete(followerDto);
-		if(isRemoved) {
-			return true;
-		}else {
-			return false;
-		}
+		System.out.println("isRemoved VALUE CHECKER : "+isRemoved);
+		return isRemoved;
+	}
+
+	@Override
+	public int getFollowingCount() {
+		return dao.followingCount();
 	}
 
 }

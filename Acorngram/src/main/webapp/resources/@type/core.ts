@@ -250,7 +250,7 @@ function deletePost(num){
 //	팔로우/언팔 버튼
 
 function followToggle(usercode){
-	let url = cpath+"follwer/follow.do";
+	let url = cpath+"follower/follow.do";
 	const result = fetch(cpath+url+'?usercode='+usercode)
 	.then(res=> res.json() )
 	.then(res=>{
@@ -274,7 +274,7 @@ function followToggle(usercode){
 }
 
 function unfollowToggle(usercode){
-	let url = 'follwer/unfollow.do';
+	let url = 'follower/unfollow.do';
 	const result = fetch(cpath+url+'?usercode='+usercode)
 	.then(res=>{
 		if(res.status<400) res.json()
