@@ -115,7 +115,7 @@
 													<input type="hidden" name="num" value="${post.num }" />
 													<input type="hidden" name="ref_group" value="${post.num }" />
 													<input type="hidden" name="target_code" value="${cmt.usercode }" />
-													<input type="hidden" name="comment_group" value="${cmt.num }" />
+													<input type="hidden" name="comment_group" value="${cmt.comment_group }" />
 													<textarea name="content" class="comment-content"></textarea>
 													<button>전송</button>
 												</form>
