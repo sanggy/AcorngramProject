@@ -255,7 +255,6 @@ function followToggle(usercode){
 	.then(res=> {return res.json()} )
 	.then(res=>{
 		if(res.result){
-			window.alert('성공적으로 팔로우되었습니다.');
 			const postList = document.querySelectorAll('.post');
 			postList.forEach(i=>{
 				if(i.classList.contains('post-user-'+usercode)){
@@ -266,6 +265,16 @@ function followToggle(usercode){
 					target.querySelector('span').innerText = 'Unfollow';			
 				}
 			});
+			//	프로필페이지일 경우 추가 동작
+			const item = document.querySelector('.profile');
+			if(item){
+				const target = item.querySelector('a[class*="follow"]');
+				target.classList.replace('profile__btn-follow', 'profile__btn-unfollow');
+				target.href = 'javascript:unfollowToggle('+usercode+')';
+				target.querySelector('i.glyphicon').classList.replace('glyphicon-plus-sign', 'glyphicon-remove-sign');
+				target.querySelector('span').innerText = 'Unfollow';	
+			}
+			window.alert('성공적으로 팔로우되었습니다.');
 		}else{
 			window.alert('오류가 발생했습니다.');
 		}
@@ -293,6 +302,15 @@ function unfollowToggle(usercode){
 					target.querySelector('span').innerText = 'Follow';
 				}
 			});
+			//	프로필페이지일 경우 추가 동작
+			const item = document.querySelector('.profile');
+			if(item){
+				const target = item.querySelector('a[class*="follow"]');
+				target.classList.replace('profile__btn-unfollow', 'profile__btn-follow');
+				target.href = 'javascript:followToggle('+usercode+')';
+				target.querySelector('i.glyphicon').classList.replace('glyphicon-remove-sign', 'glyphicon-plus-sign');
+				target.querySelector('span').innerText = 'Follow';	
+			}
 		}else{
 			window.alert('오류가 발생했습니다.');
 		}

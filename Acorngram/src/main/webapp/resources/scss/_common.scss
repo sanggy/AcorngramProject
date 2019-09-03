@@ -47,6 +47,11 @@ a{
 	}
 }
 
+.after-newline:after{
+	content: '\a';
+	white-space: pre;
+}
+
 body{ background: $bg-color; }
 
 input[type="date"],input[type="time"]{font:$main-font}
