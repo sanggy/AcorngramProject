@@ -48,6 +48,8 @@ a{
 
 body{ background: $bg-color; }
 
+input[type="date"],input[type="time"]{font:$main-font}
+
 // Those scss files forked by Bootstrap 4.3.1
 // Copyright 2011-2019 The Bootstrap Authors
 // Copyright 2011-2019 Twitter, Inc.

@@ -6,7 +6,9 @@
 			<c:when test="${empty usercode }">
 				<div class="header__logo">
 					<h1 id="logo">
-						<a href="${pageContext.request.contextPath}/home.do">AcornGram</a>
+						<a href="${pageContext.request.contextPath}/home.do">
+							<img src="${pageContext.request.contextPath}/resources/images/acorn@2x.png" alt="AcornGram" />
+						</a>
 					</h1>
 				</div>
 				
@@ -62,11 +64,11 @@
 	<nav class="user-menu">
 		<ul>
 			<li class="user-menu__mini-profile">
-				<strong class="user-menu__user-name"><c:out value="${name }" default="test" /></strong>
+				<strong class="user-menu__user-name"><c:out value="${nickname }" default="test" /></strong>
 				<span class="user-menu__user-id">@${id }</span>
 			</li>
 			<li class="user-menu__line"></li>
-			<li><i class="glyphicon--is-themed glyphicon-user"></i><a href="${pageContext.request.contextPath}/users/profile.do?id=${post.id }">프로필</a></li>
+			<li><i class="glyphicon--is-themed glyphicon-user"></i><a href="${pageContext.request.contextPath}/users/profile.do?id=${id }">프로필</a></li>
 			<li><i class="glyphicon--is-themed glyphicon-wrench"></i><a href="${pageContext.request.contextPath}/users/settings.do">설정</a></li>
 			<li><i class="glyphicon--is-themed glyphicon-log-out"></i><a href="${pageContext.request.contextPath}/users/signout.do">로그아웃</a></li>
 		</ul>

@@ -8,6 +8,7 @@ main{
 	@include flexbox($wrap:wrap);
 	&>.container{
 		@include bordered-box();
+		box-sizing: border-box;
 		@media screen and (min-width:$xm){
 			@include flexbox();
 		}
