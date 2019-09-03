@@ -17,7 +17,7 @@
 						<input type="checkbox" class="toggler" id="signinform-toggler">
 						<label class="toggler" for="signinform-toggler">로그인</label>
 						<section class="header__signin-form">
-							<form action="${pageContext.request.contextPath}/users/signin.do" method="post" id="signUp" class="signin__form">
+							<form action="${pageContext.request.contextPath}/users/signin.do" method="post" id="signin" class="signin__form">
 								<div class="form-group">
 									<label class="signin__label">아이디</label>
 									<input type="text" name="id" id="signin-id" class="form-control form-control-sm"/>

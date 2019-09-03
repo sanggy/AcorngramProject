@@ -29,7 +29,7 @@
 						<div class="form-group">
 							<label class="signup__label"> 아이디 </label>
 							<input type="text" name="id" id="signup-id" class="form-control form-control-sm"/>
-							<span id="signup-nickname-check-result"></span>
+							<span id="signup-id-check-result"><i class="glyphicon glyphicon-remove"></i></span>
 						</div>
 						<div class="form-group">
 							<label class="signup__label"> 닉네임 </label>

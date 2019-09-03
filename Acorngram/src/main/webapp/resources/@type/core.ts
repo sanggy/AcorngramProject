@@ -317,20 +317,22 @@ function followAjax(url, usercode){
 //	회원가입 폼
 
 //	아이디 중복체크
-$('#signup-id').on('keypress',()=>{
+$('#signup-id').on('keyup',()=>{
 	var id = $('#signup-id').val();
-	var result:JSON = getResultFromAjax(
-		cpath+'users/checkid.do',
-		{'id':id}
-		,'get'
-	);
 	var target = $('#signup-id-check-result');
-	if(result.result){
-		target.removeClass('false').fadeOut();
-	}else{
-		target.val('중복된 ID이거나 서버 통신이 원활하지 않습니다.')
-			.addClass('false').fadeIn();
-	}
+	fetch(cpath+"users/checkid.do?inputId="+id)
+	.then(res=> {return res.json() })
+	.then(result=>{
+		if(result.istExist){
+			target.text('').removeClass('false').fadeOut();
+		}else{
+			target.html(
+				'<i class="glyphicon glyphicon-remove"></i>'+
+				'중복된 ID이거나 서버 통신이 원활하지 않습니다.'
+				).addClass('false').fadeIn();
+		}
+	})
+	.catch(err=>{return false;})
 })
 
 $('#signUp').on('submit',()=>{
