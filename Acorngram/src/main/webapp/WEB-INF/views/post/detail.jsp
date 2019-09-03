@@ -97,7 +97,7 @@
 									<c:otherwise>
 										<li>
 											<div class="comment__body">
-												<strong>${cmt.usercode } </strong>
+												<strong>${cmt.nickname } (@${cmt.id})</strong>
 												<span>${cmt.content } </span>
 											</div>
 											<div class="comment__info">
@@ -113,7 +113,8 @@
 												<form action="${pageContext.request.contextPath}/comment/write.do" method="post" class="comment-form">
 													<input type="hidden" name="num" value="${post.num }" />
 													<input type="hidden" name="ref_group" value="${post.num }" />
-													<input type="hidden" name="target_code" value="${post.usercode }" />
+													<input type="hidden" name="target_code" value="${cmt.usercode }" />
+													<input type="hidden" name="comment_group" value="${cmt.num }" />
 													<textarea name="content" class="comment-content"></textarea>
 													<button>전송</button>
 												</form>
