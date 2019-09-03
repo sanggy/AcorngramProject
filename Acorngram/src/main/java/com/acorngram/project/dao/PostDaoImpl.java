@@ -44,9 +44,9 @@ public class PostDaoImpl implements PostDao{
 	}
 
 	@Override
-	public int getCount(PostDto dto) {
+	public int getCount(int usercode) {
 		//페이징 처리 (pagination)아니면 scrolling처리 할 때에 총 수를 가지고 오는 메소드
-		return session.selectOne("post.getCount", dto);
+		return session.selectOne("post.getCount", usercode);
 	}
 
 	@Override
@@ -57,5 +57,10 @@ public class PostDaoImpl implements PostDao{
 	@Override
 	public void decreaseLikeCount(int num) {
 		session.update("post.decreaseLikeCount", num);
+	}
+
+	@Override
+	public List<PostDto> getMyList(int usercode) {
+		return session.selectList("post.getMyPostList", usercode);
 	}
 }

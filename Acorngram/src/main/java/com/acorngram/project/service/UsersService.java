@@ -15,7 +15,7 @@ public interface UsersService {
 	// 로그인 시 아이디 유무 체크 
 	public boolean validUser(UsersDto dto, ModelAndView mView, HttpSession session, HttpServletRequest request);
 	// 회원 정보 
-	public void showInfo(HttpSession session, ModelAndView mView);
+	public void showInfo(String id, ModelAndView mView, HttpServletRequest request);
 	// 아이디 중복 체크 
 	public Map<String, Object> isExistId(String inputId);
 	// 회원 정보 삭제 

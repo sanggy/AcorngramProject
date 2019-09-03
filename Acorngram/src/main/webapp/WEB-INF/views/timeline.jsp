@@ -59,7 +59,7 @@
 									</c:otherwise>
 								</c:choose>
 								<span class="count-like">${post.like_count }</span>
-								<span class="glyphicon glyphicon-comment">{post.comment_count}</span>
+								<span class="glyphicon glyphicon-comment">${post.commentCount}</span>
 							</div>
 							
 							<div class="post__info-data">

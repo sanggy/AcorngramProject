@@ -13,15 +13,27 @@
 		WHERE rnum BETWEEN #{startRowNum} AND #{endRowNum}
 	</select>
 	
+	<select id="getMyPostList" parameterType="int" resultType="postDto">
+		SELECT *
+		FROM (SELECT result1.*, ROWNUM AS rnum, users_db.nickname, users_db.id, users_db.profile_img
+		FROM (SELECT num, usercode, content, image, video, regdate, like_count, savefilename, filesize
+		FROM post_db
+		ORDER BY post_db.num DESC) 
+		result1 INNER JOIN users_db
+		ON result1.usercode = users_db.usercode)
+		WHERE usercode = #{usercode}
+	</select>
+	
 	<insert id="insert" parameterType="postDto" >
 		INSERT INTO post_db
 		(num, usercode, content, image, regdate, saveFileName, fileSize)
 		VALUES(post_seq.NEXTVAL, #{usercode}, #{content}, #{image}, SYSDATE, #{saveFileName},#{fileSize})
 	</insert>
 	
-	<select id="getCount" parameterType="PostDto" resultType="int">
+	<select id="getCount" parameterType="int" resultType="int">
 		SELECT NVL(MAX(ROWNUM), 0) AS num
 		FROM post_db
+		WHERE usercode = #{usercode}
 	</select>
 		<delete id="delete" parameterType="int">
 		DELETE FROM post_db

@@ -11,6 +11,7 @@ public interface CommentsService {
 	//댓글 삭제
 	public void deleteComment(int num);
 	
-	//댓글 수정
+	//댓글 count
+	public void getCount(HttpServletRequest request,int ref_group);
 	
 }

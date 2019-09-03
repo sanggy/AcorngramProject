@@ -114,7 +114,7 @@ public class PostServiceImpl implements PostService {
 		int endRowNum = pageNum*PAGE_ROW_COUNT;
 		
 		//전체 row의 갯수를 읽어온다.
-		int totalRow = postDao.getCount(postDto);
+		int totalRow = postDao.getCount(postDto.getUsercode());
 		
 		//trying to check if postDao.getCount will work ----- checked and it works
 //		System.out.println("printing postDao.getCount result : " + totalRow);
@@ -151,6 +151,11 @@ public class PostServiceImpl implements PostService {
 		for(PostDto temp : postList) {
 			likeDto.setPost_num(temp.getNum());
 			likeDto.setUser_code((int)request.getSession().getAttribute("usercode"));
+			//get comment count of post
+			int count = commentDao.getCount(temp.getNum());
+			temp.setCommentCount(count);
+			
+			//liked된 여부 확인하고 보내주기
 			int isLiked = likesDao.getLikedPost(likeDto);
 			if(isLiked == 0) {
 				temp.setLiked(false);

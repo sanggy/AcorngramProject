@@ -2,6 +2,7 @@ package com.acorngram.project.service;
 
 import java.io.File;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
@@ -16,7 +17,13 @@ import org.springframework.stereotype.Repository;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.acorngram.project.dao.CommentDao;
+import com.acorngram.project.dao.FollowerDao;
+import com.acorngram.project.dao.LikesDao;
+import com.acorngram.project.dao.PostDao;
 import com.acorngram.project.dao.UsersDao;
+import com.acorngram.project.dto.LikedDto;
+import com.acorngram.project.dto.PostDto;
 import com.acorngram.project.dto.UsersDto;
 
 @Repository
@@ -25,6 +32,11 @@ public class UsersServiceImpl implements UsersService{
 	
 	@Autowired
 	private UsersDao dao;
+	
+	@Autowired FollowerDao followerDao;
+	@Autowired PostDao postDao;
+	@Autowired CommentDao commentDao;
+	@Autowired LikesDao likesDao;
 	
 	
 
@@ -70,10 +82,37 @@ public class UsersServiceImpl implements UsersService{
 
 	// 회원 정보 
 	@Override
-	public void showInfo(HttpSession session, ModelAndView mView) {
-		String id = (String)session.getAttribute("id");
+	public void showInfo(String id, ModelAndView mView, HttpServletRequest request) {
 		UsersDto usersDto = dao.getData(id);
+		int postCount = postDao.getCount(usersDto.getUsercode());
+		
+		//get post list of user
+		List<PostDto> list = postDao.getMyList(usersDto.getUsercode());
+		
+		//followed/unfollowed user인지 like count and comment count info calling methods
+		//likesDto instantiate
+		LikedDto likeDto = new LikedDto();
+		//IF each of the postlist index contains at least 1 like then it will call for info from likes table
+		
+		for(PostDto temp : list) {
+			likeDto.setPost_num(temp.getNum());
+			likeDto.setUser_code((int)request.getSession().getAttribute("usercode"));
+			//get comment count of post
+			int count = commentDao.getCount(temp.getNum());
+			temp.setCommentCount(count);
+			
+			//liked된 여부 확인하고 보내주기
+			int isLiked = likesDao.getLikedPost(likeDto);
+			if(isLiked == 0) {
+				temp.setLiked(false);
+			}else {
+				temp.setLiked(true);
+			}
+		}
+		
 		mView.addObject("user", usersDto);
+		mView.addObject("list", list);
+		mView.addObject("postCount",postCount);
 		
 	}
 

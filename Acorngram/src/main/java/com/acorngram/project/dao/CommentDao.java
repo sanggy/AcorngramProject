@@ -19,4 +19,7 @@ public interface CommentDao {
 	
 	//댓글을 수정
 	public void deleteAll(int post_num);
+	
+	//get 댓글 count
+	public int getCount(int ref_group);
 }

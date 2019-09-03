@@ -73,14 +73,14 @@ public class MainController {
 
 		return mView;	
 	}
-	// /users/settings.do 와 같은 내용 
-	@RequestMapping(value = "/users/profile.do", method = RequestMethod.POST)
-	public ModelAndView authUpdateUserInfo(@ModelAttribute UsersDto dto, ModelAndView mView, HttpServletRequest request) {
-		//유저 정보 수정 하는 메소드 호출
-		usersService.updateUser(dto, request);
-		mView.setViewName("users/profile");
-		return mView;
-	}
+//	// /users/settings.do 와 같은 내용 
+//	@RequestMapping("/users/profile.do")
+//	public ModelAndView authProfile(ModelAndView mView, HttpServletRequest request) {
+//		//유저 정보 수정 하는 메소드 호출
+//		usersService.showInfo(request.getSession(), mView);
+//		mView.setViewName("users/profile");
+//		return mView;
+//	}
 	
 	//profile image upload 요청처리 부분
 	@RequestMapping("/users/profile_upload")
@@ -116,7 +116,7 @@ public class MainController {
 	
 	@RequestMapping("/users/settings.do")
 	public ModelAndView authUsersSetting(HttpServletRequest request, ModelAndView mView) {
-		usersService.showInfo(request.getSession(), mView);
+		usersService.showInfo((String)request.getSession().getAttribute("id"), mView, request);
 		mView.setViewName("users/settings");
 		return mView;
 	}
@@ -149,8 +149,9 @@ public class MainController {
 	
 	@RequestMapping("/users/profile.do")
 	public ModelAndView authProfile(ModelAndView mView, HttpServletRequest request, @RequestParam String id) {
-		usersService.showInfo(request.getSession(), mView);
-		return new ModelAndView("users/profile");
+		usersService.showInfo(id, mView, request);
+		mView.setViewName("users/profile");
+		return mView;
 	}
 	
 	//==============follow/unfollow 작업 요청 부분 ===============

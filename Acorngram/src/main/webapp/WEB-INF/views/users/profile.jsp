@@ -25,7 +25,7 @@
 					<ul class="profile__user-count">
 						<li class="profile__post-count">
 							<data value="" class="after-newline">POST</data>
-							<span>15</span>
+							<span>${postCount }</span>
 						</li>
 						<li class="profile__user-follow-count">
 							<data value="" class="after-newline">FOLLOW</data>
@@ -112,7 +112,7 @@
 									</c:otherwise>
 								</c:choose>
 								<span class="count-like">${post.like_count }</span>
-								<span class="glyphicon glyphicon-comment">{post.comment_count}</span>
+								<span class="glyphicon glyphicon-comment">${post.commentCount}</span>
 							</div>
 							
 							<div class="post__info-data">
