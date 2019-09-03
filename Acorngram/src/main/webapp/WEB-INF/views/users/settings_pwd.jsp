@@ -14,7 +14,7 @@
 	<main>
 		<div class="user-settings container">
 			<form class="user-settings__form" method="post" action="change_pwd.do">
-				<fieldset>
+				<fieldset class="user-settings__body">
 					<legend>비밀번호 변경</legend>
 					<div class="form-group">
 						<label for="pw" class="ontrol-label">PASSWORD</label>
