@@ -132,11 +132,20 @@ public class MainController {
 		}
 		
 		usersService.updateUser(dto, request);
-		
 		return new ModelAndView("redirect:/users/settings.do");
 	}
 	
+	// Password button click to forward page 
+	@RequestMapping("/users/settings_pwd.do")
+	public ModelAndView authSettingsPwd(HttpServletRequest request) {
+		return new ModelAndView("users/settings_pwd");
+	}
 	
+	@RequestMapping("/users/change_pwd.do")
+	public ModelAndView authChangePwd(ModelAndView mView, HttpServletRequest request, @ModelAttribute UsersDto dto) {
+		usersService.updateUser(dto, request);		
+		return new ModelAndView("redirect:/users/settings.do");
+	}
 	
 	//==============follow/unfollow 작업 요청 부분 ===============
 	

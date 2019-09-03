@@ -284,7 +284,7 @@ public class PostServiceImpl implements PostService {
 		List<CommentDto> commentList = commentDao.getList(ref_group);
 		
 		//List가 생성이되서 값을 가지고 있는지 여부를 체크하는 중...
-		System.out.println("commentList가 정보를 가지고 있나? : " + commentList.size());
+		System.out.println("commentList가 nickname을 가지고 오나? : " + commentList.get(0).getNickname());
 		
 		//댓글과 포스트 정보를 다 불러왔으면 이제 Map에 put을 통해 JSON형으로 response해준다.
 		mView.addObject("post", postDto);

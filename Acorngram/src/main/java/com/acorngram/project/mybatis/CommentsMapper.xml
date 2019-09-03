@@ -3,9 +3,11 @@
 <mapper namespace="comments">
 	
 	<select id="getList" parameterType="int" resultType="commentDto">
-		SELECT num, usercode, content, target_code, ref_group, comment_group, deleted, regdate
-		FROM comment_db
+		SELECT num, comment_db.usercode, content, target_code, ref_group, comment_group, deleted, comment_db.regdate, users_db.id, users_db.nickname
+		FROM comment_db INNER JOIN users_db
+		ON comment_db.usercode = users_db.usercode
 		WHERE ref_group = #{ref_group}
+		ORDER BY comment_db.regdate DESC
 	</select>
 	
 	<insert id="insert" parameterType="commentDto">

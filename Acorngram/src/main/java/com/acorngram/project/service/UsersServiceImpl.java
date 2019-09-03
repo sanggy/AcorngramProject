@@ -144,11 +144,12 @@ public class UsersServiceImpl implements UsersService{
 	// 개인정보 수정 반영하는 메소드
 	@Override
 	public void updateUser(UsersDto dto, HttpServletRequest request) {
+	
+		// session 에서 id를 가지고 와서 dto.setId
 		dto.setId((String) request.getSession().getAttribute("id"));
 		
 		// 비밀번호 변경인지, 다른 개인정보 수정인지 판별 
-		System.out.println("getPw() :" + dto.getPw());
-		//dto속에 pw 값이 없으면 비번 수정 작업이 요청이 아님
+		// dto속에 pw 값이 없으면 비번 수정 작업이 요청이 아님
 		if(dto.getPw() == null) {
 		//이 update은 비번 외에 나머지 유저정보를 수정하는 메소드
 			String dm_range = Optional.ofNullable(request.getParameter("dm_range")).orElse("0");
@@ -156,8 +157,15 @@ public class UsersServiceImpl implements UsersService{
 			dto.setDm_range(Integer.parseInt(dm_range));
 			dto.setAcc_private(acc_private);
 			dao.update(dto);
-		}else {
+		
 		//dto.getPw()의 값이 존재 한다면 우선 비번 수정임을 말함..
+		}else {
+			
+			String pw = dto.getPw();
+			BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+			String savePwd = encoder.encode(pw);
+			dto.setPw(savePwd);
+			
 			dao.updatePwd(dto);
 		}
 		

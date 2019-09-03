@@ -97,7 +97,7 @@
 									<c:otherwise>
 										<li>
 											<div class="comment__body">
-												<strong>${cmt.nickname } (@${cmt.id})</strong>
+												<strong>${cmt.nickname } (@${cmt.id }) </strong>
 												<span>${cmt.content } </span>
 											</div>
 											<div class="comment__info">
