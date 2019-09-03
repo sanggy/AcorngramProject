@@ -239,7 +239,7 @@ public class MainController {
 		@RequestMapping("/comment/write.do")
 		public ModelAndView authWrite(HttpServletRequest request, @ModelAttribute CommentDto commentDto) {
 			commentsService.writeComment(request, commentDto);
-			return new ModelAndView("redirect:/timeline.do");
+			return new ModelAndView("redirect:/post/detail.do?num="+commentDto.getRef_group());
 		}
 		
 		@RequestMapping("/comment/delete.do")

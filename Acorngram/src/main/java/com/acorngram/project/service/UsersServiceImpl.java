@@ -125,7 +125,7 @@ public class UsersServiceImpl implements UsersService{
 			e.printStackTrace();
 		}
 		
-		String path = "/upload/" + saveFileName;
+		String path = "upload/" + saveFileName;
 		//로그인 아이디
 		String id = (String)request.getSession().getAttribute("id");
 		
