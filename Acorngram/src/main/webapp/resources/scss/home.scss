@@ -74,3 +74,11 @@ main{
 		font-size: 1.2rem;
 	}
 }
+
+#signup-id-check-result{
+	display:none;
+	text-align:center;
+	&.false{
+		color: $danger;
+	}
+}

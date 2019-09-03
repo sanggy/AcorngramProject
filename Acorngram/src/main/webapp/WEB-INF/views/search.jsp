@@ -66,12 +66,12 @@
 								</c:when>
 								<c:otherwise>
 									<c:choose>
-										<c:when test="">
+										<c:when test="${post.followed }">
 										<%-- 이 유저와 팔로우 상태라면 --%>
-										<a href="javascript:followToggle(${post.usercode })" role="button" class="post__btn-unfollow" ><i class="glyphicon glyphicon-remove-sign"></i> <span>Unfollow</span>  </a>
+										<a href="javascript:unfollowToggle(${post.usercode })" role="button" class="post__btn-unfollow" ><i class="glyphicon glyphicon-remove-sign"></i> <span>Unfollow</span> </a>
 										</c:when>
 										<c:otherwise>
-										<a href="javascript:followToggle(${post.usercode })" role="button" class="post__btn-follow"><i class="glyphicon glyphicon-plus-sign"></i> <span>Follow</span> </a>
+											<a href="javascript:followToggle(${post.usercode })" role="button" class="post__btn-follow"><i class="glyphicon glyphicon-plus-sign"></i> <span>Follow</span> </a>
 										</c:otherwise>
 									</c:choose>
 								</c:otherwise>

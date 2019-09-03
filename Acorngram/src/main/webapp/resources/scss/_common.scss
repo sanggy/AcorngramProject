@@ -34,12 +34,13 @@ a{
 }
 
 .cover{
-	position: absolute;
+	position: fixed;
 	top:$header-height;
 	left:0;
 	width: 100%;
 	height: calc(100% - #{$header-height});
-	@media screen and (max-width:$sm){
+	z-index: 2;
+	@media screen and (max-width:$md){
 		top:$header-mobile-height;
 		height: calc(100% - #{$header-mobile-height});
 		background: rgba($black, .3);
