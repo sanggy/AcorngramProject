@@ -20,7 +20,7 @@ public class PostDto {
 	private int endRowNum;
 	
 	//likes db에서 가지고 온 정보
-	private boolean liked;
+	private boolean liked, followed;
 	
 
 	// <input type="file" name="file"/> 에서 name 속성의 value 와 동일한 필드명으로 
@@ -33,7 +33,7 @@ public class PostDto {
 
 	public PostDto(int num, int usercode, String content, String image, String video, String regdate, int like_count,
 			String saveFileName, long fileSize, String id, String nickname, String profile_img, int startRowNum, int endRowNum,
-			boolean liked, MultipartFile file) {
+			boolean liked, boolean followed, MultipartFile file) {
 		super();
 		this.num = num;
 		this.usercode = usercode;
@@ -50,6 +50,7 @@ public class PostDto {
 		this.startRowNum = startRowNum;
 		this.endRowNum = endRowNum;
 		this.liked = liked;
+		this.followed = followed;
 		this.file = file;
 	}
 
@@ -201,6 +202,15 @@ public class PostDto {
 
 	public void setLiked(boolean liked) {
 		this.liked = liked;
+	}
+	
+	public boolean isFollowed() {
+		return followed;
+	}
+
+
+	public void setFollowed(boolean followed) {
+		this.followed = followed;
 	}
 
 

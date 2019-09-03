@@ -15,10 +15,12 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.acorngram.project.dao.CommentDao;
+import com.acorngram.project.dao.FollowerDao;
 import com.acorngram.project.dao.LikesDao;
 import com.acorngram.project.dao.PostDao;
 import com.acorngram.project.dao.UsersDao;
 import com.acorngram.project.dto.CommentDto;
+import com.acorngram.project.dto.FollowerDto;
 import com.acorngram.project.dto.LikedDto;
 import com.acorngram.project.dto.PostDto;
 import com.acorngram.project.dto.UsersDto;
@@ -36,11 +38,13 @@ public class PostServiceImpl implements PostService {
 	
 	@Autowired private LikesDao likesDao;
 	
+	@Autowired private FollowerDao followerDao;
+	
 	
 	// 리스트 불러오기 
 	@Override
 	public void getList(HttpServletRequest request) {
-		System.out.println("여기 들어왔나> 지금 getList service부분이다.");
+		System.out.println("여기 들어왔나??????? 지금 getList service부분이다.");
 		
 		/*
 		 *  request 에 검색 keyword 가 전달 될 수도 있고 안될 수도 있다.
@@ -155,6 +159,24 @@ public class PostServiceImpl implements PostService {
 			}
 		}
 		
+		//get follow list for posts
+		List<FollowerDto> followerList = followerDao.getList((int)request.getSession().getAttribute("usercode"));
+		System.out.println("FOLLOWERLIST 존재여부 체크중... : "+followerList.size());
+		for(FollowerDto temp : followerList) {
+			if(temp.getTarget_usercode() == postDto.getUsercode() && temp.getStatus() == 1) {
+				System.out.println("postDto의 usercode"+postDto.getUsercode());
+				System.out.println("followerlist의 usercode"+temp.getTarget_usercode());
+				System.out.println(temp.getStatus());
+				postDto.setFollowed(true);
+			}
+			else {
+				System.out.println("postDto의 usercode"+postDto.getUsercode());
+				System.out.println("followerlist의 usercode"+temp.getTarget_usercode());
+				System.out.println(temp.getStatus());
+				postDto.setFollowed(false);
+			}
+		}
+		
 		//파일 목록을 request 에 list라는 키값으로 담는다
 		request.setAttribute("list", postList);
 		request.setAttribute("startRowNum", startRowNum);
@@ -173,9 +195,6 @@ public class PostServiceImpl implements PostService {
 //		request.setAttribute("usersList", usersList);
 
 		// Search 할때 POST 목록을 request에 postDto 라는 키값으로 담는다. 
-		
-		
-		
 	}
 
 	@Override
@@ -284,7 +303,7 @@ public class PostServiceImpl implements PostService {
 		List<CommentDto> commentList = commentDao.getList(ref_group);
 		
 		//List가 생성이되서 값을 가지고 있는지 여부를 체크하는 중...
-		System.out.println("commentList가 nickname을 가지고 오나? : " + commentList.get(0).getNickname());
+//		System.out.println("commentList가 nickname을 가지고 오나? : " + commentList.get(0).getNickname());
 		
 		//댓글과 포스트 정보를 다 불러왔으면 이제 Map에 put을 통해 JSON형으로 response해준다.
 		mView.addObject("post", postDto);

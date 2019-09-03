@@ -147,6 +147,12 @@ public class MainController {
 		return new ModelAndView("redirect:/users/settings.do");
 	}
 	
+	@RequestMapping("/users/profile.do")
+	public ModelAndView authProfile(ModelAndView mView, HttpServletRequest request, @RequestParam String id) {
+		usersService.showInfo(request.getSession(), mView);
+		return new ModelAndView("users/profile");
+	}
+	
 	//==============follow/unfollow 작업 요청 부분 ===============
 	
 	@RequestMapping("/follower/follow.do")
