@@ -3,11 +3,12 @@ package com.acorngram.project.dto;
 public class CommentDto {
 	private int num, usercode, target_code, ref_group, comment_group;
 	private String content, deleted, regdate;
+	private String nickname, id;
 	
 	public CommentDto() {}
 
 	public CommentDto(int num, int usercode, int target_code, int ref_group, int comment_group, String content,
-			String deleted, String regdate) {
+			String deleted, String regdate, String nickname, String id) {
 		super();
 		this.num = num;
 		this.usercode = usercode;
@@ -17,6 +18,8 @@ public class CommentDto {
 		this.content = content;
 		this.deleted = deleted;
 		this.regdate = regdate;
+		this.nickname = nickname;
+		this.id = id;
 	}
 
 	public int getNum() {
@@ -81,6 +84,22 @@ public class CommentDto {
 
 	public void setRegdate(String regdate) {
 		this.regdate = regdate;
+	}
+
+	public String getNickname() {
+		return nickname;
+	}
+
+	public void setNickname(String nickname) {
+		this.nickname = nickname;
+	}
+
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
 	}
 	
 }
