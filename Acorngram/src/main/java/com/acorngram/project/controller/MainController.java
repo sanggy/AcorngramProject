@@ -260,7 +260,7 @@ public class MainController {
 			LikedDto likedDto = new LikedDto();
 			likedDto.setPost_num(num);
 			likesService.likePost(likedDto, request);
-			likesService.increaseLikeCount(request);
+			postService.increaseLikeCount(num);
 			map.put("result", true);
 			return map;
 		}
@@ -272,6 +272,7 @@ public class MainController {
 			LikedDto likedDto = new LikedDto();
 			likedDto.setPost_num(num);
 			likesService.unlikePost(likedDto, request);
+			postService.decreaseLikeCount(num);
 			map.put("result", true);
 			return map;
 		}

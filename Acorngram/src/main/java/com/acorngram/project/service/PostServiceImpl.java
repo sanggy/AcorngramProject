@@ -293,6 +293,18 @@ public class PostServiceImpl implements PostService {
 			postDto.setLiked(true);
 		}
 		
+		//get follow list for posts
+		List<FollowerDto> followerList = followerDao.getList((int)request.getSession().getAttribute("usercode"));
+		for(FollowerDto temp : followerList) {
+			if(temp.getTarget_usercode() == postDto.getUsercode() && temp.getStatus() == 1) {
+				postDto.setFollowed(true);
+				break;
+			}
+			else {
+				postDto.setFollowed(false);
+			}
+		}
+		
 		//postDto의 num은 comments의 ref_group 번호와 같아야 한다...
 		int ref_group = postDto.getNum();
 		
@@ -307,6 +319,17 @@ public class PostServiceImpl implements PostService {
 		mView.addObject("commentList", commentList);
 		mView.setViewName("post/detail");
 		
+	}
+
+	@Override
+	public void increaseLikeCount(int num) {
+		postDao.incraseLikeCount(num);
+		
+	}
+
+	@Override
+	public void decreaseLikeCount(int num) {
+		postDao.decreaseLikeCount(num);
 	}
 
 //	@Override

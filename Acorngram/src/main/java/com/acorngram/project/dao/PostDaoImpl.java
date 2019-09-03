@@ -48,4 +48,14 @@ public class PostDaoImpl implements PostDao{
 		//페이징 처리 (pagination)아니면 scrolling처리 할 때에 총 수를 가지고 오는 메소드
 		return session.selectOne("post.getCount", dto);
 	}
+
+	@Override
+	public void incraseLikeCount(int num) {
+		session.update("post.increaseLikeCount", num);
+	}
+
+	@Override
+	public void decreaseLikeCount(int num) {
+		session.update("post.decreaseLikeCount", num);
+	}
 }

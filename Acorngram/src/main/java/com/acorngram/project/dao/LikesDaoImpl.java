@@ -32,10 +32,4 @@ public class LikesDaoImpl implements LikesDao{
 	public int deleteAll(int post_num) {
 		return session.delete("likes.deleteAll", post_num);
 	}
-
-	@Override
-	public void increaseLikeCount(HttpServletRequest request) {
-		session.update("likes.increaseLikeCount");
-	}
-
 }

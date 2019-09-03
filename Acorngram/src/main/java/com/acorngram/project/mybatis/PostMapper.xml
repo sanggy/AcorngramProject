@@ -34,9 +34,16 @@
 		WHERE num = #{num}
 	</select>
 	
-	<update id="updateLikes" parameterType="postDto">
+	<update id="increaseLikeCount" parameterType="int">
 		UPDATE post_db
-		SET like_count = +1
+		SET like_count = like_count + 1
+		WHERE num = #{num}
+		
+	</update>
+	
+	<update id="decreaseLikeCount" parameterType="int">
+		UPDATE post_db
+		SET like_count = like_count - 1
 		WHERE num = #{num}
 		
 	</update>

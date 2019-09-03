@@ -23,4 +23,9 @@ public interface PostDao {
 	//전체 post의 갯수 (나중에 페이지 처리할 때 사용할 메소드)
 	public int getCount(PostDto dto);
 	
+	//like_count 올리기
+	public void incraseLikeCount(int num);
+	//like_count 줄이기
+	public void decreaseLikeCount(int num);
+	
 }
