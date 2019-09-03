@@ -14,12 +14,12 @@
 		<!-- 유저 프로필 -->
 		<div class="profile container">
 			<div class="profile__icon">
-				<img src="${user.profile_img }" alt="${id }의 프로필 사진" class="profile__icon"/>
+				<img src="${pageContext.request.contextPath}/${user.profile_img }" alt="${user.id }의 프로필 사진" class="profile__icon"/>
 			</div>
 			<div class="profile__info">
 				<hgroup>
-					<h5 class="post__name"> ${post.nickname } </h5>
-					<h6 class="post__id"> @${post.id } </h6>
+					<h5 class="post__name"> ${user.nickname } </h5>
+					<h6 class="post__id"> @${user.id } </h6>
 				</hgroup>
 				<ul class="profile__user-count">
 					<li class="profile__post-count"></li>
