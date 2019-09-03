@@ -162,18 +162,15 @@ public class PostServiceImpl implements PostService {
 		//get follow list for posts
 		List<FollowerDto> followerList = followerDao.getList((int)request.getSession().getAttribute("usercode"));
 		System.out.println("FOLLOWERLIST 존재여부 체크중... : "+followerList.size());
-		for(FollowerDto temp : followerList) {
-			if(temp.getTarget_usercode() == postDto.getUsercode() && temp.getStatus() == 1) {
-				System.out.println("postDto의 usercode"+postDto.getUsercode());
-				System.out.println("followerlist의 usercode"+temp.getTarget_usercode());
-				System.out.println(temp.getStatus());
-				postDto.setFollowed(true);
-			}
-			else {
-				System.out.println("postDto의 usercode"+postDto.getUsercode());
-				System.out.println("followerlist의 usercode"+temp.getTarget_usercode());
-				System.out.println(temp.getStatus());
-				postDto.setFollowed(false);
+		for(PostDto postTemp : postList) {
+			for(FollowerDto temp : followerList) {
+				if(temp.getTarget_usercode() == postTemp.getUsercode() && temp.getStatus() == 1) {
+					postTemp.setFollowed(true);
+					break;
+				}
+				else {
+					postTemp.setFollowed(false);
+				}
 			}
 		}
 		
