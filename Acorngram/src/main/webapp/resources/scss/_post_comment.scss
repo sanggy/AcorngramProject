@@ -48,7 +48,6 @@
 		li{
 			padding: 1rem;
 			margin-bottom: 1.5%;
-			background: $white;
 			border: 1px solid #ddd;
 			border-radius: 0.5rem;
 			&:not(.comment-deleted){
@@ -72,5 +71,8 @@
 		}
 	}
 
+	&__reply{
+		background: #f0f0f0;
+	}
 
 }

@@ -95,8 +95,8 @@
 										<li class="comment-deleted">삭제된 댓글 입니다.</li>
 									</c:when>
 									<c:otherwise>
-										<li>
-											<div class="comment__body">
+										<li <c:if test="${cmt.num ne cmt.comment_group }">class="comment__reply"</c:if>>
+											<div class="comment__body <c:if test='${cmt.num ne cmt.comment_group }'>glyphicon glyphicon-share-alt</c:if>">
 												<strong>${cmt.nickname } (@${cmt.id }) </strong>
 												<span>${cmt.content } </span>
 											</div>
