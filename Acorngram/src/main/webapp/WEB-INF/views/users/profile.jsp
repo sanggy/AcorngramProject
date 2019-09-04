@@ -48,7 +48,7 @@
 					<c:otherwise>
 						<%-- 남의 프로필일 경우 --%>
 						<c:choose>
-							<c:when test="">
+							<c:when test="${followed }">
 							<%-- 이 유저와 팔로우 상태라면 --%>
 							<a href="javascript:followToggle(${user.usercode })" role="button" class="profile__btn-unfollow" ><i class="glyphicon glyphicon-remove-sign"></i> <span>Unfollow</span>  </a>
 							</c:when>
