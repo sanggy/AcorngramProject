@@ -73,11 +73,11 @@ public class MainController {
 
 		return mView;	
 	}
-	// /users/settings.do 와 같은 내용 
-	@RequestMapping(value = "/users/profile.do", method = RequestMethod.POST)
-	public ModelAndView authUpdateUserInfo(@ModelAttribute UsersDto dto, ModelAndView mView, HttpServletRequest request) {
+	// Excute when profile button clicked
+	@RequestMapping("/users/profile")
+	public ModelAndView authProfileForm(@ModelAttribute UsersDto dto, ModelAndView mView, HttpServletRequest request) {
 		//유저 정보 수정 하는 메소드 호출
-		usersService.updateUser(dto, request);
+		usersService.getProfileList(request);
 		mView.setViewName("users/profile");
 		return mView;
 	}
@@ -146,13 +146,7 @@ public class MainController {
 		usersService.updateUser(dto, request);		
 		return new ModelAndView("redirect:/users/settings.do");
 	}
-	
-	@RequestMapping("/users/profile.do")
-	public ModelAndView authProfile(ModelAndView mView, HttpServletRequest request, @RequestParam String id) {
-		usersService.showInfo(request.getSession(), mView);
-		return new ModelAndView("users/profile");
-	}
-	
+		
 	//==============follow/unfollow 작업 요청 부분 ===============
 	
 	@RequestMapping("/follower/follow.do")

@@ -24,5 +24,6 @@ public interface UsersService {
 	public String saveProfileImage(HttpServletRequest request, MultipartFile mFile);
 	// 개인정보 수정 반영하는 메소드
 	public void updateUser(UsersDto dto, HttpServletRequest request);
-	
+	// 프로필에서 회원의 정보를 가지고 오는 메소드 
+	public void getProfileList(HttpServletRequest request);
 }
