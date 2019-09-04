@@ -25,7 +25,7 @@
 					<ul class="useritem">
 						<c:forEach var="user" items="${userList }" varStatus="status">
 							<li class="<c:if test="${status.count lg 4 }">is-hidden</c:if>">
-								<img src="${user.profile_img }" alt="" class="useritem__icon"/>
+								<img src="${pageContext.request.contextPath}/${user.profile_img }" alt="" class="useritem__icon"/>
 								<hgroup>
 									<h5 class="useritem__header-name"> ${user.usercode } </h5>
 									<h6 class="useritem__header-id"> @${user.id } </h6>
@@ -48,11 +48,11 @@
 		<c:if test="${not empty postList }">
 			<div class="timeline container">
 				<c:forEach var="post" items="${postList }">
-					<article class="post" id="post-${post.num }">
+					<article class="post post-user-${post.usercode }" id="post-${post.num }">
 						<div class="post__header">
 							<div class="post__header-left">
-								<a href="users/profile.do?id=${post.id }">
-									<img src="" alt="" class="post__icon"/>
+								<a href="${pageContext.request.contextPath}/users/profile.do?id=${post.id }">
+									<img src="${pageContext.request.contextPath}/${post.profile_img }" alt="" class="post__icon"/>
 									<hgroup>
 										<h5 class="post__header-name"> ${post.usercode } </h5>
 										<h6 class="post__header-id"> @${post.id } </h6>
@@ -84,18 +84,19 @@
 						<div class="post__info">
 							<div class="post__like">
 								<c:choose>
-									<c:when test="">
+									<c:when test="${post.liked}">
 									<%-- 이 게시글에 like 했다면 --%>
-										<a href="javascript:likeControl(${post.num })" class="post__btn-like"><i class="glyphicon glyphicon-heart "></i></a>
+										<a href="javascript:likeControl(${post.num})" class="post__btn-like liked"><i class="glyphicon glyphicon-heart "></i></a>
 									</c:when>
-								<c:otherwise>
-									<a href="javascript:likeControl(${post.num })" class="post__btn-like "><i class="glyphicon glyphicon-heart-empty "></i></a>
-								</c:otherwise>
-							</c:choose>
-							<span class="count-like">${post.like_count }</span>
+									<c:otherwise>
+										<a href="javascript:likeControl(${post.num})" class="post__btn-like"><i class="glyphicon glyphicon-heart-empty "></i></a>
+									</c:otherwise>
+								</c:choose>
+								<span class="count-like">${post.like_count }</span>
+								<span class="glyphicon glyphicon-comment">${post.commentCount}</span>
 							</div>
 							
-							<div class="post__regdate">
+							<div class="post__info-data">
 								<time datetime="${post.regdate }"></time>
 							</div>
 						</div>
