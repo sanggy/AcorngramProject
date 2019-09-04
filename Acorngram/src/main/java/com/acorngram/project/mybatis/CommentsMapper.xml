@@ -7,7 +7,7 @@
 		FROM comment_db INNER JOIN users_db
 		ON comment_db.usercode = users_db.usercode
 		WHERE ref_group = #{ref_group}
-		ORDER BY comment_db.regdate DESC
+		ORDER BY comment_group DESC, comment_db.regdate
 	</select>
 	
 	<insert id="insert" parameterType="commentDto">
@@ -31,4 +31,10 @@
 		DELETE comment_db
 		WHERE ref_group= #{ref_group}
 	</delete>
+	
+	<select id="getCount" parameterType="int" resultType="int">
+		SELECT NVL(MAX(ROWNUM), 0)
+		FROM comment_db
+		WHERE ref_group = #{ref_group}
+	</select>
 </mapper>

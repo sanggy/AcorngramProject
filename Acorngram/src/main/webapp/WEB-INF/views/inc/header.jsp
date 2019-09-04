@@ -2,23 +2,22 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <header class="header">
 	<div class="container">
-		<c:if test="${not empty usercode }">
-			<%-- 메뉴 자리 --%>
-		</c:if>
-		
-		<div class="header__logo">
-			<h1 id="logo"><a href="${pageContext.request.contextPath}/home.do">AcornGram</a></h1>
-		</div>
-		
-		<div class="header__right">
-			
-			<c:choose>
-				<c:when test="${empty usercode }">
+		<c:choose>
+			<c:when test="${empty usercode }">
+				<div class="header__logo">
+					<h1 id="logo">
+						<a href="${pageContext.request.contextPath}/home.do">
+							<img src="${pageContext.request.contextPath}/resources/images/acorn@2x.png" alt="AcornGram" />
+						</a>
+					</h1>
+				</div>
+				
+				<div class="header__right">
 					<div class="header__signin">
 						<input type="checkbox" class="toggler" id="signinform-toggler">
 						<label class="toggler" for="signinform-toggler">로그인</label>
 						<section class="header__signin-form">
-							<form action="${pageContext.request.contextPath}/users/signin.do" method="post" id="signUp" class="signin__form">
+							<form action="${pageContext.request.contextPath}/users/signin.do" method="post" id="signin" class="signin__form">
 								<div class="form-group">
 									<label class="signin__label">아이디</label>
 									<input type="text" name="id" id="signin-id" class="form-control form-control-sm"/>
@@ -31,25 +30,33 @@
 							</form>
 						</section>
 					</div>
-				</c:when>
+				</div>
+			</c:when>
 				
-				<c:otherwise>
-					<div class="header__user-info">
-						<button type="button" 
-							style="background-image:url('${pageContext.request.contextPath}/${profile_img }');
-   								background-size: cover;
-						"> </button>
-					</div>
+			<c:otherwise>
+				<div class="header__user-info">
+					<button type="button" 
+						style="background-image:url('${pageContext.request.contextPath}/${profile_img }');
+							background-size: cover; "> </button>
+				</div>
+				<div class="header__logo">
+					<h1 id="logo">
+						<a href="${pageContext.request.contextPath}/home.do">
+							<img src="${pageContext.request.contextPath}/resources/images/acorn@2x.png" alt="AcornGram" />
+						</a>
+					</h1>
+				</div>
+				<div class="header__right">
 					<div class="header__writepost">
 						<button type="button">
 							<i class="glyphicon glyphicon-edit"></i>
 							<span>작성</span> 
 						</button>
 					</div>
-				</c:otherwise>
-			</c:choose>
+				</div>
+			</c:otherwise>
+		</c:choose>
 			
-		</div>
 	</div>
 </header>
 
@@ -57,7 +64,7 @@
 	<nav class="user-menu">
 		<ul>
 			<li class="user-menu__mini-profile">
-				<strong class="user-menu__user-name"><c:out value="${name }" default="test" /></strong>
+				<strong class="user-menu__user-name"><c:out value="${nickname }" default="test" /></strong>
 				<span class="user-menu__user-id">@${id }</span>
 			</li>
 			<li class="user-menu__line"></li>

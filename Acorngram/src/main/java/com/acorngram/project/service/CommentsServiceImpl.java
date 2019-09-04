@@ -47,6 +47,11 @@ public class CommentsServiceImpl implements CommentsService{
 	public void deleteComment(int num) {
 		commentsDao.delete(num);
 	}
+
+	@Override
+	public void getCount(HttpServletRequest request, int ref_group) {
+		commentsDao.getCount(ref_group);
+	}
 	
 	
 	

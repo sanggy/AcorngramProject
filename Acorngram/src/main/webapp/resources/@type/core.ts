@@ -255,7 +255,6 @@ function followToggle(usercode){
 	.then(res=> {return res.json()} )
 	.then(res=>{
 		if(res.result){
-			window.alert('성공적으로 팔로우되었습니다.');
 			const postList = document.querySelectorAll('.post');
 			postList.forEach(i=>{
 				if(i.classList.contains('post-user-'+usercode)){
@@ -266,6 +265,16 @@ function followToggle(usercode){
 					target.querySelector('span').innerText = 'Unfollow';			
 				}
 			});
+			//	프로필페이지일 경우 추가 동작
+			const item = document.querySelector('.profile');
+			if(item){
+				const target = item.querySelector('a[class*="follow"]');
+				target.classList.replace('profile__btn-follow', 'profile__btn-unfollow');
+				target.href = 'javascript:unfollowToggle('+usercode+')';
+				target.querySelector('i.glyphicon').classList.replace('glyphicon-plus-sign', 'glyphicon-remove-sign');
+				target.querySelector('span').innerText = 'Unfollow';	
+			}
+			window.alert('성공적으로 팔로우되었습니다.');
 		}else{
 			window.alert('오류가 발생했습니다.');
 		}
@@ -293,6 +302,15 @@ function unfollowToggle(usercode){
 					target.querySelector('span').innerText = 'Follow';
 				}
 			});
+			//	프로필페이지일 경우 추가 동작
+			const item = document.querySelector('.profile');
+			if(item){
+				const target = item.querySelector('a[class*="follow"]');
+				target.classList.replace('profile__btn-unfollow', 'profile__btn-follow');
+				target.href = 'javascript:followToggle('+usercode+')';
+				target.querySelector('i.glyphicon').classList.replace('glyphicon-remove-sign', 'glyphicon-plus-sign');
+				target.querySelector('span').innerText = 'Follow';	
+			}
 		}else{
 			window.alert('오류가 발생했습니다.');
 		}
@@ -317,20 +335,22 @@ function followAjax(url, usercode){
 //	회원가입 폼
 
 //	아이디 중복체크
-$('#signup-id').on('keypress',()=>{
+$('#signup-id').on('keyup',()=>{
 	var id = $('#signup-id').val();
-	var result:JSON = getResultFromAjax(
-		cpath+'users/checkid.do',
-		{'id':id}
-		,'get'
-	);
 	var target = $('#signup-id-check-result');
-	if(result.result){
-		target.removeClass('false').fadeOut();
-	}else{
-		target.val('중복된 ID이거나 서버 통신이 원활하지 않습니다.')
-			.addClass('false').fadeIn();
-	}
+	fetch(cpath+"users/checkid.do?inputId="+id)
+	.then(res=> {return res.json() })
+	.then(result=>{
+		if(result.istExist){
+			target.text('').removeClass('false').fadeOut();
+		}else{
+			target.html(
+				'<i class="glyphicon glyphicon-remove"></i>'+
+				'중복된 ID이거나 서버 통신이 원활하지 않습니다.'
+				).addClass('false').fadeIn();
+		}
+	})
+	.catch(err=>{return false;})
 })
 
 $('#signUp').on('submit',()=>{
@@ -342,11 +362,11 @@ $('#signUp').on('submit',()=>{
 		msg = '패스워드 확인에 패스워드와 동일하게 작성하세요';
 		alert(msg);
 		return false;
-	}else if( email.value.match(/[^\s]@[^\s]/) ){
+	}else if( !email.value.match(/[^\s]@[^\s]/) ){
 		msg = '이메일 형식이 올바르지 않습니다.';
 		alert(msg);
 		return false;
-	}else if($('#signup-agree').prop("checked")){
+	}else if(!$('#signup-agree').prop("checked")){
 		msg = '규약에 동의해주세요';
 		alert(msg);
 		return false;

@@ -15,7 +15,7 @@ public interface UsersService {
 	// 로그인 시 아이디 유무 체크 
 	public boolean validUser(UsersDto dto, ModelAndView mView, HttpSession session, HttpServletRequest request);
 	// 회원 정보 
-	public void showInfo(HttpSession session, ModelAndView mView);
+	public void showInfo(String id, ModelAndView mView, HttpServletRequest request);
 	// 아이디 중복 체크 
 	public Map<String, Object> isExistId(String inputId);
 	// 회원 정보 삭제 
@@ -24,6 +24,5 @@ public interface UsersService {
 	public String saveProfileImage(HttpServletRequest request, MultipartFile mFile);
 	// 개인정보 수정 반영하는 메소드
 	public void updateUser(UsersDto dto, HttpServletRequest request);
-	// 프로필에서 회원의 정보를 가지고 오는 메소드 
-	public void getProfileList(HttpServletRequest request);
+
 }

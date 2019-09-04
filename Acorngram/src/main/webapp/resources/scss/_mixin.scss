@@ -26,7 +26,7 @@
 
 @mixin menu(){
 	background: $white;
-	border-radius: 8px;
+	border-radius: 0 8px 8px 0;
 	box-shadow: 0 2px 4px rgba($black,.3);
 	box-sizing: border-box;
 }
@@ -45,12 +45,10 @@
 }
 
 @mixin likeBootstrap(){
-
 	$bootstrap-colors: $primary, $success, $warning, $danger;
 
 	@each $color-type in $bootstrap-colors {
 		$color : '$' + $color-type;
-	
 		&[class*="#{$color-type}"]{
 			background: $color;
 			color: $white;

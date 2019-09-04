@@ -73,14 +73,6 @@ public class MainController {
 
 		return mView;	
 	}
-	// Excute when profile button clicked
-	@RequestMapping("/users/profile")
-	public ModelAndView authProfileForm(@ModelAttribute UsersDto dto, ModelAndView mView, HttpServletRequest request) {
-		//유저 정보 수정 하는 메소드 호출
-		usersService.getProfileList(request);
-		mView.setViewName("users/profile");
-		return mView;
-	}
 	
 	//profile image upload 요청처리 부분
 	@RequestMapping("/users/profile_upload")
@@ -116,7 +108,7 @@ public class MainController {
 	
 	@RequestMapping("/users/settings.do")
 	public ModelAndView authUsersSetting(HttpServletRequest request, ModelAndView mView) {
-		usersService.showInfo(request.getSession(), mView);
+		usersService.showInfo((String)request.getSession().getAttribute("id"), mView, request);
 		mView.setViewName("users/settings");
 		return mView;
 	}
@@ -146,7 +138,14 @@ public class MainController {
 		usersService.updateUser(dto, request);		
 		return new ModelAndView("redirect:/users/settings.do");
 	}
-		
+
+	@RequestMapping("/users/profile.do")
+	public ModelAndView authProfile(ModelAndView mView, HttpServletRequest request, @RequestParam String id) {
+		usersService.showInfo(id, mView, request);
+		mView.setViewName("users/profile");
+		return mView;
+	}
+	
 	//==============follow/unfollow 작업 요청 부분 ===============
 	
 	@RequestMapping("/follower/follow.do")
@@ -233,7 +232,7 @@ public class MainController {
 		@RequestMapping("/comment/write.do")
 		public ModelAndView authWrite(HttpServletRequest request, @ModelAttribute CommentDto commentDto) {
 			commentsService.writeComment(request, commentDto);
-			return new ModelAndView("redirect:/timeline.do");
+			return new ModelAndView("redirect:/post/detail.do?num="+commentDto.getRef_group());
 		}
 		
 		@RequestMapping("/comment/delete.do")
@@ -254,7 +253,7 @@ public class MainController {
 			LikedDto likedDto = new LikedDto();
 			likedDto.setPost_num(num);
 			likesService.likePost(likedDto, request);
-			likesService.increaseLikeCount(request);
+			postService.increaseLikeCount(num);
 			map.put("result", true);
 			return map;
 		}
@@ -266,6 +265,7 @@ public class MainController {
 			LikedDto likedDto = new LikedDto();
 			likedDto.setPost_num(num);
 			likesService.unlikePost(likedDto, request);
+			postService.decreaseLikeCount(num);
 			map.put("result", true);
 			return map;
 		}

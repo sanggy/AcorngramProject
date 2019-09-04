@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %> 
 <!DOCTYPE html>
 <html>
 <head>
@@ -32,11 +33,11 @@
 				<fieldset class="user-settings__body">
 					<legend>유저 설정</legend>
 					<div class="form-group">
-						<label for="inputEmail3" class="col-sm-2 control-label">Nickname</label>
+						<label for="nickname" class="control-label">Nickname</label>
 						<input type="text" class="form-control" name="nickname" value=${user.nickname }>
 					</div>
 					<div class="form-group">
-						<label for="inputEmail3" class="col-sm-2 control-label">Email</label>
+						<label for="email" class="control-label">Email</label>
 						<input type="email" class="form-control" name="email" value="${user.email }">
 					</div>
 
@@ -45,12 +46,15 @@
 					</div>
 
 					<div class="form-group">  
-						<label for="inputEmail3" class="col-sm-2 control-label">Date of birth</label>
-						<input type="date" name="dob" class="form-control" id="DOB" value="${user.dob}">
+						<fmt:parseDate scope="page" var="parseDob" value="${user.dob }" pattern="yyyy-MM-dd HH:mm:ss" />
+						<fmt:formatDate scope="page" var="dob" value="${parseDob }" pattern="yyyy-MM-dd" />
+						<label for="DOB" class="control-label">Date of birth</label>
+						<input type="date" name="dob" class="form-control" id="DOB" value='${dob }' min="1900-01-01" >
 					</div>
 					<div class="form-group toggler-wrap">
 						<div class="user-settings__toggler">
-							<input type="checkbox" id="dm_range" name="dm_range" class="switch-input" value="1">
+							<input type="checkbox" id="dm_range" name="dm_range" class="switch-input" value="1"
+							<c:if test="${user.dm_range eq 1}">checked</c:if> >
 							<label for="dm_range" class="switch-label">
 								DM RANGE: 
 								<span class="toggle--on">private</span>
@@ -58,7 +62,8 @@
 							</label>
 						</div>
 						<div class="user-settings__toggler">
-							<input type="checkbox" id="account_private" name="acc_private" class="switch-input" value="yes">
+							<input type="checkbox" id="account_private" name="acc_private" class="switch-input" value="yes"
+							<c:if test='${user.acc_private eq "yes"}'>checked</c:if> >
 							<label for="account_private" class="switch-label">
 								ACCOUNT is : 
 								<span class="toggle--on">private</span>

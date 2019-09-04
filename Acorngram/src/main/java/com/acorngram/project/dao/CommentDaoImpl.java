@@ -36,4 +36,9 @@ public class CommentDaoImpl implements CommentDao{
 	public void deleteAll(int post_num) {
 		session.delete("comments.deleteAll", post_num);
 	}
+
+	@Override
+	public int getCount(int ref_group) {
+		return session.selectOne("comments.getCount", ref_group);
+	}
 }

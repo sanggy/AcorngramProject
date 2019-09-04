@@ -35,10 +35,4 @@ public class LikesServiceImpl implements LikesService{
 		likesDao.getLikedPost(dto);
 		
 	}
-
-	@Override
-	public void increaseLikeCount(HttpServletRequest request) {
-		likesDao.increaseLikeCount(request);
-	}
-
 }

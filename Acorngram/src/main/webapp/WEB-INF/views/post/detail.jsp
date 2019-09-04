@@ -15,7 +15,7 @@
 			<nav class="detail__header">
 				<a href="${pageContext.request.contextPath}/timeline.do"><i class="glyphicon glyphicon-chevron-left"></i> 돌아가기</a>
 			</nav>
-			<article class="post" id="post-${post.num }">
+			<article class="post post-user-${post.usercode }" id="post-${post.num }">
 				<div class="post__img" style="
 					background-image: url('${pageContext.request.contextPath}/upload/${post.saveFileName }')">
 				</div>
@@ -38,12 +38,12 @@
 							</c:when>
 							<c:otherwise>
 								<c:choose>
-									<c:when test="">
+									<c:when test="${post.followed }">
 									<%-- 이 유저와 팔로우 상태라면 --%>
 									<a href="javascript:unfollowToggle(${post.usercode })" role="button" class="post__btn-unfollow" ><i class="glyphicon glyphicon-remove-sign"></i> <span>Unfollow</span> </a>
 									</c:when>
 									<c:otherwise>
-									<a href="javascript:followToggle(${post.usercode })" role="button" class="post__btn-follow"><i class="glyphicon glyphicon-plus-sign"></i> <span>Follow</span> </a>
+										<a href="javascript:followToggle(${post.usercode })" role="button" class="post__btn-follow"><i class="glyphicon glyphicon-plus-sign"></i> <span>Follow</span> </a>
 									</c:otherwise>
 								</c:choose>
 							</c:otherwise>
@@ -95,8 +95,9 @@
 										<li class="comment-deleted">삭제된 댓글 입니다.</li>
 									</c:when>
 									<c:otherwise>
-										<li>
+										<li <c:if test="${cmt.num ne cmt.comment_group }">class="comment__reply"</c:if>>
 											<div class="comment__body">
+												<c:if test='${cmt.num ne cmt.comment_group }'><i class="glyphicon glyphicon--is-flip glyphicon-share-alt"></i></c:if>
 												<strong>${cmt.nickname } (@${cmt.id }) </strong>
 												<span>${cmt.content } </span>
 											</div>
@@ -114,7 +115,7 @@
 													<input type="hidden" name="num" value="${post.num }" />
 													<input type="hidden" name="ref_group" value="${post.num }" />
 													<input type="hidden" name="target_code" value="${cmt.usercode }" />
-													<input type="hidden" name="comment_group" value="${cmt.num }" />
+													<input type="hidden" name="comment_group" value="${cmt.comment_group }" />
 													<textarea name="content" class="comment-content"></textarea>
 													<button>전송</button>
 												</form>

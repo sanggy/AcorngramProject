@@ -95,7 +95,7 @@ public class PostServiceImpl implements PostService {
 		//paging 처리
 		String id = (String) request.getSession().getAttribute("id");
 		//한 페이지에 나타낼 row 의 갯수
-		final int PAGE_ROW_COUNT = 5;
+		final int PAGE_ROW_COUNT = 100;
 		//하단 디스플레이 페이지 갯수
 		final int PAGE_DISPLAY_COUNT = 1;
 		
@@ -114,7 +114,7 @@ public class PostServiceImpl implements PostService {
 		int endRowNum = pageNum*PAGE_ROW_COUNT;
 		
 		//전체 row의 갯수를 읽어온다.
-		int totalRow = postDao.getCount(postDto);
+		int totalRow = postDao.getCount(postDto.getUsercode());
 		
 		//trying to check if postDao.getCount will work ----- checked and it works
 //		System.out.println("printing postDao.getCount result : " + totalRow);
@@ -151,6 +151,11 @@ public class PostServiceImpl implements PostService {
 		for(PostDto temp : postList) {
 			likeDto.setPost_num(temp.getNum());
 			likeDto.setUser_code((int)request.getSession().getAttribute("usercode"));
+			//get comment count of post
+			int count = commentDao.getCount(temp.getNum());
+			temp.setCommentCount(count);
+			
+			//liked된 여부 확인하고 보내주기
 			int isLiked = likesDao.getLikedPost(likeDto);
 			if(isLiked == 0) {
 				temp.setLiked(false);
@@ -162,18 +167,15 @@ public class PostServiceImpl implements PostService {
 		//get follow list for posts
 		List<FollowerDto> followerList = followerDao.getList((int)request.getSession().getAttribute("usercode"));
 		System.out.println("FOLLOWERLIST 존재여부 체크중... : "+followerList.size());
-		for(FollowerDto temp : followerList) {
-			if(temp.getTarget_usercode() == postDto.getUsercode() && temp.getStatus() == 1) {
-				System.out.println("postDto의 usercode"+postDto.getUsercode());
-				System.out.println("followerlist의 usercode"+temp.getTarget_usercode());
-				System.out.println(temp.getStatus());
-				postDto.setFollowed(true);
-			}
-			else {
-				System.out.println("postDto의 usercode"+postDto.getUsercode());
-				System.out.println("followerlist의 usercode"+temp.getTarget_usercode());
-				System.out.println(temp.getStatus());
-				postDto.setFollowed(false);
+		for(PostDto postTemp : postList) {
+			for(FollowerDto temp : followerList) {
+				if(temp.getTarget_usercode() == postTemp.getUsercode() && temp.getStatus() == 1) {
+					postTemp.setFollowed(true);
+					break;
+				}
+				else {
+					postTemp.setFollowed(false);
+				}
 			}
 		}
 		
@@ -296,6 +298,18 @@ public class PostServiceImpl implements PostService {
 			postDto.setLiked(true);
 		}
 		
+		//get follow list for posts
+		List<FollowerDto> followerList = followerDao.getList((int)request.getSession().getAttribute("usercode"));
+		for(FollowerDto temp : followerList) {
+			if(temp.getTarget_usercode() == postDto.getUsercode() && temp.getStatus() == 1) {
+				postDto.setFollowed(true);
+				break;
+			}
+			else {
+				postDto.setFollowed(false);
+			}
+		}
+		
 		//postDto의 num은 comments의 ref_group 번호와 같아야 한다...
 		int ref_group = postDto.getNum();
 		
@@ -310,6 +324,17 @@ public class PostServiceImpl implements PostService {
 		mView.addObject("commentList", commentList);
 		mView.setViewName("post/detail");
 		
+	}
+
+	@Override
+	public void increaseLikeCount(int num) {
+		postDao.incraseLikeCount(num);
+		
+	}
+
+	@Override
+	public void decreaseLikeCount(int num) {
+		postDao.decreaseLikeCount(num);
 	}
 
 //	@Override

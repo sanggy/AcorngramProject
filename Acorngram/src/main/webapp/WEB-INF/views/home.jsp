@@ -28,30 +28,30 @@
 						<legend>회원등록은 간단합니다!</legend>
 						<div class="form-group">
 							<label class="signup__label"> 아이디 </label>
-							<input type="text" name="id" id="signup-id" class="form-control form-control-sm"/>
-							<span id="signup-nickname-check-result"></span>
+							<input type="text" name="id" id="signup-id" class="form-control form-control-sm" required/>
+							<span id="signup-id-check-result"><i class="glyphicon glyphicon-remove"></i></span>
 						</div>
 						<div class="form-group">
 							<label class="signup__label"> 닉네임 </label>
-							<input type="text" name="nickname" id="signup-nickname" class="form-control form-control-sm" />
+							<input type="text" name="nickname" id="signup-nickname" class="form-control form-control-sm"  required/>
 						</div>
 						<div class="form-group">
 							<label class="signup__label"> 패스워드 </label>
-							<input type="password" name="pw" id="signup-pw"  class="form-control form-control-sm" placeholder="영대문자 1자 이상인 최소 8자이상의 영숫자" />
+							<input type="password" name="pw" id="signup-pw"  class="form-control form-control-sm" placeholder="영대문자 1자 이상인 최소 8자이상의 영숫자" required/>
 							<span class="result-msg"></span>
 						</div>
 						<div class="form-group">
 							<label class="signup__label"> 패스워드 확인 </label>
-							<input type="password" name="pw-c" id="signup-pw-c"  class="form-control form-control-sm"/>
+							<input type="password" name="pw-c" id="signup-pw-c"  class="form-control form-control-sm"  required/>
 							<span class="result-msg"></span>
 						</div>
 						<div class="form-group">
 							<label class="signup__label"> 이메일 </label>
-							<input type="email" name="email" id="signup-email" class="form-control form-control-sm" />
+							<input type="email" name="email" id="signup-email" class="form-control form-control-sm"  required/>
 						</div>
 						<div class="form-group">
 							<input type="checkbox" name="agree" id="signup-agree" class="form-check-input" />
-							<label for="signup-agree" class="form-check-label"><a href="">회원규약</a>을 읽었으며 회원가입에 동의합니다.</label>
+							<label for="signup-agree" class="form-check-label"><a href="#">회원규약</a>을 읽었으며 회원가입에 동의합니다.</label>
 						</div>
 						<button class="signup__button">
 							<span class="glyphicon glyphicon-saved"></span> 

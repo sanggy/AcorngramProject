@@ -22,6 +22,9 @@ public class PostDto {
 	//likes db에서 가지고 온 정보
 	private boolean liked, followed;
 	
+	//comment count
+	private int commentCount;
+	
 
 	// <input type="file" name="file"/> 에서 name 속성의 value 와 동일한 필드명으로 
 	// MultipartFile type 필드를 선언해야 한다.
@@ -33,7 +36,7 @@ public class PostDto {
 
 	public PostDto(int num, int usercode, String content, String image, String video, String regdate, int like_count,
 			String saveFileName, long fileSize, String id, String nickname, String profile_img, int startRowNum, int endRowNum,
-			boolean liked, boolean followed, MultipartFile file) {
+			boolean liked, boolean followed, int commentCount, MultipartFile file) {
 		super();
 		this.num = num;
 		this.usercode = usercode;
@@ -51,6 +54,7 @@ public class PostDto {
 		this.endRowNum = endRowNum;
 		this.liked = liked;
 		this.followed = followed;
+		this.commentCount = commentCount;
 		this.file = file;
 	}
 
@@ -211,6 +215,15 @@ public class PostDto {
 
 	public void setFollowed(boolean followed) {
 		this.followed = followed;
+	}
+
+	public int getCommentCount() {
+		return commentCount;
+	}
+
+
+	public void setCommentCount(int commentCount) {
+		this.commentCount = commentCount;
 	}
 
 

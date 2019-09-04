@@ -8,11 +8,15 @@ main{
 	@include flexbox($wrap:wrap);
 	&>.container{
 		@include bordered-box();
-		@media screen and (min-width:$lg){
+		box-sizing: border-box;
+		@media screen and (min-width:$xm){
 			@include flexbox();
 		}
+		@media screen and (max-width:$xm){
+			margin-top: 4.5rem;
+		}
 	}
-	@media screen and(max-width:$lg){
+	@media screen and(max-width:$xm){
 		height:auto;
 	}
 }
@@ -26,6 +30,11 @@ main{
 	background-size: 30%;
 	background-position: 35% center;
 	width: 60%;
+
+	@media screen and (max-width:$xm){
+		display: none;
+	}
+
 	&__description{
 		position: absolute;
 		top: 50%;
@@ -40,9 +49,6 @@ main{
 		p{
 			line-height: 1.5rem;
 		}
-	}
-	@media screen and (max-width:$lg),screen and (max-height:720px){
-		display: none;
 	}
 }
 
@@ -66,5 +72,13 @@ main{
 		padding: 16px;
 		box-sizing: border-box;
 		font-size: 1.2rem;
+	}
+}
+
+#signup-id-check-result{
+	display:none;
+	text-align:center;
+	&.false{
+		color: $danger;
 	}
 }

@@ -18,7 +18,7 @@
 						<div class="post__header">
 							<div class="post__header-left">
 								<a href="${pageContext.request.contextPath}/users/profile.do?id=${post.id }">
-									<img src="${pageContext.request.contextPath}/${post.profile_img }" alt="" class="post__icon"/>
+									<img src="${pageContext.request.contextPath}${post.profile_img }" alt="" class="post__icon"/>
 									<hgroup>
 										<h5 class="post__header-name"> ${post.usercode } </h5>
 										<h6 class="post__header-id"> @${post.id } </h6>
@@ -32,12 +32,12 @@
 								</c:when>
 								<c:otherwise>
 									<c:choose>
-										<c:when test="">
+										<c:when test="${post.followed }">
 										<%-- 이 유저와 팔로우 상태라면 --%>
 										<a href="javascript:unfollowToggle(${post.usercode })" role="button" class="post__btn-unfollow" ><i class="glyphicon glyphicon-remove-sign"></i> <span>Unfollow</span> </a>
 										</c:when>
 										<c:otherwise>
-										<a href="javascript:followToggle(${post.usercode })" role="button" class="post__btn-follow"><i class="glyphicon glyphicon-plus-sign"></i> <span>Follow</span> </a>
+											<a href="javascript:followToggle(${post.usercode })" role="button" class="post__btn-follow"><i class="glyphicon glyphicon-plus-sign"></i> <span>Follow</span> </a>
 										</c:otherwise>
 									</c:choose>
 								</c:otherwise>
@@ -59,7 +59,7 @@
 									</c:otherwise>
 								</c:choose>
 								<span class="count-like">${post.like_count }</span>
-								<span class="glyphicon glyphicon-comment">{post.comment_count}</span>
+								<span class="glyphicon glyphicon-comment">${post.commentCount}</span>
 							</div>
 							
 							<div class="post__info-data">

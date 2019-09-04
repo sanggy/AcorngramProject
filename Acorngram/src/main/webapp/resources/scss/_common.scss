@@ -34,19 +34,27 @@ a{
 }
 
 .cover{
-	position: absolute;
+	position: fixed;
 	top:$header-height;
 	left:0;
 	width: 100%;
 	height: calc(100% - #{$header-height});
-	@media screen and (max-width:$sm){
+	z-index: 2;
+	@media screen and (max-width:$md){
 		top:$header-mobile-height;
 		height: calc(100% - #{$header-mobile-height});
 		background: rgba($black, .3);
 	}
 }
 
+.after-newline:after{
+	content: '\a';
+	white-space: pre;
+}
+
 body{ background: $bg-color; }
+
+input[type="date"],input[type="time"]{font:$main-font}
 
 // Those scss files forked by Bootstrap 4.3.1
 // Copyright 2011-2019 The Bootstrap Authors
@@ -87,5 +95,11 @@ body{ background: $bg-color; }
 }
 .glyphicon{
 	z-index:0;
+	&--is-flip{
+		-moz-transform: scaleY(-1);
+        -o-transform: scaleY(-1);
+        -webkit-transform: scaleY(-1);
+        transform: scaleY(-1);
+	}
 }
 
