@@ -43,7 +43,7 @@
 				<c:choose>
 					<c:when test="${usercode eq user.usercode }">
 						<%-- 자기 자신의 프로필일 경우 --%>
-						<a href="settings.do?num=${usercode }" role="button">프로필 수정</a>
+						<a href="settings.do?num=${usercode }" role="button" class="profile__btn-edit">프로필 수정</a>
 					</c:when>
 					<c:otherwise>
 						<%-- 남의 프로필일 경우 --%>

@@ -34,7 +34,7 @@
 	}
 
 	&__icon{
-		
+		width: 100%;
 	}
 
 	&__user-count{
@@ -58,6 +58,9 @@
 		}
 		&-unfollow{
 			@include btn($bg:$primary, $color:$white);
+		}
+		&-edit{
+			@include btn($color:$warning);
 		}
 		&-dm{
 			display: inline-block;

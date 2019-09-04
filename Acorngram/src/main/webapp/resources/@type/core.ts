@@ -362,11 +362,11 @@ $('#signUp').on('submit',()=>{
 		msg = '패스워드 확인에 패스워드와 동일하게 작성하세요';
 		alert(msg);
 		return false;
-	}else if( email.value.match(/[^\s]@[^\s]/) ){
+	}else if( !email.value.match(/[^\s]@[^\s]/) ){
 		msg = '이메일 형식이 올바르지 않습니다.';
 		alert(msg);
 		return false;
-	}else if($('#signup-agree').prop("checked")){
+	}else if(!$('#signup-agree').prop("checked")){
 		msg = '규약에 동의해주세요';
 		alert(msg);
 		return false;
