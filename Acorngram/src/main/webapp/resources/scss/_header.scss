@@ -84,6 +84,10 @@ header{
 		input:checked+label{
 			background: $white;
 			color: $main-color;
+			&:hover{
+				background: $main-color;
+				color: $white;
+			}
 		}
 		.signin{
 			&__label{
