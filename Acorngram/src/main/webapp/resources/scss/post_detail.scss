@@ -36,8 +36,9 @@
 		top: 0;
 		width: 450px;
 		height: 450px;
-		background-size: cover;
+		background-size: contain;
 		background-position: center center;
+		background-repeat: no-repeat;
 		border-radius: 8px;
 		@media screen and (max-width:$lg){
 			width: 350px;
@@ -49,6 +50,7 @@
 		}
 		@media screen and(max-width:$md){
 			width: 100%;
+			position: relative;
 		}
 	}
 
