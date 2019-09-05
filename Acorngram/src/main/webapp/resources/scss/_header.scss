@@ -72,9 +72,13 @@ header{
 			right: 0;
 			padding: 16px;
 			width: 360px;
-			@include menu();
+			background: $white;
+			border-radius: 8px;
+			box-shadow: 0 2px 4px rgba($black,.3);
+			box-sizing: border-box;
 			@media screen and (max-width: $md){
 				width: 100%;
+				top: $header-height + 3vh;
 			}
 			input:checked ~ &{
 				display: block;
