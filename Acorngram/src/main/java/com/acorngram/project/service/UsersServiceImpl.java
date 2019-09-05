@@ -84,6 +84,9 @@ public class UsersServiceImpl implements UsersService{
 	// 회원 정보 
 	@Override
 	public void showInfo(String id, ModelAndView mView, HttpServletRequest request) {
+		//counter for following/follower count
+		int followingCounter = 0;
+		int followerCounter = 0;
 		UsersDto usersDto = dao.getData(id);
 		int postCount = postDao.getCount(usersDto.getUsercode());
 		
@@ -128,9 +131,25 @@ public class UsersServiceImpl implements UsersService{
 			}
 		}
 		
+		//get following/follower lists and return counter to show number followed/following
+		List<FollowerDto> followingList = followerDao.followingList(usersDto.getUsercode());
+		List<FollowerDto> currUserFList = followerDao.followerList(usersDto.getUsercode());
+		
+		for(FollowerDto dto : currUserFList) {
+			followerCounter++;
+		}
+		for(FollowerDto dto : followingList) {
+			followingCounter++;
+		}
+		
+		
 		mView.addObject("user", usersDto);
 		mView.addObject("list", list);
 		mView.addObject("postCount",postCount);
+		mView.addObject("followerCount", followerCounter);
+		mView.addObject("followingCount", followingCounter);
+		mView.addObject("followerList", currUserFList);
+		mView.addObject("followingList", followingList);
 	}
 
 	// 아이디 중복 체크 
@@ -225,7 +244,7 @@ public class UsersServiceImpl implements UsersService{
 			dao.updatePwd(dto);
 		}
 	}
-	
+
 	
 	
 	

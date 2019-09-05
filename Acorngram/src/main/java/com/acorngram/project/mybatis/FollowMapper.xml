@@ -14,13 +14,13 @@
 	</delete>
 	
 	<select id="getFollowerList" parameterType="int" resultType="followerDto">
-		SELECT target_usercode, status
+		SELECT self_usercode, target_usercode, status
 		FROM relationship
-		WHERE self_usercode = #{self_usercode}
+		WHERE target_usercode = #{self_usercode}
 	</select>
 	
-	<select id="getFollowingCount" resultType="int">
-		SELECT NVL(MAX(ROWNUM), 0)
+	<select id="getFollowingList" parameterType="int" resultType="followerDto">
+		SELECT self_usercode, target_usercode, status
 		FROM relationship
 		WHERE self_usercode = #{self_usercode}
 	</select>

@@ -26,7 +26,7 @@ public class FollowerDaoImpl implements FollowerDao{
 	@Override
 	public List<FollowerDto> getList(int selfCode) {
 		//follower list를 불러와서 리턴하는 메소드
-		return session.selectList("follower.getFollowerList", selfCode);
+		return session.selectList("follower.getFollowingList", selfCode);
 	}
 
 	@Override
@@ -40,8 +40,13 @@ public class FollowerDaoImpl implements FollowerDao{
 	}
 
 	@Override
-	public int followingCount() {
-		return session.selectOne("follower.getFollowingCount");
+	public List<FollowerDto> followerList(int usercode) {
+		return session.selectList("follower.getFollowerList", usercode);
+	}
+
+	@Override
+	public List<FollowerDto> followingList(int usercode) {
+		return session.selectList("follower.getFollowingList", usercode);
 	}
 	
 	

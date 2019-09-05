@@ -29,11 +29,11 @@
 						</li>
 						<li class="profile__user-follow-count">
 							<data value="" class="after-newline">FOLLOW</data>
-							<span>15</span>
+							<span>${followingCount }</span>
 						</li>
 						<li class="profile__user-follower-count">
 							<data value="" class="after-newline">FOLLOWER</data>
-							<span>15</span>
+							<span>${followerCount }</span>
 						</li>
 					</ul>
 				</div>
