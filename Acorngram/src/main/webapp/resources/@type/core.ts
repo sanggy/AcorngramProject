@@ -9,7 +9,7 @@ const cpath = getCpath();
 //	json
 async function getResultFromAjax(url, param:Map<string, any>, type){
 	try{
-		return fetch(url,{
+		return await fetch(url,{
 			method: type?type:'get',
 			cache: 'no-cache',
 			headers: {

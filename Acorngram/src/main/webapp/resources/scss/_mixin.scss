@@ -56,3 +56,9 @@
 	}
 
 }
+
+@mixin fadeInOut($duration){
+/* @keyframes duration | timing-function | delay | 
+iteration-count | direction | fill-mode | play-state | name */
+	animation: $duration linear 1 alternate fadeInOut;
+}
