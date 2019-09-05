@@ -16,11 +16,16 @@
 	&:hover{
 		background: $color;
 		color: $bg;
-		border-color: $bg;
+		@if $bg != $white{
+			border-color: $bg;
+		}
 	}
 	&:active{
 		background: darken($color, 15%);
 		border-color: $bg;
+		@if $bg != $white{
+			border-color: $bg;
+		}
 	}
 }
 

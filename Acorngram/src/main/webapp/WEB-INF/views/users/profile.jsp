@@ -8,19 +8,20 @@
 		<jsp:param value="profile" name="css"/>
 	</jsp:include>
 </head>
-<body>
+<body ontouchstart="">
 	<jsp:include page="../inc/header.jsp" />
 	<main>
 		<!-- 유저 프로필 -->
 		<div class="profile profile-${user.usercode } container">
 			<div class="profile__info">
 				<div class="profile__info-left">
-					<img src="${pageContext.request.contextPath}/${user.profile_img }" alt="${user.id }의 프로필 사진" class="profile__icon"/>
+					<!-- <img src="${pageContext.request.contextPath}/${user.profile_img }" alt="${user.id }의 프로필 사진" class="profile__icon"/> -->
+					<img src="${pageContext.request.contextPath}/resources/images/default_user.jpg" alt="${user.id }의 프로필 사진" class="profile__icon"/>
 				</div>
 				<div class="profile__info-right">
 					<hgroup>
-						<h5 class="post__name"> ${user.nickname } </h5>
-						<h6 class="post__id"> @${user.id } </h6>
+						<h5 class="profile__name"> ${user.nickname } </h5>
+						<h6 class="profile__id"> @${user.id } </h6>
 					</hgroup>
 					<ul class="profile__user-count">
 						<li class="profile__post-count">
@@ -38,7 +39,6 @@
 					</ul>
 				</div>
 			</div>
-			<p>주의: 팔로우버튼 동작안함 수정예정</p>
 			<div class="profile__controller">
 				<c:choose>
 					<c:when test="${usercode eq user.usercode }">

@@ -13,7 +13,7 @@ main{
 			@include flexbox();
 		}
 		@media screen and (max-width:$xm){
-			margin-top: 4.5rem;
+			margin-top: 2.5vh;
 		}
 	}
 	@media screen and(max-width:$xm){
