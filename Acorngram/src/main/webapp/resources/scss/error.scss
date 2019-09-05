@@ -1,0 +1,46 @@
+@import 'common';
+
+main{
+	height: 100vh;
+	@include flexbox($vertical:center, $horizen:center);
+}
+
+.error{
+	@include flexbox();
+	@include bordered-box();
+	min-height: 300px;
+	@media screen and(max-width: $md){
+		flex-wrap: wrap;
+		justify-content: space-around;
+	}
+
+	&__img{
+		width: 300px;
+		height: 300px;
+		background-size: cover;
+		background-position: center center;
+		background-repeat: no-repeat;
+		overflow: hidden;
+		margin-right: 1.5rem;
+		@media screen and(max-width:$md){
+			margin-right: 0;
+			margin-bottom: 1.5rem;
+		}
+	}
+	&__info{
+		flex: .9;
+		@include flexbox($align:column);
+		min-width: 300px;
+		>*{
+			margin: 1% 0;
+		}
+		a[role="button"]{
+			display: block;
+			@include btn;
+			padding: 1rem;
+			text-align: center;
+		}
+	}
+
+}
+

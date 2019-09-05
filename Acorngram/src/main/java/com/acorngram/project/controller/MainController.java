@@ -4,6 +4,7 @@ package com.acorngram.project.controller;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -276,6 +277,18 @@ public class MainController {
 			postService.decreaseLikeCount(num);
 			map.put("result", true);
 			return map;
+		}
+		
+		
+//=============================== TEST seciont ===================================================
+		
+		//	Error 페이지 호출
+		@RequestMapping("/error.do")
+		public ModelAndView showError(HttpServletRequest req) {
+			ModelAndView mv = new ModelAndView("error");
+			String code = Optional.ofNullable(req.getParameter("code")).orElse("418");
+			mv.addObject("code", code);
+			return mv;
 		}
 	
 }//UsersController END
