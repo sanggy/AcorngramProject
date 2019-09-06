@@ -17,7 +17,7 @@
 	<insert id="insert" parameterType="usersDto" >
 		INSERT INTO users_db
 		(usercode, id, nickname, pw, email, regdate)
-		VALUES(usercode_seq.NEXTVAL, #{id}, #{nickname},#{pw}, #{email}, SYSDATE)
+		VALUES(usercode_seq.NEXTVAL, #{id}, #{nickname}, #{pw}, #{email}, SYSDATE)
 	</insert>
 	
 	<select id="getPwdHash" parameterType="String" resultType="String">

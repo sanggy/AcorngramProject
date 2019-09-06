@@ -7,16 +7,19 @@ function getCpath(){
 const cpath = getCpath();
 
 //	json
-function getResultFromAjax(url, param:Map<string, any>, type){
-	return fetch(url,{
-		method: type?type:'get',
-		cache: 'no-cache',
-		headers: {
-			"Content-Type": "application/json; charset=utf-8"
-		},
-		body: JSON.stringify(param)
-	}).then(res=> {return res.json() })
-	.catch(err=>{return false;})
+async function getResultFromAjax(url, param:Map<string, any>, type){
+	try{
+		return await fetch(url,{
+			method: type?type:'get',
+			cache: 'no-cache',
+			headers: {
+				"Content-Type": "application/json; charset=utf-8"
+			},
+			body: JSON.stringify(param)
+		}).then(res=> {return res.json() })
+	}catch(err){
+		return undefined;
+	}
 }
 
 

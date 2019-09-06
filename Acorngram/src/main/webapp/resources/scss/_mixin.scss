@@ -16,11 +16,16 @@
 	&:hover{
 		background: $color;
 		color: $bg;
-		border-color: $bg;
+		@if $bg != $white{
+			border-color: $bg;
+		}
 	}
 	&:active{
 		background: darken($color, 15%);
 		border-color: $bg;
+		@if $bg != $white{
+			border-color: $bg;
+		}
 	}
 }
 
@@ -33,15 +38,17 @@
 
 @mixin bordered-box ($padding: 1.2rem){
 	padding: $padding;
-	border: 1px solid #aaa;
+	border: 1px solid #ccc;
 	background: $white;
 	border-radius: 8px;
+	box-sizing: border-box;
 }
 
 @mixin material-box ($bg: #fff) {
 	border-radius: 8px;
 	background: $bg;
 	box-shadow: 0 2px 4px rgba($black, .3);
+	box-sizing: border-box;
 }
 
 @mixin likeBootstrap(){
@@ -55,4 +62,10 @@
 		}
 	}
 
+}
+
+@mixin fadeInOut($duration){
+/* @keyframes duration | timing-function | delay | 
+iteration-count | direction | fill-mode | play-state | name */
+	animation: $duration linear 1 alternate fadeInOut;
 }

@@ -12,6 +12,7 @@
 	</jsp:include>
 </head>
 <body>
+	
 	<jsp:include page="inc/header.jsp" />
 	
 	<main>

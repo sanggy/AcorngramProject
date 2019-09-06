@@ -8,19 +8,20 @@
 		<jsp:param value="profile" name="css"/>
 	</jsp:include>
 </head>
-<body>
+<body ontouchstart="">
 	<jsp:include page="../inc/header.jsp" />
 	<main>
 		<!-- 유저 프로필 -->
 		<div class="profile profile-${user.usercode } container">
 			<div class="profile__info">
 				<div class="profile__info-left">
-					<img src="${pageContext.request.contextPath}/${user.profile_img }" alt="${user.id }의 프로필 사진" class="profile__icon"/>
+					<!-- <img src="${pageContext.request.contextPath}/${user.profile_img }" alt="${user.id }의 프로필 사진" class="profile__icon"/> -->
+					<img src="${pageContext.request.contextPath}/resources/images/default_user.jpg" alt="${user.id }의 프로필 사진" class="profile__icon"/>
 				</div>
 				<div class="profile__info-right">
 					<hgroup>
-						<h5 class="post__name"> ${user.nickname } </h5>
-						<h6 class="post__id"> @${user.id } </h6>
+						<h5 class="profile__name"> ${user.nickname } </h5>
+						<h6 class="profile__id"> @${user.id } </h6>
 					</hgroup>
 					<ul class="profile__user-count">
 						<li class="profile__post-count">
@@ -29,16 +30,15 @@
 						</li>
 						<li class="profile__user-follow-count">
 							<data value="" class="after-newline">FOLLOW</data>
-							<span>15</span>
+							<span>${followingCount }</span>
 						</li>
 						<li class="profile__user-follower-count">
 							<data value="" class="after-newline">FOLLOWER</data>
-							<span>15</span>
+							<span>${followerCount }</span>
 						</li>
 					</ul>
 				</div>
 			</div>
-			<p>주의: 팔로우버튼 동작안함 수정예정</p>
 			<div class="profile__controller">
 				<c:choose>
 					<c:when test="${usercode eq user.usercode }">
@@ -50,7 +50,7 @@
 						<c:choose>
 							<c:when test="${followed }">
 							<%-- 이 유저와 팔로우 상태라면 --%>
-							<a href="javascript:followToggle(${user.usercode })" role="button" class="profile__btn-unfollow" ><i class="glyphicon glyphicon-remove-sign"></i> <span>Unfollow</span>  </a>
+							<a href="javascript:unfollowToggle(${user.usercode })" role="button" class="profile__btn-unfollow" ><i class="glyphicon glyphicon-remove-sign"></i> <span>Unfollow</span>  </a>
 							</c:when>
 							<c:otherwise>
 							<a href="javascript:followToggle(${user.usercode })" role="button" class="profile__btn-follow"><i class="glyphicon glyphicon-plus-sign"></i> <span>Follow</span> </a>
@@ -71,7 +71,7 @@
 						<div class="post__header">
 							<div class="post__header-left">
 								<a href="${pageContext.request.contextPath}/users/profile.do?id=${post.id }">
-									<img src="${pageContext.request.contextPath}${post.profile_img }" alt="" class="post__icon"/>
+									<img src="${pageContext.request.contextPath}/${post.profile_img }" alt="" class="post__icon"/>
 									<hgroup>
 										<h5 class="post__header-name"> ${post.usercode } </h5>
 										<h6 class="post__header-id"> @${post.id } </h6>

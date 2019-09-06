@@ -60,6 +60,15 @@
 	</div>
 </header>
 
+<c:if test="${not empty msg }">
+	<div class="msg">
+		<div class="container">
+			<i class="glyphicon glyphicon-info-sign"></i>
+			<span>${msg }</span>		
+		</div>
+	</div>
+</c:if>
+
 <c:if test="${not empty usercode }">
 	<nav class="user-menu">
 		<ul>

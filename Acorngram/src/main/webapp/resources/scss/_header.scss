@@ -72,9 +72,13 @@ header{
 			right: 0;
 			padding: 16px;
 			width: 360px;
-			@include menu();
+			background: $white;
+			border-radius: 8px;
+			box-shadow: 0 2px 4px rgba($black,.3);
+			box-sizing: border-box;
 			@media screen and (max-width: $md){
 				width: 100%;
+				top: $header-height + 3vh;
 			}
 			input:checked ~ &{
 				display: block;
@@ -84,6 +88,10 @@ header{
 		input:checked+label{
 			background: $white;
 			color: $main-color;
+			&:hover{
+				background: $main-color;
+				color: $white;
+			}
 		}
 		.signin{
 			&__label{
@@ -132,6 +140,18 @@ header{
 			border:0;
 		}
 	}
+}
+
+.msg{
+	position: absolute;
+	width: 100%;
+	padding: 1rem;
+	box-shadow: 0 1px 2px rgba($black,.15);
+	box-sizing: border-box;
+	background: rgba($white, .7);
+	font-family: $main-font;
+	opacity: 0;
+	@include fadeInOut($duration: 5s);
 }
 
 @import 'user_menu';

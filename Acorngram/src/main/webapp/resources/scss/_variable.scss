@@ -33,9 +33,23 @@ $logo-font: 'Pacifico', cursive;
 $icon-font-path: '../fonts/';
 $icon-font-name: 'glyphicons-halflings-regular';
 
+$font-size: 1rem;
+
 //	layout
 $header-height: 8vh;
 $header-mobile-height: 64px;
 $footer-height: 10vh;
 $footer-mobile-height: 96px;
 
+
+//	animation
+@keyframes fadeInOut{
+	0%, 100%{
+		opacity: 0;
+		z-index: -1;
+	}
+	10%, 90%{
+		opacity: 1;
+		z-index: 1;
+	}
+}
