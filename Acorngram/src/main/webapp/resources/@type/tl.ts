@@ -1,3 +1,4 @@
+
 $(function () {
 
 	let page =1;
@@ -16,9 +17,11 @@ $(function () {
 				fetch('post/loadtl.do?page='+(++page))
 				.then(res=>res.text())
 				.then(res=>{
-					if(res){
+					if(res.trim()){
 						document.querySelector('.timeline').insertAdjacentHTML('beforeend', res);
 						loadTL();
+					}else{
+						throw "empty";
 					}
 				})
 				.catch(err=>{
