@@ -26,7 +26,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.acorngram.project.dto.ChatMessage;
 import com.acorngram.project.dto.CommentDto;
 import com.acorngram.project.dto.FollowerDto;
 import com.acorngram.project.dto.LikedDto;
