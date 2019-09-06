@@ -43,9 +43,9 @@ public class FollowerServiceImpl implements FollowerService{
 		return isRemoved;
 	}
 
-	@Override
-	public int getFollowingCount() {
-		return dao.followingCount();
-	}
+//	@Override
+//	public int getFollowingCount() {
+//		return dao.followingCount();
+//	}
 
 }

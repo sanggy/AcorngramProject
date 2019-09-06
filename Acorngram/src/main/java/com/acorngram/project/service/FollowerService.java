@@ -18,6 +18,6 @@ public interface FollowerService {
 	//unfollow 하는 서비스
 	public boolean unfollow(int target_userCode, HttpServletRequest request);
 	
-	//get following count
-	public int getFollowingCount();
+//	//get following count
+//	public int getFollowingCount();
 }
