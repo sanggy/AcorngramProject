@@ -18,7 +18,7 @@
 						<div class="post__header">
 							<div class="post__header-left">
 								<a href="${pageContext.request.contextPath}/users/profile.do?id=${post.id }">
-									<img src="${pageContext.request.contextPath}${post.profile_img }" alt="" class="post__icon"/>
+									<img src="${pageContext.request.contextPath}/${post.profile_img }" alt="" class="post__icon"/>
 									<hgroup>
 										<h5 class="post__header-name"> ${post.usercode } </h5>
 										<h6 class="post__header-id"> @${post.id } </h6>

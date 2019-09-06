@@ -24,7 +24,9 @@ import com.acorngram.project.dao.FollowerDao;
 import com.acorngram.project.dao.LikesDao;
 import com.acorngram.project.dao.PostDao;
 import com.acorngram.project.dao.UsersDao;
+
 import com.acorngram.project.dto.FollowerDto;
+
 import com.acorngram.project.dto.LikedDto;
 import com.acorngram.project.dto.PostDto;
 import com.acorngram.project.dto.UsersDto;
@@ -119,10 +121,26 @@ public class UsersServiceImpl implements UsersService{
 				temp.setLiked(true);
 			}
 		}
+		//get follow list for posts
+		List<FollowerDto> followerList = followerDao.getList((int)request.getSession().getAttribute("usercode"));
+		System.out.println("FOLLOWERLIST 존재여부 체크중... : "+followerList.size());
+		for(PostDto postTemp : list) {
+			for(FollowerDto temp : followerList) {
+				if(temp.getTarget_usercode() == postTemp.getUsercode() && temp.getStatus() == 1) {
+					postTemp.setFollowed(true);
+					//followed됬는지 여부를 users dto에 정보가 없으니 mView를 통해서 여부 보내기
+					mView.addObject("followed", postTemp.isFollowed());
+					break;
+				}
+				else {
+					postTemp.setFollowed(false);
+				}
+			}
+		}
+		
 		mView.addObject("user", usersDto);
 		mView.addObject("list", list);
 		mView.addObject("postCount",postCount);
-		
 	}
 
 	// 아이디 중복 체크 
