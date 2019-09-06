@@ -6,5 +6,30 @@
 @import 'writepost';
 
 .dm{
-
+	&__panel{
+		margin: 3% auto;
+		@include material-box();
+	}
+	&__header{
+		padding: 1.5rem;
+	}
+	&__msg-list{
+		padding: 1.5rem;
+		min-height: 60%;
+		$local-border : 1px solid lightgray;
+		border-top: $local-border;
+		border-bottom: $local-border;
+	}
+	&__footer{
+		padding: 1rem;
+		@include flexbox();
+		#dm-msg{
+			flex:0.9;
+		}
+		button{
+			width: 10%;
+			font-size: 1.2rem;
+			font-weight: bold;
+		}
+	}
 }

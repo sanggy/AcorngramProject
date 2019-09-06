@@ -29,7 +29,7 @@
 				
 			</div>
 			<div class="dm__footer">
-				<textarea name="msg" id="dm-msg" ></textarea>
+				<textarea name="msg" id="dm-msg" maxlength="200"></textarea>
 				<button type="button">전송</button>
 			</div>
 		</article>
