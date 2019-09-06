@@ -22,9 +22,9 @@ $(function () {
 					})
 					.then(res=>res.text())
 					.then(res=>{
-						if(res!="end"){
-							document.querySelector('.timeline')
-								.innerHTML += res;
+						if(res){
+							document.querySelector('.timeline').insertAdjacentHTML('beforeend', res);
+							loadTL();
 						}else{
 							end_flag = 1;
 						}
