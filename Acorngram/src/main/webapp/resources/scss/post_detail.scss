@@ -5,15 +5,9 @@
 
 @import 'writepost';
 
-.detail{
-	&__header{
-		@include bordered-box();
-		margin-top: 2%;
-	}
-}
 
 .post{
-	margin: 5% 0;
+	margin: 3% 0;
 	padding: 20px;
 	width: 100%;
 	min-height: 250px;
