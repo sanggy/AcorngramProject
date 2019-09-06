@@ -280,7 +280,7 @@ public class MainController {
 		}
 		
 		
-//=============================== TEST seciont ===================================================
+//=============================== TEST section ===================================================
 		
 		//	Error 페이지 호출
 		@RequestMapping("/error.do")
@@ -288,6 +288,15 @@ public class MainController {
 			ModelAndView mv = new ModelAndView("error");
 			String code = Optional.ofNullable(req.getParameter("code")).orElse("418");
 			mv.addObject("code", code);
+			return mv;
+		}
+		
+		//	DM 페이지 호출
+		@RequestMapping("/dm.do")
+		public ModelAndView enterDM(HttpServletRequest req) {
+			ModelAndView mv = new ModelAndView("dm");
+			String id = Optional.ofNullable(req.getParameter("id")).orElse("gura");
+			mv.addObject("target-id", id);
 			return mv;
 		}
 	
