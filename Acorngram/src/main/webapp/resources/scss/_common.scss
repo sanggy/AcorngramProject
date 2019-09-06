@@ -91,6 +91,9 @@ code{
 			font-weight: bold;
 			line-height: 2rem;
 		}
+		#signup & input[type="checkbox"] ~ label{
+			font-weight: normal;
+		}
 	}
 	&-control{
 		width: 100%;
