@@ -1,6 +1,7 @@
 
 package com.acorngram.project.controller;
 
+import java.security.Principal;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -9,6 +10,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
+//import org.springframework.messaging.handler.annotation.MessageExceptionHandler;
+//import org.springframework.messaging.handler.annotation.MessageMapping;
+//import org.springframework.messaging.handler.annotation.Payload;
+//import org.springframework.messaging.handler.annotation.SendTo;
+//import org.springframework.messaging.simp.SimpMessageSendingOperations;
+//import org.springframework.messaging.simp.annotation.SendToUser;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,6 +25,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.acorngram.project.dto.ChatMessage;
 import com.acorngram.project.dto.CommentDto;
 import com.acorngram.project.dto.FollowerDto;
 import com.acorngram.project.dto.LikedDto;
@@ -28,6 +36,7 @@ import com.acorngram.project.service.FollowerService;
 import com.acorngram.project.service.LikesService;
 import com.acorngram.project.service.PostService;
 import com.acorngram.project.service.UsersService;
+//import com.google.gson.Gson;
 
 @Controller
 public class MainController {
@@ -44,6 +53,13 @@ public class MainController {
 	@Autowired private CommentsService commentsService;
 	
 	@Autowired private LikesService likesService;
+	
+	//websocket simple version of message sending operation to use STOMP
+//	@Autowired private SimpMessageSendingOperations messagingTemp;
+	
+	//Gson import
+//	private Gson gson = new Gson();
+		
 	
 	@RequestMapping(value="/users/signup.do", method = RequestMethod.POST)
 	public ModelAndView signup(@ModelAttribute UsersDto dto, ModelAndView mView) {
@@ -277,6 +293,24 @@ public class MainController {
 			map.put("result", true);
 			return map;
 		}
+		
+//============================= DM CONTROLLER =============================================================
+//		@MessageMapping("/users/dm")
+//		@SendToUser("/queue/directMessage")
+//		public String processMessageFromClient(@Payload String message, Principal principal) throws Exception {
+//			
+//			
+////			this.messagingTemp.convertAndSendToUser(message.getFrom(), "/queue/directMessage", message.getMessage());
+//			
+//			return gson.fromJson(message, Map.class).get("name").toString();
+//		}
+//		
+//		@MessageExceptionHandler
+//		@SendToUser("/gueue/errors")
+//		public String handleException(Throwable exception) {
+//			return exception.getMessage();
+//		}
+//		
 	
 }//UsersController END
 
