@@ -11,6 +11,23 @@
 <body>
 	<jsp:include page="inc/header.jsp" />
 	<main>
+		<div class="container">
+			<div class="inner-header search">
+				<form action="${pageContext.request.contextPath}/search.do" method="get" class="search__form">
+					<div class="search__condition-selector">
+						<select name="condition" id="search-condition">
+							<option value="none" selected>ALL</option>
+							<option value="user">USER</option>
+							<option value="post">POST</option>
+						</select>
+					</div>
+					<input type="text" name="keyword" id="search-word" placeholder="검색어를 입력하세요"/>
+					<button class="search__btn">
+						<i class="glyphicon glyphicon-search"></i>
+					</button>
+				</form>
+			</div>
+		</div>
 		<div class="timeline container">
 			<c:if test="${not empty list }">
 				<c:forEach var="post" items="${list }">
