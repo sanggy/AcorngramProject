@@ -50,7 +50,7 @@
 						<c:choose>
 							<c:when test="${followed }">
 							<%-- 이 유저와 팔로우 상태라면 --%>
-							<a href="javascript:followToggle(${user.usercode })" role="button" class="profile__btn-unfollow" ><i class="glyphicon glyphicon-remove-sign"></i> <span>Unfollow</span>  </a>
+							<a href="javascript:unfollowToggle(${user.usercode })" role="button" class="profile__btn-unfollow" ><i class="glyphicon glyphicon-remove-sign"></i> <span>Unfollow</span>  </a>
 							</c:when>
 							<c:otherwise>
 							<a href="javascript:followToggle(${user.usercode })" role="button" class="profile__btn-follow"><i class="glyphicon glyphicon-plus-sign"></i> <span>Follow</span> </a>

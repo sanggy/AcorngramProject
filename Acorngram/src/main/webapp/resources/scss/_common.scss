@@ -13,6 +13,10 @@ a{
 	}
 }
 
+p{
+	line-height: 1.5rem;
+}
+
 .container{
 	width: $lg;
 	margin: auto;
@@ -55,6 +59,17 @@ a{
 body{ background: $bg-color; }
 
 input[type="date"],input[type="time"]{font:$main-font}
+
+code{
+	display: block;
+	padding: 1rem;
+	background: lightgrey;
+	color: lighten($black, 10%);
+	border-radius: 8px;
+	@media screen and(max-width: $md){
+		padding: calc(1.5rem/2);
+	}
+}
 
 // Those scss files forked by Bootstrap 4.3.1
 // Copyright 2011-2019 The Bootstrap Authors

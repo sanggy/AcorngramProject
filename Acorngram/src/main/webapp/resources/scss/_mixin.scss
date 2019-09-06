@@ -38,15 +38,17 @@
 
 @mixin bordered-box ($padding: 1.2rem){
 	padding: $padding;
-	border: 1px solid #aaa;
+	border: 1px solid #ccc;
 	background: $white;
 	border-radius: 8px;
+	box-sizing: border-box;
 }
 
 @mixin material-box ($bg: #fff) {
 	border-radius: 8px;
 	background: $bg;
 	box-shadow: 0 2px 4px rgba($black, .3);
+	box-sizing: border-box;
 }
 
 @mixin likeBootstrap(){

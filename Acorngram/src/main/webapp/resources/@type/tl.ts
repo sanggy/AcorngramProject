@@ -1,41 +1,55 @@
+
 $(function () {
 
-    let page:number = 1;
-    let end_flag:number = 0; 
+	let page =1;
 
-    $(window).bottom({proximity: 0.6});
+    $(window).bottom();
 
     $(window).bind("bottom", function() {
     
-        if(end_flag==0){ //ページが最後までいってなければ
-    
-			var obj = $(this);
-		
-			if (!obj.data("loading")) {
-				obj.data("loading", true);
-		
-				(document.querySelector('.loader'))?"":
-				$('.loading').append('<div class="loader"></div>');
-		
-				setTimeout(function() {
-					$.ajax('post/loadtl.do', { 
-						method: 'GET',
-						datatype:'html',
-						data:{page:++page},
-					}).done(response=>{
-						$(".loading").empty(); 
-						if(response!="end"){
-							$(".timeline").append($($.parseHTML(response))); 
-						}else{
-							end_flag=1;
-						}
-					}).fail(error=>{
-						page--;
-					}); //ajax
+		var obj = $(this);
+	
+		if (!obj.data("loading")) {
+			obj.data("loading", true),
+			(document.querySelector('.loader'))?"":
+			$('.loading').append('<div class="loader"></div>');
+			
+				fetch('post/loadtl.do?page='+(++page))
+				.then(res=>res.text())
+				.then(res=>{
+					if(res.trim()){
+						document.querySelector('.timeline').insertAdjacentHTML('beforeend', res);
+						loadTL();
+					}else{
+						throw "empty";
+					}
+				})
+				.catch(err=>{
+					page--;
+				})
+				.finally(()=>{
+					document.querySelector('.loader').remove();
 					obj.data("loading", false);
-				}, 1000);
-			}
+				})
+				
+				/*
+				$.ajax('post/loadtl.do', { 
+					method: 'GET',
+					datatype:'html',
+					data:{page:++page},
+				}).done(response=>{
+					$(".loading").empty(); 
+					if(response!="end"){
+						$(".timeline").append($($.parseHTML(response))); 
+					}else{
+						end_flag=1;
+					}
+				}).fail(error=>{
+					page--;
+				}); //ajax
+				*/
+				
+		}
     
-        } //end_flag
     });
 });

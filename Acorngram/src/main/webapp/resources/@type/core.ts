@@ -24,7 +24,7 @@ async function getResultFromAjax(url, param:Map<string, any>, type){
 
 
 //	Timeline load시 실행
-(function loadPost(){
+function loadTL(){
 	moment.locale('ko');
 
 	//	시간 설정
@@ -68,7 +68,8 @@ async function getResultFromAjax(url, param:Map<string, any>, type){
 	})
 
 
-})();
+}
+loadTL();
 
 //	글쓰기 창 토글
 
