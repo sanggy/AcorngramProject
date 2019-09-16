@@ -1,7 +1,7 @@
 
 $(function () {
 
-	let page =1;
+	let page:number = 1;
 
     $(window).bottom();
 

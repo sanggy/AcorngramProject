@@ -51,10 +51,10 @@ function loadTL(){
 	});
 
 	//	댓글 작성 textarea 자동 크기조절
-	var $textarea = $('#comment-content');
-	var lineHeight = parseInt($textarea.css('lineHeight'));
+	const $textarea = $('#comment-content');
+	let lineHeight:number = parseInt($textarea.css('lineHeight'));
 	$textarea.on('input', function(e) {
-		var lines = ($(this).val() + '\n').match(/\n/g).length;
+		let lines = ($(this).val() + '\n').match(/\n/g).length;
 		$(this).height(lineHeight * lines);
 	});
 	
@@ -74,14 +74,14 @@ loadTL();
 //	글쓰기 창 토글
 
 function toggleWritePopup(){
-	var block:HTMLElement = document.querySelector('.writepost');
+	let block:HTMLElement = document.querySelector('.writepost');
 	block.classList.toggle('is-visible');
 }
 
 //	업로드전 이미지 표시
 	//	post 작성
 	$('#writepost-img').on('change', function (e) {
-		var reader = new FileReader();
+		let reader = new FileReader();
 		reader.onload = function (e) {
 			$('.writepost__image-info')[0].style.display = 'none';
 			$("#preview").attr('src', e.target.result);
@@ -90,7 +90,7 @@ function toggleWritePopup(){
 	});
 	//	프로필 업로드시
 	$('#ProfileImage').on('change', function (e) {
-		var reader = new FileReader();
+		let reader = new FileReader();
 		reader.onload = function (e) {
 			$("#user__profile-img").attr('src', e.target.result);
 		}
@@ -103,7 +103,7 @@ function toggleWritePopup(){
 //	유저메뉴 토글
 
 var makeCover = ()=>{
-	var item = document.createElement('div');
+	let item:HTMLDivElement = document.createElement('div');
 	item.className = 'cover';
 	item.onclick = ()=>{item.remove()}
 	return item;

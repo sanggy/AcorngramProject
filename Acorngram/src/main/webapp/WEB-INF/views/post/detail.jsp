@@ -12,7 +12,7 @@
 	<jsp:include page="../inc/header.jsp" />
 	<main>
 		<div class="container">
-			<nav class="detail__header">
+			<nav class="inner-header">
 				<a href="${pageContext.request.contextPath}/timeline.do"><i class="glyphicon glyphicon-chevron-left"></i> 돌아가기</a>
 			</nav>
 			<article class="post post-user-${post.usercode }" id="post-${post.num }">

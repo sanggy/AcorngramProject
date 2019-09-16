@@ -36,37 +36,9 @@
 	</main>
 	
 	<script>
-		var code = ${code};
-		
-		var errorPanel = document.querySelector('.error');
-		var errorMsg = errorPanel.querySelector('.error__msg');
-		var logArea =  errorPanel.querySelector('.error__log');
-		
-		var msg; var log;
-		
-		switch(code){
-			case 404:
-				msg = "404";
-				log = 'not found';
-			break;
-			case 500:
-				msg = "500";
-				log = '서버 오류';
-			break;
-			case 418:
-				msg = "418";
-				log = '커피 맛있다~';
-			break;
-			default:
-				msg = "모름";
-				log = '알 수 없는 에러';
-		}
-		
-		errorMsg.innerText = msg;
-		logArea.innerText = log;
-		
-		document.querySelector('script').remove();
+		const code = ${code};
 	</script>
+	<script src="${pageContext.request.contextPath}/resources/js/errorPage.js"></script>
 	
 </body>
 </html>
