@@ -35,6 +35,6 @@
 	<select id="getCount" parameterType="int" resultType="int">
 		SELECT NVL(MAX(ROWNUM), 0)
 		FROM comment_db
-		WHERE ref_group = #{ref_group}
+		WHERE ref_group = #{ref_group} AND deleted = 'no'
 	</select>
 </mapper>
