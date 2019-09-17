@@ -312,6 +312,11 @@ public class MainController {
 //			return exception.getMessage();
 //		}
 //		
+		@RequestMapping("/users/dm.do")
+		public ModelAndView directMessage(HttpServletRequest req, ModelAndView mView) {
+			return new ModelAndView("users/dm");
+		}
+		
 		
 //=============================== TEST section ===================================================
 		

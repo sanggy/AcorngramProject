@@ -92,6 +92,10 @@
 			</c:if>
 		</div>
 	</main>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.2.0/socket.io.js"></script>
+	<script>
+		const socket = io('http://localhost:3000');
+	</script>
 	<jsp:include page="inc/footer.jsp" >
 		<jsp:param value="true" name="timeline"/>
 	</jsp:include>
