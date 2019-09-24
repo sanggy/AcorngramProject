@@ -16,7 +16,7 @@
 			<div class="profile__info">
 				<div class="profile__info-left">
 					<!-- <img src="${pageContext.request.contextPath}/${user.profile_img }" alt="${user.id }의 프로필 사진" class="profile__icon"/> -->
-					<img src="${pageContext.request.contextPath}/resources/images/default_user.jpg" alt="${user.id }의 프로필 사진" class="profile__icon"/>
+					<img src="${pageContext.request.contextPath}/${user.profile_img }" alt="${user.id }의 프로필 사진" class="profile__icon"/>
 				</div>
 				<div class="profile__info-right">
 					<hgroup>

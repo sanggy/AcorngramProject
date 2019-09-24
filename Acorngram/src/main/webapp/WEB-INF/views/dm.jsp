@@ -54,7 +54,7 @@
 			//socket.join(roomName);
 		//});
 		
-		const socket = io('http://192.168.0.93:3000');
+		const socket = io('http://172.30.1.56:3000');
 		
 		socket.on("connect", function(event){
 			console.log("socket 연결되었습니다.");

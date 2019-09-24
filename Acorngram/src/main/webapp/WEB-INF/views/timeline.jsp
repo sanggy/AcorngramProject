@@ -94,7 +94,7 @@
 	</main>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.2.0/socket.io.js"></script>
 	<script>
-		const socket = io('http://192.168.0.93:3000');
+		const socket = io('http://172.30.1.56:3000');
 		
 		//need to save socket in session...
 		
@@ -118,7 +118,7 @@
 				if(confirm("Do you wanna accept chat invitation from " + event.sender + "?") == true){
 					console.log("event.targetUserCode")
 					//redirect url to
-					window.location.href ="http://192.168.0.93:8888/project/users/dm.do?num=" + event.senderUserCode;
+					window.location.href ="http://172.30.1.56:8888/project/users/dm.do?num=" + event.senderUserCode;
 				}else{
 					//denied notification sent to server to notify sender of deny.
 					socket.emit("deny invitation", {targetUserId: event.senderId, replier: '${id}'});
