@@ -94,8 +94,42 @@
 	</main>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.2.0/socket.io.js"></script>
 	<script>
-		const socket = io('http://localhost:3000');
+		const socket = io('http://192.168.0.93:3000');
+		
+		//need to save socket in session...
+		
+	
+	
+		socket.on("connect", function(event){
+			console.log("socket 연결되었습니다.");
+			socket.emit("userConnected", {userId: '${id}'});
+			//상대 유저아이디로 만들어진 방에 접속하기
+			//socket.emit("/privateMsg/", {userId: '${id}', targetUserId: '${targetUser.id}'});
+			//console.log("targetUserId" + '${targetUser.id}');
+		});
+		
+		socket.on("disconnect", function(event){
+			console.log("socket disconnected");
+		});
+		
+		socket.on("/privateMsg/", function(event){
+			//String target = event.targetUserId;
+			if(event.targetUser == '${id}'){
+				if(confirm("Do you wanna accept chat invitation from " + event.sender + "?") == true){
+					console.log("event.targetUserCode")
+					//redirect url to
+					window.location.href ="http://192.168.0.93:8888/project/users/dm.do?num=" + event.senderUserCode;
+				}else{
+					//denied notification sent to server to notify sender of deny.
+					socket.emit("deny invitation", {targetUserId: event.senderId, replier: '${id}'});
+				}
+			}
+		});
+		
+	
+	
 	</script>
+	
 	<jsp:include page="inc/footer.jsp" >
 		<jsp:param value="true" name="timeline"/>
 	</jsp:include>

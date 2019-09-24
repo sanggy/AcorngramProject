@@ -19,21 +19,67 @@
 		</div>
 		<article class="dm__panel container">
 			<div class="dm__header">
-				<img src="${pageContext.request.contextPath}/${post.profile_img }" alt="" class="post__icon"/>
+				<img src="${pageContext.request.contextPath}/${targetUser.profile_img }" alt="" class="post__icon"/>
 				<hgroup>
-					<h5 class="post__name"> ${post.nickname } </h5>
-					<h6 class="post__id"> @${post.id } </h6>
+					<h5 class="post__name"> ${targetUser.nickname } </h5>
+					<h6 class="post__id"> @${targetUser.id } </h6>
 				</hgroup>
 			</div>
 			<div class="dm__msg-list">
-				
+				<ul id="msg-list">
+					
+				</ul>
 			</div>
 			<div class="dm__footer">
 				<textarea name="msg" id="dm-msg" maxlength="200"></textarea>
-				<button type="button">전송</button>
+				<button type="button" onclick="sendMsg()">전송</button>
 			</div>
 		</article>
 	</main>
+	
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.2.0/socket.io.js"></script>
+	
+	<script>
+		//console.log('userid : ' + ${id});
+		
+		
+		//socket.join("private/${targetUser.id}")
+		
+		//client
+		//socket.emit("joinAction", "room 1");
+		
+		//server
+		
+		//socket.on("joinAction", function(roomName){
+			//socket.join(roomName);
+		//});
+		
+		const socket = io('http://192.168.0.93:3000');
+		
+		socket.on("connect", function(event){
+			console.log("socket 연결되었습니다.");
+			socket.emit("userConnected", {userId: '${id}'});
+			//상대 유저아이디로 만들어진 방에 접속하기
+			//socket.emit("/privateMsg/", {userId: '${id}', targetUserId: '${targetUser.id}'});
+			//console.log("targetUserId" + '${targetUser.id}');
+		});
+		
+		
+		function sendMsg() {
+			console.log("targetUserId: " + '${targetUser.id}')
+			socket.emit('/privateMsg/', {msg: $('#dm-msg').val(), sender: '${id}', targetUserId: '${targetUser.id}', num: '${targetUserCode}', usercode: '${usercode}'});
+	        //socket.emit('chat message', {msg: $('#dm-msg').val(), targetUser: '${targetUser.id}', user: '${id}'});
+	        $('#dm-msg').val('');
+	    }
+		
+		socket.on('/privateMsg/', function(data){
+        	$('#msg-list').append($('<li>').text(data.sender + " : " + data.msg));
+        });
+		
+		socket.on('User Offline', function(msg){
+			$('#msg-list').append($('<li>').text("SYSTEM SENT MSG: " + msg));
+		});
+	</script>
 	
 	<jsp:include page="inc/footer.jsp" />
 </body>
