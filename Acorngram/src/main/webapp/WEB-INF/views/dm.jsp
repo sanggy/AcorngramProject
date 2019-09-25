@@ -37,8 +37,6 @@
 		</article>
 	</main>
 	
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.2.0/socket.io.js"></script>
-	
 	<script>
 		//console.log('userid : ' + ${id});
 		
@@ -82,5 +80,7 @@
 	</script>
 	
 	<jsp:include page="inc/footer.jsp" />
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.2.0/socket.io.js"></script>
+	<script src=""></script>
 </body>
 </html>
