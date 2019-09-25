@@ -35,5 +35,8 @@ public interface UsersDao {
 	//get simple data
 	public UsersDto simpleData(String id);
 	
+	//getUserData for direct message use method
+	public UsersDto getUserData(int num);
+	
 	
 }

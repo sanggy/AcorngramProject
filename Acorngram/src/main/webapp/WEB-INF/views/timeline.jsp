@@ -120,14 +120,16 @@
 					//redirect url to
 					window.location.href ="http://172.30.1.56:8888/project/users/dm.do?num=" + event.senderUserCode;
 				}else{
+					//chekcing if event.sender exists as value
+					console.log("---------------event.sender value : " + event.sender);
+					console.log("replier id : " + '${id}');
+					
 					//denied notification sent to server to notify sender of deny.
-					socket.emit("deny invitation", {targetUserId: event.senderId, replier: '${id}'});
+					socket.emit("deny invitation", {targetUserId: ''+event.sender, replier: '${id}'});
 				}
 			}
 		});
 		
-	
-	
 	</script>
 	
 	<jsp:include page="inc/footer.jsp" >

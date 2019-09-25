@@ -44,7 +44,6 @@ public class PostServiceImpl implements PostService {
 	// 리스트 불러오기 
 	@Override
 	public void getList(HttpServletRequest request) {
-		System.out.println("여기 들어왔나??????? 지금 getList service부분이다.");
 		
 		/*
 		 *  request 에 검색 keyword 가 전달 될 수도 있고 안될 수도 있다.
@@ -58,8 +57,12 @@ public class PostServiceImpl implements PostService {
 		String keyword = request.getParameter("keyword");
 		String condition = request.getParameter("condition");
 		
+		//testing to check if keyword and condition comes over to postServiceImpl
+		System.out.println("======KEYWORD : " + keyword);
+		System.out.println("======CONDITION : " + condition);
+		
 		// 검색 키워드가 존재한다면 키워드를 담을 dto 객체 생성
-		UsersDto usersDto = new UsersDto();
+//		UsersDto usersDto = new UsersDto();
 		PostDto postDto = new PostDto();
 		
 		// Search된 keyword, condition 분류 및 분류된 값을 담을 dto 객체 생성
@@ -68,11 +71,15 @@ public class PostServiceImpl implements PostService {
 		if(condition != null) {
 		
 			if(keyword != null) {
-				if(!condition.equals("contentsname")) {
-					usersDto.setId(keyword);
-					usersDto.setNickname(keyword);
+				if(condition.equals("user")) {
+					postDto.setId(keyword);
+					//usersDto.setNickname(keyword);
 				}
-				if(!condition.equals("username")) {
+				else if(condition.equals("post")) {
+					postDto.setContent(keyword);
+				}
+				else if(condition.equals("none")) {
+					postDto.setId(keyword);
 					postDto.setContent(keyword);
 				}
 			}

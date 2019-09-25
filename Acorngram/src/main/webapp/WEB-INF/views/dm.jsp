@@ -67,7 +67,8 @@
 		
 		function sendMsg() {
 			console.log("targetUserId: " + '${targetUser.id}')
-			socket.emit('/privateMsg/', {msg: $('#dm-msg').val(), sender: '${id}', targetUserId: '${targetUser.id}', num: '${targetUserCode}', usercode: '${usercode}'});
+			console.log("senderUsercode: " + '${usercode}')
+			socket.emit('/privateMsg/', {msg: $('#dm-msg').val(), sender: '${id}', targetUserId: '${targetUser.id}', num: '${targetUserCode}', senderUsercode: '${usercode}'});
 	        //socket.emit('chat message', {msg: $('#dm-msg').val(), targetUser: '${targetUser.id}', user: '${id}'});
 	        $('#dm-msg').val('');
 	    }
@@ -79,6 +80,12 @@
 		socket.on('User Offline', function(msg){
 			$('#msg-list').append($('<li>').text("SYSTEM SENT MSG: " + msg));
 		});
+		
+		socket.on('denied', function(event){
+			console.log("denied chat invitation");
+			$('#msg-list').append($('<li>').text("SYSTEM SENT MSG: " + event.msg));
+		});
+		
 	</script>
 	
 	<jsp:include page="inc/footer.jsp" />
