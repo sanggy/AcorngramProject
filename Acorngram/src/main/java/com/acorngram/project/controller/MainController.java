@@ -368,8 +368,9 @@ public class MainController {
 	
 //============================= PAGING FUNCTION in TIMELINE ==============
 		@RequestMapping("post/loadtl.do")
-		public ModelAndView loadtl(HttpServletRequest request, ModelAndView mView, @RequestParam int page) {
-			request.setAttribute("page", page);
+		public ModelAndView loadtl(HttpServletRequest request, ModelAndView mView, @RequestParam String page) {
+			System.out.println("=======PAGE NUMBER: " + page);
+			
 			postService.getList(request);
 			return mView;
 		}

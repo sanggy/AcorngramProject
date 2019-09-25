@@ -57,6 +57,7 @@ public class PostServiceImpl implements PostService {
 		String keyword = request.getParameter("keyword");
 		String condition = request.getParameter("condition");
 		
+		
 		//testing to check if keyword and condition comes over to postServiceImpl
 		System.out.println("======KEYWORD : " + keyword);
 		System.out.println("======CONDITION : " + condition);
@@ -109,11 +110,12 @@ public class PostServiceImpl implements PostService {
 		//보여줄 페이지의 번호
 		int pageNum=1;
 		//보여줄 페이지의 번호가 파라미터로 전달되는지 읽어와 본다.
-		String strPageNum = request.getParameter("pageNum");
+		String strPageNum = request.getParameter("page");
 		//페이지 번호가 파라미터로 넘어온다면
 		if(strPageNum != null) {
 			//페이지 번호를 설정한다.
 			pageNum = Integer.parseInt(strPageNum);
+			System.out.println("---------- PageNum : " + pageNum);
 		}
 		//보여줄 페이지 데이터의 시작 ResultSet row 번호
 		int startRowNum = 1+(pageNum -1)*PAGE_ROW_COUNT;
