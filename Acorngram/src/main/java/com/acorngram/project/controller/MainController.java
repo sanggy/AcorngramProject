@@ -1,7 +1,6 @@
 
 package com.acorngram.project.controller;
 
-import java.security.Principal;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -26,7 +25,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.acorngram.project.dto.ChatMessage;
 import com.acorngram.project.dto.CommentDto;
 import com.acorngram.project.dto.FollowerDto;
 import com.acorngram.project.dto.LikedDto;
@@ -56,13 +54,15 @@ public class MainController {
 	
 	@Autowired private LikesService likesService;
 	
+	//websocket simple version of message sending operation to use STOMP
+//	@Autowired private SimpMessageSendingOperations messagingTemp;
+	
+	
 	@Autowired private DirectMessageService directMessageService;
 	
 	//websocket simple version of message sending operation to use STOMP
 //	@Autowired private SimpMessageSendingOperations messagingTemp;
 	
-	//Gson import
-//	private Gson gson = new Gson();
 		
 	
 	@RequestMapping(value="/users/signup.do", method = RequestMethod.POST)
@@ -77,6 +77,7 @@ public class MainController {
 	public 	ModelAndView signIn(@ModelAttribute UsersDto dto, ModelAndView mView, HttpServletRequest request) {
 		
 		boolean isSuccessful = usersService.validUser(dto, mView, request.getSession(), request);
+
 		//원래 가려던 url 정보를 reqeust 에 담는다.
 //		String encodedUrl = URLEncoder.encode(request.getParameter("url"));
 //		request.setAttribute("encodedUrl", encodedUrl);
@@ -291,12 +292,25 @@ public class MainController {
 		}
 		
 //============================= DM CONTROLLER =============================================================
+//		@MessageMapping("/users/dm")
+//		@SendToUser("/queue/directMessage")
+//		public String processMessageFromClient(@Payload String message, Principal principal) throws Exception {
+//			
+//			
+////			this.messagingTemp.convertAndSendToUser(message.getFrom(), "/queue/directMessage", message.getMessage());
+//			
+//			return gson.fromJson(message, Map.class).get("name").toString();
+//		}
+//		
+//		@MessageExceptionHandler
+//		@SendToUser("/gueue/errors")
+//		public String handleException(Throwable exception) {
+//			return exception.getMessage();
+//		}
+//		
 		@RequestMapping("/users/dm.do")
-		public ModelAndView directMessage(HttpServletRequest req, ModelAndView mView, @RequestParam int num) {
-			directMessageService.userProfile(num, req, mView);
-			mView.addObject("targetUserCode", num);
-			mView.setViewName("dm");
-			return mView;
+		public ModelAndView directMessage(HttpServletRequest req, ModelAndView mView) {
+			return new ModelAndView("users/dm");
 		}
 		
 		
@@ -310,6 +324,40 @@ public class MainController {
 			mv.addObject("code", code);
 			return mv;
 		}
+		
+//		//	DM 페이지 호출
+//		@RequestMapping("/dm.do")
+//		public ModelAndView enterDM(HttpServletRequest req) {
+//			ModelAndView mv = new ModelAndView("dm");
+//			String id = Optional.ofNullable(req.getParameter("id")).orElse("gura");
+//			mv.addObject("target-id", id);
+//			return mv;
+//		}
+		// POST 삭제
+		
+		//호진이가 다음에 AJAX로 사용할때 활용한대
+//		@RequestMapping("/post/detail.do")
+//		@ResponseBody
+//		public Map<String, Object> authDetail(HttpServletRequest request, HttpServletResponse response,@RequestParam int num){
+//			Map<String, Object> map = new HashMap<>();
+//			postService.getPostData(map, num);
+//			//map을 리턴해줌
+//			return map;
+//		}
+		
+		
+		
+		
+//============================= DM CONTROLLER =============================================================
+		@RequestMapping("/users/dm.do")
+		public ModelAndView directMessage(HttpServletRequest req, ModelAndView mView, @RequestParam int num) {
+			directMessageService.userProfile(num, req, mView);
+			mView.addObject("targetUserCode", num);
+			mView.setViewName("dm");
+			return mView;
+		}
+		
+		
 		
 //============================== SEARCH KEYWORD/CONDITION ================
 		@RequestMapping("/search.do")
