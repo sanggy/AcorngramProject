@@ -36,7 +36,6 @@ import com.acorngram.project.service.FollowerService;
 import com.acorngram.project.service.LikesService;
 import com.acorngram.project.service.PostService;
 import com.acorngram.project.service.UsersService;
-//import com.google.gson.Gson;
 
 @Controller
 public class MainController {
@@ -308,10 +307,10 @@ public class MainController {
 //			return exception.getMessage();
 //		}
 //		
-		@RequestMapping("/users/dm.do")
-		public ModelAndView directMessage(HttpServletRequest req, ModelAndView mView) {
-			return new ModelAndView("users/dm");
-		}
+//		@RequestMapping("/users/dm.do")
+//		public ModelAndView directMessage(HttpServletRequest req, ModelAndView mView) {
+//			return new ModelAndView("users/dm");
+//		}
 		
 		
 //=============================== TEST section ===================================================
@@ -367,5 +366,21 @@ public class MainController {
 			return mView;
 		}
 	
+//============================= PAGING FUNCTION in TIMELINE ==============
+		@RequestMapping("post/loadtl.do")
+		public ModelAndView loadtl(HttpServletRequest request, ModelAndView mView, @RequestParam int page) {
+			request.setAttribute("page", page);
+			postService.getList(request);
+			return mView;
+		}
+		
+//		@RequestMapping("post/loadtl.do")
+//		@ResponseBody
+//		public Map<String, Object> authUnfollow(HttpServletRequest request, @RequestParam int page) {
+//			Map<String, Object> map = new HashMap<String, Object>();
+//			
+//			map.put("result", isUnfollowed);
+//			return map;
+//		}
 }//UsersController END
 
