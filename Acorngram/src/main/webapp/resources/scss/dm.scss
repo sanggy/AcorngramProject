@@ -12,13 +12,44 @@
 	}
 	&__header{
 		padding: 1.5rem;
+		@include flexbox();
 	}
+
+	&-target{
+		&__icon{
+			width: 10vw;
+			height: 10vw;
+			max-width: 80px;
+			max-height: 80px;
+			text-align: center;
+			overflow:hidden;
+			img{
+				width: 100%;
+			}
+		}
+		&__info{
+			flex:0.9;
+		}
+		&__name{
+			font-size: 1.2rem;
+			font-weight: normal;
+		}
+		&__id{
+			font-size: 0.8rem;
+			font-weight: normal;
+		}
+	}
+
 	&__msg-list{
 		padding: 1.5rem;
 		min-height: 60%;
 		$local-border : 1px solid lightgray;
 		border-top: $local-border;
 		border-bottom: $local-border;
+		&:after{
+			content:'';
+			clear:both;
+		}
 	}
 	&__footer{
 		padding: 1rem;
@@ -30,6 +61,36 @@
 			width: 10%;
 			font-size: 1.2rem;
 			font-weight: bold;
+		}
+	}
+}
+
+#msg-list{
+	@include flexbox($align: column);
+	li{
+		padding: 1rem;
+		box-sizing: border-box;
+		&.mine{
+			align-self: flex-end;
+			text-align: right;
+			color: $white;
+			@include bordered-box($color: $main-color, $bg: $main-color);
+			border-bottom-right-radius: 0;
+		}
+		&.target{
+			align-self: flex-start;
+			text-align: left;
+			@include bordered-box($color: desaturate($main-color, 80%));
+			border-bottom-left-radius: 0;
+		}
+		&.info{
+			align-self:center;
+			text-align: center;
+			color: lighten(grayscale($main-color), 30%);
+			font-size: 0.8rem;
+		}
+		&:not(:last-child){
+			margin-bottom: 1rem;
 		}
 	}
 }

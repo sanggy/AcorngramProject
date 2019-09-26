@@ -29,7 +29,6 @@ p{
 }
 
 [role="button"], button, .btn{
-	outline: 0;
 	@include btn($color: $main-color);
 	&.reversed{
 		@include btn($bg: $main-color, $color: $white);
@@ -58,8 +57,12 @@ p{
 
 body{ background: $bg-color; }
 
-input[type="date"],input[type="time"]{font:$main-font}
-
+input{
+	outline:0;
+	&[type="date"],&[type="time"]{
+		font:$main-font
+	}
+}
 textarea{resize: none}
 
 code{
