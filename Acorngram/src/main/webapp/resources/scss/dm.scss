@@ -17,13 +17,26 @@
 
 	&-target{
 		&__icon{
-			width: 160px;
-			height: 160px;
+			width: 10vw;
+			height: 10vw;
+			max-width: 80px;
+			max-height: 80px;
 			text-align: center;
 			overflow:hidden;
 			img{
 				width: 100%;
 			}
+		}
+		&__info{
+			flex:0.9;
+		}
+		&__name{
+			font-size: 1.2rem;
+			font-weight: normal;
+		}
+		&__id{
+			font-size: 0.8rem;
+			font-weight: normal;
 		}
 	}
 
@@ -55,8 +68,6 @@
 #msg-list{
 	@include flexbox($align: column);
 	li{
-		width: 60%;
-		height: auto;
 		padding: 1rem;
 		box-sizing: border-box;
 		&.mine{
@@ -71,6 +82,12 @@
 			text-align: left;
 			@include bordered-box($color: desaturate($main-color, 80%));
 			border-bottom-left-radius: 0;
+		}
+		&.info{
+			align-self:center;
+			text-align: center;
+			color: lighten(grayscale($main-color), 30%);
+			font-size: 0.8rem;
 		}
 		&:not(:last-child){
 			margin-bottom: 1rem;

@@ -6,6 +6,7 @@ const addMsg = (msg, owner)=>{
 	const li = document.createElement('li');
 	li.textContent = msg;
 	if(owner) li.classList.add(owner);
+	else li.classList.add('info');
 	return li;
 }
 

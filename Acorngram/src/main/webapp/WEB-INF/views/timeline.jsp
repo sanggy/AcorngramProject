@@ -115,7 +115,7 @@
 			//String target = event.targetUserId;
 			if(event.targetUser == '${id}'){
 				if(confirm("Do you wanna accept chat invitation from " + event.sender + "?") == true){
-					location.href = location.origin + "/" + location.pathname.split("/")[1] + '/users/dm.do?num=' + event.senderUserCode;
+					window.open(location.origin + "/" + location.pathname.split("/")[1] + '/users/dm.do?num=' + event.senderUserCode);
 				}else{
 					//chekcing if event.sender exists as value
 					console.log("---------------event.sender value : " + event.sender);

@@ -22,7 +22,7 @@
 				<div class="dm-target__icon">
 					<img src="${pageContext.request.contextPath}${targetUser.profile_img }" alt=""/>
 				</div>
-				<hgroup>
+				<hgroup class="dm-target__info">
 					<h5 class="dm-target__name"> ${targetUser.nickname } </h5>
 					<h6 class="dm-target__id"> @${targetUser.id } </h6>
 				</hgroup>
