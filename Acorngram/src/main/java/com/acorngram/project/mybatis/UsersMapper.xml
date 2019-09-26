@@ -57,5 +57,11 @@
 		</if>
 		WHERE id = #{id}
 	</update>
+	
+	<select id="getUserData" parameterType="int" resultType="usersDto">
+		SELECT usercode, id,  nickname, banned, email, pw, regdate, reported, dob, dm_range, acc_private, theme, profile_img
+		FROM users_db
+		WHERE usercode = #{usercode}
+	</select>
 
 </mapper>

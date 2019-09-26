@@ -44,7 +44,6 @@ public class PostServiceImpl implements PostService {
 	// 리스트 불러오기 
 	@Override
 	public void getList(HttpServletRequest request) {
-		System.out.println("여기 들어왔나??????? 지금 getList service부분이다.");
 		
 		/*
 		 *  request 에 검색 keyword 가 전달 될 수도 있고 안될 수도 있다.
@@ -58,8 +57,13 @@ public class PostServiceImpl implements PostService {
 		String keyword = request.getParameter("keyword");
 		String condition = request.getParameter("condition");
 		
+		
+		//testing to check if keyword and condition comes over to postServiceImpl
+		System.out.println("======KEYWORD : " + keyword);
+		System.out.println("======CONDITION : " + condition);
+		
 		// 검색 키워드가 존재한다면 키워드를 담을 dto 객체 생성
-		UsersDto usersDto = new UsersDto();
+//		UsersDto usersDto = new UsersDto();
 		PostDto postDto = new PostDto();
 		
 		// Search된 keyword, condition 분류 및 분류된 값을 담을 dto 객체 생성
@@ -68,11 +72,15 @@ public class PostServiceImpl implements PostService {
 		if(condition != null) {
 		
 			if(keyword != null) {
-				if(!condition.equals("contentsname")) {
-					usersDto.setId(keyword);
-					usersDto.setNickname(keyword);
+				if(condition.equals("user")) {
+					postDto.setId(keyword);
+					//usersDto.setNickname(keyword);
 				}
-				if(!condition.equals("username")) {
+				else if(condition.equals("post")) {
+					postDto.setContent(keyword);
+				}
+				else if(condition.equals("none")) {
+					postDto.setId(keyword);
 					postDto.setContent(keyword);
 				}
 			}
@@ -95,18 +103,19 @@ public class PostServiceImpl implements PostService {
 		//paging 처리
 		String id = (String) request.getSession().getAttribute("id");
 		//한 페이지에 나타낼 row 의 갯수
-		final int PAGE_ROW_COUNT = 100;
+		final int PAGE_ROW_COUNT = 3;
 		//하단 디스플레이 페이지 갯수
 		final int PAGE_DISPLAY_COUNT = 1;
 		
 		//보여줄 페이지의 번호
 		int pageNum=1;
 		//보여줄 페이지의 번호가 파라미터로 전달되는지 읽어와 본다.
-		String strPageNum = request.getParameter("pageNum");
+		String strPageNum = request.getParameter("page");
 		//페이지 번호가 파라미터로 넘어온다면
 		if(strPageNum != null) {
 			//페이지 번호를 설정한다.
 			pageNum = Integer.parseInt(strPageNum);
+			System.out.println("---------- PageNum : " + pageNum);
 		}
 		//보여줄 페이지 데이터의 시작 ResultSet row 번호
 		int startRowNum = 1+(pageNum -1)*PAGE_ROW_COUNT;

@@ -9,8 +9,20 @@
 		FROM post_db
 		ORDER BY post_db.num DESC) 
 		result1 INNER JOIN users_db
-		ON result1.usercode = users_db.usercode)
-		WHERE rnum BETWEEN #{startRowNum} AND #{endRowNum}
+		ON result1.usercode = users_db.usercode
+		<choose>
+			<when test="id != null and content != null">
+					WHERE id LIKE '%${id}%' OR
+					content LIKE '%${content}%'
+			</when>
+			<when test="id  != null">
+				WHERE id LIKE '%${id}%'
+			</when>
+			<when test="content != null">
+				WHERE content LIKE '%${content}%'
+			</when>
+		</choose>)
+		WHERE (rnum BETWEEN #{startRowNum} AND #{endRowNum})
 	</select>
 	
 	<select id="getMyPostList" parameterType="int" resultType="postDto">
@@ -42,7 +54,8 @@
 	
 	<select id="getData" parameterType="int" resultType="postDto">
 		SELECT num, post_db.usercode, content, image, video, post_db.regdate, like_count, savefilename, users_db.id, users_db.profile_img, users_db.nickname
-		FROM post_db inner join users_db on post_db.usercode = users_db.usercode 
+		FROM post_db 
+		INNER JOIN users_db on post_db.usercode = users_db.usercode 
 		WHERE num = #{num}
 	</select>
 	

@@ -31,11 +31,11 @@ import com.acorngram.project.dto.LikedDto;
 import com.acorngram.project.dto.PostDto;
 import com.acorngram.project.dto.UsersDto;
 import com.acorngram.project.service.CommentsService;
+import com.acorngram.project.service.DirectMessageService;
 import com.acorngram.project.service.FollowerService;
 import com.acorngram.project.service.LikesService;
 import com.acorngram.project.service.PostService;
 import com.acorngram.project.service.UsersService;
-//import com.google.gson.Gson;
 
 @Controller
 public class MainController {
@@ -56,8 +56,12 @@ public class MainController {
 	//websocket simple version of message sending operation to use STOMP
 //	@Autowired private SimpMessageSendingOperations messagingTemp;
 	
-	//Gson import
-//	private Gson gson = new Gson();
+	
+	@Autowired private DirectMessageService directMessageService;
+	
+	//websocket simple version of message sending operation to use STOMP
+//	@Autowired private SimpMessageSendingOperations messagingTemp;
+	
 		
 	
 	@RequestMapping(value="/users/signup.do", method = RequestMethod.POST)
@@ -72,7 +76,7 @@ public class MainController {
 	public 	ModelAndView signIn(@ModelAttribute UsersDto dto, ModelAndView mView, HttpServletRequest request) {
 		
 		boolean isSuccessful = usersService.validUser(dto, mView, request.getSession(), request);
-		System.out.println("isSuccessful : " + isSuccessful);
+
 		//원래 가려던 url 정보를 reqeust 에 담는다.
 //		String encodedUrl = URLEncoder.encode(request.getParameter("url"));
 //		request.setAttribute("encodedUrl", encodedUrl);
@@ -88,14 +92,7 @@ public class MainController {
 
 		return mView;	
 	}
-//	// /users/settings.do 와 같은 내용 
-//	@RequestMapping("/users/profile.do")
-//	public ModelAndView authProfile(ModelAndView mView, HttpServletRequest request) {
-//		//유저 정보 수정 하는 메소드 호출
-//		usersService.showInfo(request.getSession(), mView);
-//		mView.setViewName("users/profile");
-//		return mView;
-//	}
+
 	
 	//profile image upload 요청처리 부분
 	@RequestMapping("/users/profile_upload")
@@ -310,10 +307,10 @@ public class MainController {
 //			return exception.getMessage();
 //		}
 //		
-		@RequestMapping("/users/dm.do")
-		public ModelAndView directMessage(HttpServletRequest req, ModelAndView mView) {
-			return new ModelAndView("users/dm");
-		}
+//		@RequestMapping("/users/dm.do")
+//		public ModelAndView directMessage(HttpServletRequest req, ModelAndView mView) {
+//			return new ModelAndView("users/dm");
+//		}
 		
 		
 //=============================== TEST section ===================================================
@@ -327,14 +324,64 @@ public class MainController {
 			return mv;
 		}
 		
-		//	DM 페이지 호출
-		@RequestMapping("/dm.do")
-		public ModelAndView enterDM(HttpServletRequest req) {
-			ModelAndView mv = new ModelAndView("dm");
-			String id = Optional.ofNullable(req.getParameter("id")).orElse("gura");
-			mv.addObject("target-id", id);
-			return mv;
+//		//	DM 페이지 호출
+//		@RequestMapping("/dm.do")
+//		public ModelAndView enterDM(HttpServletRequest req) {
+//			ModelAndView mv = new ModelAndView("dm");
+//			String id = Optional.ofNullable(req.getParameter("id")).orElse("gura");
+//			mv.addObject("target-id", id);
+//			return mv;
+//		}
+		// POST 삭제
+		
+		//호진이가 다음에 AJAX로 사용할때 활용한대
+//		@RequestMapping("/post/detail.do")
+//		@ResponseBody
+//		public Map<String, Object> authDetail(HttpServletRequest request, HttpServletResponse response,@RequestParam int num){
+//			Map<String, Object> map = new HashMap<>();
+//			postService.getPostData(map, num);
+//			//map을 리턴해줌
+//			return map;
+//		}
+		
+		
+		
+		
+//============================= DM CONTROLLER =============================================================
+		@RequestMapping("/users/dm.do")
+		public ModelAndView directMessage(HttpServletRequest req, ModelAndView mView, @RequestParam int num) {
+			directMessageService.userProfile(num, req, mView);
+			mView.addObject("targetUserCode", num);
+			mView.setViewName("dm");
+			return mView;
+		}
+		
+		
+		
+//============================== SEARCH KEYWORD/CONDITION ================
+		@RequestMapping("/search.do")
+		public ModelAndView searchTimeline(HttpServletRequest request, ModelAndView mView) {
+			postService.getList(request);
+			mView.setViewName("timeline");
+			return mView;
 		}
 	
+//============================= PAGING FUNCTION in TIMELINE ==============
+		@RequestMapping("post/loadtl.do")
+		public ModelAndView loadtl(HttpServletRequest request, ModelAndView mView, @RequestParam String page) {
+			System.out.println("=======PAGE NUMBER: " + page);
+			
+			postService.getList(request);
+			return mView;
+		}
+		
+//		@RequestMapping("post/loadtl.do")
+//		@ResponseBody
+//		public Map<String, Object> authUnfollow(HttpServletRequest request, @RequestParam int page) {
+//			Map<String, Object> map = new HashMap<String, Object>();
+//			
+//			map.put("result", isUnfollowed);
+//			return map;
+//		}
 }//UsersController END
 
