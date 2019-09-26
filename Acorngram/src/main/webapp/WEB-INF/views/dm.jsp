@@ -20,14 +20,14 @@
 		<article class="dm__panel container">
 			<div class="dm__header">
 				<div class="dm-target__icon">
-					<img src="${pageContext.request.contextPath}/${targetUser.profile_img }" alt=""/>
+					<img src="${pageContext.request.contextPath}${targetUser.profile_img }" alt=""/>
 				</div>
 				<hgroup>
 					<h5 class="dm-target__name"> ${targetUser.nickname } </h5>
 					<h6 class="dm-target__id"> @${targetUser.id } </h6>
 				</hgroup>
 			</div>
-			<div class="dm__msg-list" id="msg-list">
+			<div class="dm__msg-list">
 				<ul id="msg-list">
 					
 				</ul>
@@ -44,6 +44,7 @@
 	<script src="${pageContext.request.contextPath}/resources/js/dm.min.js"></script>
 	<script>
 		window.addEventListener('load',e=>{
+			//const socket = io(location.hostname+':3000');
 			const socket = io('http://192.168.0.93:3000');
 
 			const mine = {};
@@ -61,14 +62,13 @@
 			});
 
 			document.getElementById('btn_send').addEventListener('click',e=>{
-				console.log("targetUserId: " + mine.target.id);
 				const msg = document.getElementById('dm-msg');
 				socketFunction.onsendmsg(mine,msg.value);
 				msg.value="";
 			})
 		
 			socket.on('/privateMsg/', function(data){
-				socketFunction.onreceivemsg.private(data);
+				socketFunction.onreceivemsg.private(mine, data);
 			});
 			
 			socket.on('User Offline', function(msg){
@@ -77,7 +77,6 @@
 
 
 		});
-		
 	</script>
 </body>
 </html>

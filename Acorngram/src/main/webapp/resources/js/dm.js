@@ -11,32 +11,32 @@ const addMsg = (msg, owner)=>{
 
 const socketFunction = {
 	onconnect : function(mine){
-		this.socket.emit("userConnected", mine.id);
+		this.socket.emit("userConnected", {userId: mine.id});
 	},
 	onsendmsg : function(mine, msg){
 		this.socket.emit('/privateMsg/', {
 			msg: msg, 
 			sender: mine.id, 
-			usercode: mine.code, 
+			senderUsercode: mine.code, 
 			targetUserId: mine.target.id, 
 			num: mine.target.code, 
 		});
 	},
 	onreceivemsg:{
-		private: data=>{
+		private: (mine, data)=>{
 			let li;
 			switch(data.sender){
 				case mine.id:
 					li= addMsg(data.msg, 'mine');
 					break;
-				case mine.targetid:
+				case mine.target.id:
 					li = addMsg(data.msg, 'target');
 					break;
 			}
-			msgList.appendChild(li);
+			msgList.append(li);
 		},
 		offline: msg=>{
-			msgList.appendChild(addMsg("SYSTEM SENT MSG: "+msg));
+			msgList.append(addMsg("SYSTEM SENT MSG: "+msg));
 		}
 	}
 };
