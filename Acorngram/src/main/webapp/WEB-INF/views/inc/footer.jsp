@@ -23,6 +23,6 @@
 <c:if test="${param.timeline eq true}">
 	<div class="loading"></div>
 	<script src="${pageContext.request.contextPath}/resources/js/jquery.bottom-1.0.js"></script>
-	<script src="${pageContext.request.contextPath}/resources/js/tl.js"></script>
+	<script src="${pageContext.request.contextPath}/resources/js/tl.min.js"></script>
 </c:if>
 

@@ -6,6 +6,7 @@
 @import 'writepost';
 
 .search{
+	$serach-condition-padding-horizen:1rem;
 	&.inner-header{
 		padding: 1rem;
 		border:0;
@@ -25,7 +26,7 @@
 			font-family: 'Glyphicons Halflings';
 			font-size: 0.6rem;
 			display: inline-block;
-			transform: translateX(-25px);
+			transform: translate(-25px, $serach-condition-padding-horizen / 5);
 			@media screen and(max-width:$sm){
 				display: none;
 			}
@@ -33,7 +34,7 @@
 	}
 	#search-condition{
 		width: 100px;
-		padding: 0.5rem 0;
+		padding: 0.5rem $serach-condition-padding-horizen;
 		background: $white;
 		border: 0;
 		border-radius: 300px;
