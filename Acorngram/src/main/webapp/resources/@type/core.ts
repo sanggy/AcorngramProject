@@ -69,7 +69,22 @@ function loadTL(){
 
 
 }
-loadTL();
+window.onload = ()=>{
+	loadTL();
+	document.querySelectorAll('form').forEach(e=>{
+		const textarea:HTMLTextAreaElement = e.querySelector('textarea');
+		textarea.addEventListener('keydown',i=>{
+			if(i.ctrlKey&&i.code==="Enter"&&e.id!=="writepost-form")
+				e.submit();
+		});
+		e.addEventListener('submit',i=>{
+			if(!textarea.value) {
+				alert('내용을 입력해주세요');
+				i.preventDefault();
+			}
+		});
+	})
+}
 
 //	글쓰기 창 토글
 
