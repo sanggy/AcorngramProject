@@ -100,6 +100,10 @@ public class PostServiceImpl implements PostService {
 			request.setAttribute("condition", condition);
 		}
 		
+		//일단 검색 변수들 request에 담기
+		request.setAttribute("keyword", keyword);
+		request.setAttribute("condition", condition);
+		
 		//paging 처리
 		String id = (String) request.getSession().getAttribute("id");
 		//한 페이지에 나타낼 row 의 갯수

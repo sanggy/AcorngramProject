@@ -59,7 +59,6 @@
 			
 	</div>
 </header>
-
 <c:if test="${not empty msg }">
 	<div class="msg">
 		<div class="container">

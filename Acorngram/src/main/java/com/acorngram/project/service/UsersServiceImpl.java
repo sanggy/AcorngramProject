@@ -55,6 +55,7 @@ public class UsersServiceImpl implements UsersService{
 	// 로그인 시 아이디 유무 체크 
 	@Override
 	public boolean validUser(UsersDto dto, ModelAndView mView, HttpSession session, HttpServletRequest request) {
+		System.out.println("============여기는 들어와? valid user1");
 		//아이디 비밀번호가 유효한지 여부
 		boolean isValid = false;
 		
@@ -76,6 +77,8 @@ public class UsersServiceImpl implements UsersService{
 			session.setAttribute("profile_img", dto.getProfile_img());
 			return true;
 		}else {
+			System.out.println("============여기는 들어와?2");
+			mView.addObject("msg", "로그인 실패");
 			return false;
 		}
 		

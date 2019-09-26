@@ -98,8 +98,9 @@ public class LoginAspect {
 		}
 		//ModelAndView 겍체를 생성해서
 		ModelAndView mView = new ModelAndView();
+//		mView.addObject("msg", "로그인 실패했어");
 		//로그인 폼으로 리다일랙트 시키도록 view page 설정
-		mView.setViewName("redirect:/users/loginform.do?url=" + encodedUrl);
+		mView.setViewName("redirect:/users/home.do?url=" + encodedUrl);
 		
 		//여기서 생성한 객체를 리턴해 준다.
 		return mView;

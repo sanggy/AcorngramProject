@@ -53,16 +53,8 @@ public class MainController {
 	
 	@Autowired private LikesService likesService;
 	
-	//websocket simple version of message sending operation to use STOMP
-//	@Autowired private SimpMessageSendingOperations messagingTemp;
-	
-	
 	@Autowired private DirectMessageService directMessageService;
 	
-	//websocket simple version of message sending operation to use STOMP
-//	@Autowired private SimpMessageSendingOperations messagingTemp;
-	
-		
 	
 	@RequestMapping(value="/users/signup.do", method = RequestMethod.POST)
 	public ModelAndView signup(@ModelAttribute UsersDto dto, ModelAndView mView) {
@@ -74,9 +66,12 @@ public class MainController {
 	
 	@RequestMapping(value="/users/signin.do", method = RequestMethod.POST)
 	public 	ModelAndView signIn(@ModelAttribute UsersDto dto, ModelAndView mView, HttpServletRequest request) {
+		System.out.println("============여기는 들어와? main controller signin.do");
 		
 		boolean isSuccessful = usersService.validUser(dto, mView, request.getSession(), request);
-
+		
+		System.out.println("-----------------isSuccessful value: " + isSuccessful);
+		
 		//원래 가려던 url 정보를 reqeust 에 담는다.
 //		String encodedUrl = URLEncoder.encode(request.getParameter("url"));
 //		request.setAttribute("encodedUrl", encodedUrl);
@@ -86,8 +81,10 @@ public class MainController {
 			System.out.println("id in session? : "+request.getSession().getAttribute("id"));
 			mView.setViewName("redirect:/home.do");
 		}
-		else {
-			mView.setViewName("redirect:/home.do");
+		else{
+			System.out.println("===로그인실패===");
+			mView.addObject("msg", "로그인 실패했습니다. 다시 로그인 해주세요.");
+			mView.setViewName("home");
 		}
 
 		return mView;	
@@ -290,63 +287,7 @@ public class MainController {
 			return map;
 		}
 		
-//============================= DM CONTROLLER =============================================================
-//		@MessageMapping("/users/dm")
-//		@SendToUser("/queue/directMessage")
-//		public String processMessageFromClient(@Payload String message, Principal principal) throws Exception {
-//			
-//			
-////			this.messagingTemp.convertAndSendToUser(message.getFrom(), "/queue/directMessage", message.getMessage());
-//			
-//			return gson.fromJson(message, Map.class).get("name").toString();
-//		}
-//		
-//		@MessageExceptionHandler
-//		@SendToUser("/gueue/errors")
-//		public String handleException(Throwable exception) {
-//			return exception.getMessage();
-//		}
-//		
-//		@RequestMapping("/users/dm.do")
-//		public ModelAndView directMessage(HttpServletRequest req, ModelAndView mView) {
-//			return new ModelAndView("users/dm");
-//		}
-		
-		
-//=============================== TEST section ===================================================
-		
-		//	Error 페이지 호출
-		@RequestMapping("/error.do")
-		public ModelAndView showError(HttpServletRequest req) {
-			ModelAndView mv = new ModelAndView("error");
-			String code = Optional.ofNullable(req.getParameter("code")).orElse("418");
-			mv.addObject("code", code);
-			return mv;
-		}
-		
-//		//	DM 페이지 호출
-//		@RequestMapping("/dm.do")
-//		public ModelAndView enterDM(HttpServletRequest req) {
-//			ModelAndView mv = new ModelAndView("dm");
-//			String id = Optional.ofNullable(req.getParameter("id")).orElse("gura");
-//			mv.addObject("target-id", id);
-//			return mv;
-//		}
-		// POST 삭제
-		
-		//호진이가 다음에 AJAX로 사용할때 활용한대
-//		@RequestMapping("/post/detail.do")
-//		@ResponseBody
-//		public Map<String, Object> authDetail(HttpServletRequest request, HttpServletResponse response,@RequestParam int num){
-//			Map<String, Object> map = new HashMap<>();
-//			postService.getPostData(map, num);
-//			//map을 리턴해줌
-//			return map;
-//		}
-		
-		
-		
-		
+
 //============================= DM CONTROLLER =============================================================
 		@RequestMapping("/users/dm.do")
 		public ModelAndView directMessage(HttpServletRequest req, ModelAndView mView, @RequestParam int num) {
@@ -375,13 +316,12 @@ public class MainController {
 			return mView;
 		}
 		
-//		@RequestMapping("post/loadtl.do")
-//		@ResponseBody
-//		public Map<String, Object> authUnfollow(HttpServletRequest request, @RequestParam int page) {
-//			Map<String, Object> map = new HashMap<String, Object>();
-//			
-//			map.put("result", isUnfollowed);
-//			return map;
+//============================ ERROR PAGE ====================================
+//		@RequestMapping("/error.do")
+//		public ModelAndView showError(HttpServletRequest request,) {
+//			return mView;
 //		}
+		
+		
 }//UsersController END
 
