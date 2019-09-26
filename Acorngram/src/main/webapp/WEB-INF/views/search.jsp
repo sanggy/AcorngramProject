@@ -16,9 +16,27 @@
 			<h2>${searchword}</h2>
 		</nav>
 
+		<div class="container">
+			<div class="inner-header search">
+				<form action="${pageContext.request.contextPath}/search.do" method="get" class="search__form">
+					<div class="search__condition-selector">
+						<select name="condition" id="search-condition">
+							<option value="none" selected>ALL</option>
+							<option value="user">USER</option>
+							<option value="post">POST</option>
+						</select>
+					</div>
+					<input type="text" name="keyword" id="search-word" placeholder="검색어를 입력하세요" value="${param.keyword }"/>
+					<button class="search__btn">
+						<i class="glyphicon glyphicon-search"></i>
+					</button>
+				</form>
+			</div>
+		</div>
+		
 		<!-- user 검색 결과 타임라인 -->
-
-		<%-- <c:if test="${not empty userList}">--%>
+		<%--
+		<c:if test="${not empty userList}">
 			<div class="userlist container">
 				<h3>계정</h3>
 				<div class="userlist__result">
@@ -41,13 +59,14 @@
 					</ul>
 				</div>
 			</div>
-		<%--</c:if>--%>
+		</c:if>
+		 --%>
 
 		<!-- post 검색 결과 타임라인 -->
 		
-		<c:if test="${not empty postList }">
+		<c:if test="${not empty list }">
 			<div class="timeline container">
-				<c:forEach var="post" items="${postList }">
+				<c:forEach var="post" items="${list }">
 					<article class="post post-user-${post.usercode }" id="post-${post.num }">
 						<div class="post__header">
 							<div class="post__header-left">

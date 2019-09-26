@@ -16,20 +16,32 @@
 				<form action="${pageContext.request.contextPath}/search.do" method="get" class="search__form">
 					<div class="search__condition-selector">
 						<select name="condition" id="search-condition">
-							<option value="none" selected>ALL</option>
-							<option value="user">USER</option>
-							<option value="post">POST</option>
+							<c:set var="option" value="${['none','user','post']}"></c:set>
+							<c:forEach var="item" items="${option}">
+								<option value="${item }" <c:if test="${item eq param.condition}">selected</c:if> >
+									<c:choose>
+										<c:when test="${item eq 'none'}">ALL</c:when>
+										<c:otherwise>${item}</c:otherwise>
+									</c:choose>
+								</option>
+							</c:forEach>
 						</select>
 					</div>
-					<input type="text" name="keyword" id="search-word" placeholder="검색어를 입력하세요"/>
+					<input type="text" name="keyword" id="search-word" placeholder="검색어를 입력하세요" value="<c:out value='${ param.keyword}' default=''></c:out>"/>
 					<button class="search__btn">
 						<i class="glyphicon glyphicon-search"></i>
 					</button>
 				</form>
 			</div>
+			<c:if test="${not empty param.condition }">
+				<nav class="inner-header">
+					<a href="${pageContext.request.contextPath}/timeline.do"><i class="glyphicon glyphicon-chevron-left"></i>돌아가기</a>
+				</nav>
+			</c:if>
 		</div>
 		<div class="timeline container">
-			<c:if test="${not empty list }">
+		<c:choose>
+			<c:when test="${not empty list }">
 				<c:forEach var="post" items="${list }">
 					<article class="post post-user-${post.usercode }" id="post-${post.num }">
 						<div class="post__header">
@@ -89,7 +101,11 @@
 						</div>
 					</article>
 				</c:forEach>
-			</c:if>
+			</c:when>
+			<c:otherwise>
+				<p>검색결과가 존재하지 않습니다.</p>
+			</c:otherwise>
+		</c:choose>
 		</div>
 	</main>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.2.0/socket.io.js"></script>

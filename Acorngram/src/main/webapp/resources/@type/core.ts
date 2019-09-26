@@ -67,6 +67,16 @@ function loadTL(){
 		}).length<1?more_btn.remove():''
 	})
 
+	//	search시 검색 키워드 보여주기
+	const param = location.search.substring(1);
+	const paramMap = new Map<string, string>();
+	if(param){
+		param.split('&').forEach(e=>{
+			const paramItem = e.split('=');
+			paramMap.set(paramItem[0], paramItem[1]);
+		});
+	}
+	console.log(paramMap);
 
 }
 window.onload = ()=>{
