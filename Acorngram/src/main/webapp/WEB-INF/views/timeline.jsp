@@ -94,11 +94,10 @@
 	</main>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.2.0/socket.io.js"></script>
 	<script>
+		//const socket = io(location.hostname+':3000');
 		const socket = io('http://192.168.0.93:3000');
 		
 		//need to save socket in session...
-		
-	
 	
 		socket.on("connect", function(event){
 			console.log("socket 연결되었습니다.");
@@ -116,9 +115,7 @@
 			//String target = event.targetUserId;
 			if(event.targetUser == '${id}'){
 				if(confirm("Do you wanna accept chat invitation from " + event.sender + "?") == true){
-					console.log("event.targetUserCode")
-					//redirect url to
-					window.location.href ="http://192.168.0.93:8888/project/users/dm.do?num=" + event.senderUserCode;
+					location.href = location.origin + "/" + location.pathname.split("/")[1] + '/users/dm.do?num=' + event.senderUserCode;
 				}else{
 					//chekcing if event.sender exists as value
 					console.log("---------------event.sender value : " + event.sender);

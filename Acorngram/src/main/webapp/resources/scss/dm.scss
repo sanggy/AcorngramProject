@@ -12,6 +12,7 @@
 	}
 	&__header{
 		padding: 1.5rem;
+		@include flexbox();
 	}
 
 	&-target{
@@ -32,6 +33,10 @@
 		$local-border : 1px solid lightgray;
 		border-top: $local-border;
 		border-bottom: $local-border;
+		&:after{
+			content:'';
+			clear:both;
+		}
 	}
 	&__footer{
 		padding: 1rem;
@@ -43,6 +48,32 @@
 			width: 10%;
 			font-size: 1.2rem;
 			font-weight: bold;
+		}
+	}
+}
+
+#msg-list{
+	@include flexbox($align: column);
+	li{
+		width: 60%;
+		height: auto;
+		padding: 1rem;
+		box-sizing: border-box;
+		&.mine{
+			align-self: flex-end;
+			text-align: right;
+			color: $white;
+			@include bordered-box($color: $main-color, $bg: $main-color);
+			border-bottom-right-radius: 0;
+		}
+		&.target{
+			align-self: flex-start;
+			text-align: left;
+			@include bordered-box($color: desaturate($main-color, 80%));
+			border-bottom-left-radius: 0;
+		}
+		&:not(:last-child){
+			margin-bottom: 1rem;
 		}
 	}
 }

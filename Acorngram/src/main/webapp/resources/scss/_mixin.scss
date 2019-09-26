@@ -36,10 +36,10 @@
 	box-sizing: border-box;
 }
 
-@mixin bordered-box ($padding: 1.2rem){
+@mixin bordered-box ($padding: 1.2rem, $color: #ccc, $bg: $white){
 	padding: $padding;
-	border: 1px solid #ccc;
-	background: $white;
+	border: 1px solid $color;
+	background: $bg;
 	border-radius: 8px;
 	box-sizing: border-box;
 }
