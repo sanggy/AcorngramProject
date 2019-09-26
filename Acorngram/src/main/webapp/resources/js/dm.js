@@ -36,7 +36,7 @@ const socketFunction = {
 			msgList.appendChild(li);
 		},
 		offline: msg=>{
-			msgList.appendChild(addMsg("SYSTEM SENT MSG: "+data.msg));
+			msgList.appendChild(addMsg("SYSTEM SENT MSG: "+msg));
 		}
 	}
 };

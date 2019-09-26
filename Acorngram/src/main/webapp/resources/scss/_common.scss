@@ -29,7 +29,6 @@ p{
 }
 
 [role="button"], button, .btn{
-	outline: 0;
 	@include btn($color: $main-color);
 	&.reversed{
 		@include btn($bg: $main-color, $color: $white);

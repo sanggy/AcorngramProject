@@ -13,7 +13,7 @@
 	border-radius: 4px;
 	box-sizing: border-box;
 	transition: all .05s ease;
-	&:hover{
+	&:hover, &:focus{
 		background: $color;
 		color: $bg;
 		@if $bg != $white{

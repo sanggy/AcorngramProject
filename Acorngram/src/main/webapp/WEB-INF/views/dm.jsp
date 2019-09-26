@@ -19,94 +19,65 @@
 		</div>
 		<article class="dm__panel container">
 			<div class="dm__header">
-				<img src="${pageContext.request.contextPath}/${targetUser.profile_img }" alt="" class="post__icon"/>
+				<div class="dm-target__icon">
+					<img src="${pageContext.request.contextPath}/${targetUser.profile_img }" alt=""/>
+				</div>
 				<hgroup>
-					<h5 class="post__name"> ${targetUser.nickname } </h5>
-					<h6 class="post__id"> @${targetUser.id } </h6>
+					<h5 class="dm-target__name"> ${targetUser.nickname } </h5>
+					<h6 class="dm-target__id"> @${targetUser.id } </h6>
 				</hgroup>
 			</div>
-			<div class="dm__msg-list">
+			<div class="dm__msg-list" id="msg-list">
 				<ul id="msg-list">
 					
 				</ul>
 			</div>
 			<div class="dm__footer">
 				<textarea name="msg" id="dm-msg" maxlength="200"></textarea>
-				<button type="button" onclick="sendMsg()">전송</button>
+				<button type="button" id="btn_send">전송</button>
 			</div>
 		</article>
 	</main>
 	
+	<jsp:include page="inc/footer.jsp" />
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.2.0/socket.io.js"></script>
+	<script src="${pageContext.request.contextPath}/resources/js/dm.min.js"></script>
 	<script>
-		//console.log('userid : ' + ${id});
+		window.addEventListener('load',e=>{
+			const socket = io('http://192.168.0.93:3000');
+
+			const mine = {};
+			mine.id = '${id}';
+			mine.code = '${usercode}';
+			mine.target = {
+				id : '${targetUser.id}',
+				code : '${targetUserCode}'
+			};
+
+			socket.on("connect", e=>{
+				console.log("socket 연결되었습니다.");
+				socketFunction.socket = socket;
+				socketFunction.onconnect(mine);
+			});
+
+			document.getElementById('btn_send').addEventListener('click',e=>{
+				console.log("targetUserId: " + mine.target.id);
+				const msg = document.getElementById('dm-msg');
+				socketFunction.onsendmsg(mine,msg.value);
+				msg.value="";
+			})
 		
-		
-		//socket.join("private/${targetUser.id}")
-		
-		//client
-		//socket.emit("joinAction", "room 1");
-		
-		//server
-		
-		//socket.on("joinAction", function(roomName){
-			//socket.join(roomName);
-		//});
-		
-		const socket = io('http://192.168.0.93:3000');
-		
-		socket.on("connect", function(event){
-			console.log("socket 연결되었습니다.");
-			socket.emit("userConnected", {userId: '${id}'});
-			//상대 유저아이디로 만들어진 방에 접속하기
-			//socket.emit("/privateMsg/", {userId: '${id}', targetUserId: '${targetUser.id}'});
-			//console.log("targetUserId" + '${targetUser.id}');
-		});
-		
-		
-		function sendMsg() {
-			console.log("targetUserId: " + '${targetUser.id}')
-			console.log("senderUsercode: " + '${usercode}')
-			socket.emit('/privateMsg/', {msg: $('#dm-msg').val(), sender: '${id}', targetUserId: '${targetUser.id}', num: '${targetUserCode}', senderUsercode: '${usercode}'});
-	        //socket.emit('chat message', {msg: $('#dm-msg').val(), targetUser: '${targetUser.id}', user: '${id}'});
-	        $('#dm-msg').val('');
-	    }
-		
-		socket.on('/privateMsg/', function(data){
-        	$('#msg-list').append($('<li>').text(data.sender + " : " + data.msg));
-        });
-		
-		socket.on('User Offline', function(msg){
-			$('#msg-list').append($('<li>').text("SYSTEM SENT MSG: " + msg));
-		});
-		
-		socket.on('denied', function(event){
-			console.log("denied chat invitation");
-			$('#msg-list').append($('<li>').text("SYSTEM SENT MSG: " + event.msg));
-		});
-		
-		//DM중 다른 유저가 초대하면.
-		socket.on("/privateMsg/", function(event){
-			//String target = event.targetUserId;
-			if(event.targetUser == '${id}'){
-				if(confirm("Do you wanna accept chat invitation from " + event.sender + "?") == true){
-					console.log("event.targetUserCode")
-					//redirect url to
-					window.location.href ="http://192.168.0.93:8888/project/users/dm.do?num=" + event.senderUserCode;
-				}else{
-					//chekcing if event.sender exists as value
-					console.log("---------------event.sender value : " + event.sender);
-					console.log("replier id : " + '${id}');
-					
-					//denied notification sent to server to notify sender of deny.
-					socket.emit("deny invitation", {targetUserId: ''+event.sender, replier: '${id}'});
-				}
-			}
+			socket.on('/privateMsg/', function(data){
+				socketFunction.onreceivemsg.private(data);
+			});
+			
+			socket.on('User Offline', function(msg){
+				socketFunction.onreceivemsg.offline(msg);
+			});
+
+
 		});
 		
 	</script>
-	
-	<jsp:include page="inc/footer.jsp" />
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.2.0/socket.io.js"></script>
-	<script src=""></script>
 </body>
 </html>
