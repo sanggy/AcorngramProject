@@ -413,9 +413,10 @@ window.onload = ()=>{
 		e.preventDefault();
 	}
 
-	document.getElementById('signUp').addEventListener('submit', checkFormData);
-	document.getElementById('userSettingsForm').addEventListener('submit', checkFormData);
-
+	const forms = ['signUp', 'userSettingsForm'];
+	forms.forEach(e=>{
+		if(document.getElementById(e)) document.getElementById(e).addEventListener('submit', checkFormData);
+	})
 
 	//	댓글 폼
 	$('.comment__info a').on('click',function(){
