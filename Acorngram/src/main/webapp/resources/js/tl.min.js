@@ -3,10 +3,10 @@ $(function () {
 	let page = 1;
 	let flag = true;
 
-    $(window).bottom();
+    $(window).bottom({proximity: 0.05});
 
     $(window).bind("bottom", function() {
-    	
+		
 		var obj = $(this);
 	
 		if (!obj.data("loading") && flag) {
