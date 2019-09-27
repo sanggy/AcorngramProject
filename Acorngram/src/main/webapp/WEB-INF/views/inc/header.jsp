@@ -36,7 +36,7 @@
 			<c:otherwise>
 				<div class="header__user-info">
 					<button type="button" 
-						style="background-image:url('${pageContext.request.contextPath}/${profile_img }');
+						style="background-image:url('${pageContext.request.contextPath}${profile_img }');
 							background-size: cover; "> </button>
 				</div>
 				<div class="header__logo">
