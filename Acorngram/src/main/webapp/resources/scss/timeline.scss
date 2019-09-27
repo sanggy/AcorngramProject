@@ -104,8 +104,10 @@
 			width: $icon-size;
 			height: $icon-size;
 		}
+		&-left a{
+			@include flexbox();
+		}
 		hgroup{
-			float: right;
 			margin-left: 8px;
 		}
 		a[role="button"]{

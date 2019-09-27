@@ -76,7 +76,6 @@ function loadTL(){
 			paramMap.set(paramItem[0], paramItem[1]);
 		});
 	}
-	console.log(paramMap);
 
 }
 
