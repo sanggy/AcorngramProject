@@ -62,11 +62,16 @@
 				socketFunction.onconnect(mine);
 			});
 
-			document.getElementById('btn_send').addEventListener('click',e=>{
+			document.getElementById('btn_send').addEventListener('click',send);
+			document.getElementById('dm-msg').addEventListener('keydown',e=>{
+				if(e.ctrlKey&&e.code==="Enter")send(e);
+			});
+			
+			function send(e){
 				const msg = document.getElementById('dm-msg');
 				socketFunction.onsendmsg(mine,msg.value);
 				msg.value="";
-			})
+			}
 		
 			socket.on('/privateMsg/', function(data){
 				socketFunction.onreceivemsg.private(mine, data);
@@ -75,7 +80,8 @@
 			socket.on('User Offline', function(msg){
 				socketFunction.onreceivemsg.offline(msg);
 			});
-
+			
+			
 
 		});
 	</script>

@@ -68,13 +68,12 @@
 #msg-list{
 	@include flexbox($align: column);
 	li{
-		padding: 1rem;
-		box-sizing: border-box;
+		$msg-padd : 0.7rem 1rem;
 		&.mine{
 			align-self: flex-end;
 			text-align: right;
 			color: $white;
-			@include bordered-box($color: $main-color, $bg: $main-color);
+			@include bordered-box($padding: $msg-padd, $color: $main-color, $bg: $main-color);
 			border-bottom-right-radius: 0;
 		}
 		&.target{

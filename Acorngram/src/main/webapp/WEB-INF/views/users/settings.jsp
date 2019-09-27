@@ -17,7 +17,7 @@
 	<main>
 		<div class="user-settings container">
 
-			<form class="user-settings__form" enctype="multipart/form-data" method="post" action="updateSettings.do">
+			<form class="user-settings__form" enctype="multipart/form-data" method="post" action="updateSettings.do" id="userSettingsForm">
 				<div class="user-settings__header">
 					<label for="ProfileImage">
 						<input type="file" name="ProfileImage" id="ProfileImage" accept="image/*"/>

@@ -1,9 +1,5 @@
 // $page-type = timeline or detail
 
-.post__comment{
-
-}
-
 .comment{
 	@if $page-type == 'detail' {
 		&__form{

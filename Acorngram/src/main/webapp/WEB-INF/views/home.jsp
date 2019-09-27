@@ -38,12 +38,12 @@
 						</div>
 						<div class="form-group">
 							<label class="signup__label"> 패스워드 </label>
-							<input type="password" name="pw" id="signup-pw"  class="form-control form-control-sm" placeholder="영대문자 1자 이상인 최소 8자이상의 영숫자" required/>
+							<input type="password" name="pw" id="signup-pw"  class="form-control form-control-sm" placeholder="영대문자 1자 이상인 최소 8자이상의 영숫자" minlength="8" required/>
 							<span class="result-msg"></span>
 						</div>
 						<div class="form-group">
 							<label class="signup__label"> 패스워드 확인 </label>
-							<input type="password" name="pw-c" id="signup-pw-c"  class="form-control form-control-sm"  required/>
+							<input type="password" name="pw-c" id="signup-pw-c"  class="form-control form-control-sm" minlength="8" required/>
 							<span class="result-msg"></span>
 						</div>
 						<div class="form-group">
