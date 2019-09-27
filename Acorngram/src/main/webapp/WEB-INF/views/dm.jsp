@@ -45,6 +45,7 @@
 	<script>
 		window.addEventListener('load',e=>{
 			//const socket = io(location.hostname+':3000');
+			//const socket = io('http://211.106.163.151:3000');
 			const socket = io('http://192.168.0.93:3000');
 
 			const mine = {};
