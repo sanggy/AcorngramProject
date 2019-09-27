@@ -60,7 +60,7 @@ function loadTL(){
 	
 	//	더보기 버튼 클릭시 정보 보여주기
 	$('.more-btn').on('click',()=>{
-		let more_btn:HTMLElement = $(event.currentTarget);
+		let more_btn = $(event.currentTarget);
 		more_btn.closest('ul').find('li.is-hidden').each((index,elem)=>{
 			if(index<4)elem.classList.remove('.is-hidden');
 			else return false;
