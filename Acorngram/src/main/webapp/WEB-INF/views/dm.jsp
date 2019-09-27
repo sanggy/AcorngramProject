@@ -73,7 +73,16 @@
 			}
 		
 			socket.on('/privateMsg/', function(data){
-				socketFunction.onreceivemsg.private(mine, data);
+				//chekcing if event.sender exists as value
+				if(data.targetUser === mine.id && mine.target.id !== data.sender){
+					let msg = data.sender+"님의 채팅 초대입니다. 확인하시겠습니까?";
+					if(confirm(msg)){
+						window.open(location.origin + "/" + location.pathname.split("/")[1] + '/users/dm.do?num=' + data.senderUserCode);
+					}else{
+						//denied notification sent to server to notify sender of deny.
+						socketFunction.ondenyinvite(data.sender, mine.id);
+					}
+				}else socketFunction.onreceivemsg.private(mine, data);
 			});
 			
 			socket.on('User Offline', function(msg){

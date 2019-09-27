@@ -84,8 +84,6 @@
 				if(confirm(msg)){
 					window.open(location.origin + "/" + location.pathname.split("/")[1] + '/users/dm.do?num=' + event.senderUserCode);
 				}else{
-					//chekcing if event.sender exists as value
-					
 					//denied notification sent to server to notify sender of deny.
 					socketFunction.ondenyinvite(event.sender, mine.id);
 				}
