@@ -20,7 +20,7 @@
 		<article class="dm__panel container">
 			<div class="dm__header">
 				<div class="dm-target__icon">
-					<img src="${pageContext.request.contextPath}${targetUser.profile_img }" alt=""/>
+					<img src="${pageContext.request.contextPath}/${targetUser.profile_img }" alt=""/>
 				</div>
 				<hgroup class="dm-target__info">
 					<h5 class="dm-target__name"> ${targetUser.nickname } </h5>
@@ -44,6 +44,8 @@
 	<script src="${pageContext.request.contextPath}/resources/js/dm.min.js"></script>
 	<script>
 		window.addEventListener('load',e=>{
+			const msg = document.getElementById('dm-msg');
+			
 			//const socket = io(location.hostname+':3000');
 			//const socket = io('http://211.106.163.151:3000');
 			const socket = io('http://192.168.0.93:3000');
@@ -64,12 +66,13 @@
 
 			document.getElementById('btn_send').addEventListener('click',send);
 			document.getElementById('dm-msg').addEventListener('keydown',e=>{
-				if(e.ctrlKey&&e.code==="Enter")send(e);
+				if(e.ctrlKey&&e.code==="Enter") send(e);
+				else if(msg.value.length===0&&e.ctrlKey&&e.code==="KeyZ") msg.value = sessionStorage.getItem("undo");
 			});
 			
 			function send(e){
-				const msg = document.getElementById('dm-msg');
 				socketFunction.onsendmsg(mine,msg.value);
+				sessionStorage.setItem("undo", msg.value);
 				msg.value="";
 			}
 		

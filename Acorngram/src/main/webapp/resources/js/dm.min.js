@@ -1,6 +1,7 @@
 "use strict";
 
 const msgList = document.getElementById('msg-list');
+const wrapper = msgList.parentElement;
 
 const addMsg = (msg, owner)=>{
 	const li = document.createElement('li');
@@ -26,7 +27,7 @@ const socketFunction = {
 	ondenyinvite: (sender, id)=>{
 		socket.emit("deny invitation", {targetUserId: ''+sender, replier: id});
 	},
-	onreceivemsg:{
+	onreceivemsg : {
 		private: (mine, data)=>{
 			let li;
 			switch(data.sender){
@@ -38,11 +39,13 @@ const socketFunction = {
 					break;
 			}
 			msgList.append(li);
+			wrapper.scroll(0,msgList.scrollHeight);
 		},
 		offline: msg=>{
 			msgList.append(addMsg("SYSTEM SENT MSG: "+msg));
-		}
-	}
+			wrapper.scroll(0,msgList.scrollHeight);
+		},
+	},
 };
 
 /*
