@@ -60,6 +60,7 @@ public class MainController {
 	public ModelAndView signup(@ModelAttribute UsersDto dto, ModelAndView mView) {
 		
 		usersService.addUser(dto, mView);
+		mView.addObject("msg", "회원가입에 성공하셨습니다.");
 		mView.setViewName("home");
 		return mView;
 	}

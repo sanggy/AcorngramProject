@@ -107,7 +107,7 @@ public class PostServiceImpl implements PostService {
 		//paging 처리
 		String id = (String) request.getSession().getAttribute("id");
 		//한 페이지에 나타낼 row 의 갯수
-		final int PAGE_ROW_COUNT = 3;
+		final int PAGE_ROW_COUNT = 5;
 		//하단 디스플레이 페이지 갯수
 		final int PAGE_DISPLAY_COUNT = 1;
 		
@@ -248,6 +248,8 @@ public class PostServiceImpl implements PostService {
 				//파일을 저장할 폴더의 절대 경로를 얻어온다.
 				String realPath=request.getSession()
 						.getServletContext().getRealPath("/upload");
+				
+//				System.out.println("=========real path address: " + realPath);
 				//MultipartFile 객체의 참조값 얻어오기
 				//FileDto 에 담긴 MultipartFile 객체의 참조값을 얻어온다.
 				MultipartFile mFile=dto.getFile();
