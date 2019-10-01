@@ -41,9 +41,16 @@
 	}
 
 	&__msg-list{
+		display:flex;
+		align-items: flex-end;
+		justify-content: center;
+		
 		padding: $common-margin;
 		min-height: 25rem;
 		max-height: 40vh;
+		
+		background: lighten($black, 80%);
+		
 		$local-border : 1px solid lightgray;
 		border-top: $local-border;
 		border-bottom: $local-border;
