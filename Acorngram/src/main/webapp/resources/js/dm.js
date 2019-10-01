@@ -1,8 +1,5 @@
 "use strict";
 
-const msgList = document.getElementById('msg-list');
-const wrapper = msgList.parentElement;
-
 const addMsg = (msg, owner)=>{
 	const li = document.createElement('li');
 	li.textContent = msg;
@@ -29,6 +26,9 @@ const socketFunction = {
 	},
 	onreceivemsg : {
 		private: (mine, data)=>{
+			const msgList = document.getElementById('msg-list');
+			const wrapper = msgList.parentElement;
+
 			let li;
 			switch(data.sender){
 				case mine.id:
@@ -42,6 +42,9 @@ const socketFunction = {
 			wrapper.scroll(0,msgList.scrollHeight);
 		},
 		offline: msg=>{
+			const msgList = document.getElementById('msg-list');
+			const wrapper = msgList.parentElement;
+			
 			msgList.append(addMsg("SYSTEM SENT MSG: "+msg));
 			wrapper.scroll(0,msgList.scrollHeight);
 		},
