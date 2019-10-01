@@ -79,7 +79,7 @@
 		&.target{
 			align-self: flex-start;
 			text-align: left;
-			@include bordered-box($color: desaturate($main-color, 80%));
+			@include bordered-box($padding: $msg-padd, $color: desaturate($main-color, 80%));
 			border-bottom-left-radius: 0;
 		}
 		&.info{

@@ -50,46 +50,47 @@
 		</c:choose>
 		</div>
 	</main>
+	<jsp:include page="inc/footer.jsp" >
+		<jsp:param value="true" name="timeline"/>
+	</jsp:include>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.2.0/socket.io.js"></script>
+	<script src="${pageContext.request.contextPath}/resources/js/dm.js"></script>
 	<script>
 		//const socket = io(location.hostname+':3000');
 		//const socket = io('http://211.106.163.151:3000');
 		const socket = io('http://192.168.0.93:3000');
 		
-		//need to save socket in session...
+		const mine = {
+			id: '${id}'
+		};
 	
 		socket.on("connect", function(event){
-			console.log("socket 연결되었습니다.");
-			socket.emit("userConnected", {userId: '${id}'});
+			socketFunction.socket = socket;
+			socketFunction.onconnect(mine);
+			<%--
 			//상대 유저아이디로 만들어진 방에 접속하기
 			//socket.emit("/privateMsg/", {userId: '${id}', targetUserId: '${targetUser.id}'});
 			//console.log("targetUserId" + '${targetUser.id}');
+			--%>
 		});
 		
 		socket.on("disconnect", function(event){
-			console.log("socket disconnected");
+			console.warn("socket disconnected");
 		});
 		
 		socket.on("/privateMsg/", function(event){
 			//String target = event.targetUserId;
-			if(event.targetUser == '${id}'){
-				if(confirm("Do you wanna accept chat invitation from " + event.sender + "?") == true){
+			if(event.targetUser === mine.id){
+				let msg = event.sender+"님의 채팅 초대입니다. 확인하시겠습니까?";
+				if(confirm(msg)){
 					window.open(location.origin + "/" + location.pathname.split("/")[1] + '/users/dm.do?num=' + event.senderUserCode);
 				}else{
-					//chekcing if event.sender exists as value
-					console.log("---------------event.sender value : " + event.sender);
-					console.log("replier id : " + '${id}');
-					
 					//denied notification sent to server to notify sender of deny.
-					socket.emit("deny invitation", {targetUserId: ''+event.sender, replier: '${id}'});
+					socketFunction.ondenyinvite(event.sender, mine.id);
 				}
 			}
 		});
 		
 	</script>
-	
-	<jsp:include page="inc/footer.jsp" >
-		<jsp:param value="true" name="timeline"/>
-	</jsp:include>
 </body>
 </html>

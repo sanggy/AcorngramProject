@@ -23,6 +23,9 @@ const socketFunction = {
 			num: mine.target.code, 
 		});
 	},
+	ondenyinvite: (sender, id)=>{
+		socket.emit("deny invitation", {targetUserId: ''+sender, replier: id});
+	},
 	onreceivemsg:{
 		private: (mine, data)=>{
 			let li;
