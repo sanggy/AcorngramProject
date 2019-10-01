@@ -45,7 +45,8 @@
 		min-height: 25rem;
 		max-height: 40vh;
 		
-		background: lighten($black, 80%);
+		//background: lighten($black, 80%);
+		background:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAcAAAAHCAYAAADEUlfTAAAAGUlEQVQImWNIKL/tiwszJJTf9mXABQabJADsDBn0cAxsQAAAAABJRU5ErkJggg==) repeat;
 		
 		$local-border : 1px solid lightgray;
 		border-top: $local-border;

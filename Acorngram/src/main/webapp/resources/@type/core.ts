@@ -87,18 +87,20 @@ window.onload = ()=>{
 	//	Textarea가 있는 Form에서 Ctrl+엔터키 입력시 송신기능
 	document.querySelectorAll('form').forEach(e=>{
 		const textarea:HTMLTextAreaElement = e.querySelector('textarea');
-		if(textarea) 
+		console.log(textarea);
+		if(textarea){
 			textarea.addEventListener('keydown',i=>{
 				if(i.ctrlKey&&i.code==="Enter"&&!e.querySelector('input[type="file"]'))
 					e.submit();
 			});
-		e.addEventListener('submit',i=>{
-			if(!textarea.value) {
-				alert('내용을 입력해주세요');
-				i.preventDefault();
-			}
-		});
-	})
+			e.addEventListener('submit',i=>{
+				if(!textarea.value) {
+					alert('내용을 입력해주세요');
+					i.preventDefault();
+				}
+			});
+		}
+	});
 
 
 	//	유저메뉴 토글
@@ -378,6 +380,7 @@ window.onload = ()=>{
 
 	//	기타 폼 체크
 	function checkFormData(e){
+
 		var id:HTMLInputElement = e.target.querySelector('input[name="id"]')
 		var nickname:HTMLInputElement = e.target.querySelector('input[name="nickname"]');
 		var pw:HTMLInputElement = e.target.querySelector('input[name="pw"]');
@@ -405,11 +408,12 @@ window.onload = ()=>{
 			msg = '이메일 형식이 올바르지 않습니다.';
 		}else if(agree && !agree.checked){
 			msg = '규약에 동의해주세요';
-		}else{
-			if(!msg)return true;
 		}
-		alert(msg);
-		e.preventDefault();
+		
+		if(msg){
+			alert(msg);
+			e.preventDefault();
+		}
 	}
 
 	const forms = ['signUp', 'userSettingsForm'];
