@@ -41,10 +41,6 @@
 	}
 
 	&__msg-list{
-		display:flex;
-		align-items: flex-end;
-		justify-content: center;
-		
 		padding: $common-margin;
 		min-height: 25rem;
 		max-height: 40vh;
@@ -57,10 +53,6 @@
 		overflow-y:auto;
 		@media screen and (max-width:$sm){
 			max-height:50vw;
-		}
-		&:after{
-			content:'';
-			clear:both;
 		}
 	}
 	&__footer{
@@ -89,6 +81,7 @@
 	@include flexbox($align: column);
 	li{
 		$msg-padd : 0.7rem 1rem;
+		margin-bottom: 1rem;
 		&.mine{
 			align-self: flex-end;
 			text-align: right;
@@ -107,9 +100,6 @@
 			text-align: center;
 			color: lighten(grayscale($main-color), 30%);
 			font-size: 0.8rem;
-		}
-		&:not(:last-child){
-			margin-bottom: 1rem;
 		}
 	}
 }

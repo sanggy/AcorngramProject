@@ -65,7 +65,6 @@
 
 			document.getElementById('btn_send').addEventListener('click',send);
 			document.getElementById('dm-msg').addEventListener('keydown',e=>{
-				console.dir(e);
 				if(e.ctrlKey&&e.code==="Enter") send(e);
 				else if(msg.value.length===0&&e.ctrlKey&&e.code==="KeyZ") msg.value = sessionStorage.getItem("undo");
 			});
